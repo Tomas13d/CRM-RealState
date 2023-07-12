@@ -3,6 +3,6 @@ const usersRouter = express.Router();
 import UserController from "../controllers/user.controller";
 
 usersRouter.post("/login", UserController.loginUser);
-usersRouter.post("/regiser", UserController.registerUser);
+usersRouter.post("/register", UserController.registerUser);
 
 export default usersRouter;
