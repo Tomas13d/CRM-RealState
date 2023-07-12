@@ -1,4 +1,8 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  getAuth,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 
@@ -20,4 +24,22 @@ export const login = async (user: User) => {
   );
 
   return userCredential.user;
+};
+
+export const register = async (email: string, password: string) => {
+  const auth = getAuth();
+  try {
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    const user = userCredential.user;
+    return user;
+  } catch (error) {
+    let message;
+    if (error instanceof Error) message = error.message;
+    else message = String(error);
+    return message;
+  }
 };

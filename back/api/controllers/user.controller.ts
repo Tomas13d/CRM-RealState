@@ -13,7 +13,8 @@ class UserController {
 
   static async registerUser(req: Request, res: Response) {
     try {
-    } catch {}
+      const user = await register(req.body);
+    } catch (error) {}
   }
 }
 
