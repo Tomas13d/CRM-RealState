@@ -5,11 +5,12 @@ import "firebase/compat/auth";
 interface User {
   id?: string;
   first_name: string;
+  last_name: string;
   password: string;
   email: string;
 }
 
-const login = async (user: User) => {
+export const login = async (user: User) => {
   const { email, password } = user;
 
   const userCredential = await signInWithEmailAndPassword(
@@ -20,5 +21,3 @@ const login = async (user: User) => {
 
   return userCredential.user;
 };
-
-export = { login };
