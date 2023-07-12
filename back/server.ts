@@ -1,16 +1,21 @@
-const express = require("express");
-const volleyball = require("volleyball");
-const cors = require("cors");
 require("dotenv").config();
-
+import express from "express";
+import cors from "cors";
+const volleyball = require("volleyball");
+const PORT = process.env.port || 3001;
 import * as admin from "firebase-admin";
-
-const serviceAccount = require("./serverConfig/lemur-digital-firebase-adminsdk-3x58x-d3b606e077.json");
-
 const app = express();
+import router from "./api/routes";
 
 app.use(volleyball);
 app.use(express.json());
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGIN || "http://localhost:3000",
+    credentials: true,
+  })
+);
+app.use("/api", router);
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -22,12 +27,13 @@ const firebaseConfig = {
   appId: process.env.FIREBASE_APP_ID,
 };
 
+const serviceAccount = require("./serverConfig/lemur-digital-firebase-adminsdk-3x58x-d3b606e077.json");
+
 const db = admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   ...firebaseConfig,
 });
 
-const port = 3001;
-app.listen(port, () => {
-  console.log(`Servidor iniciado en el puerto ${port}`);
+app.listen(PORT, () => {
+  console.log(`Servidor iniciado en el puerto ${PORT}`);
 });
