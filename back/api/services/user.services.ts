@@ -1,12 +1,8 @@
 import {
   signInWithEmailAndPassword,
-  getAuth,
   createUserWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithPopup,
 } from "firebase/auth";
 import "firebase/compat/auth";
-import { initializeApp } from "firebase/app";
 import { auth } from "../firebase";
 
 interface User {
