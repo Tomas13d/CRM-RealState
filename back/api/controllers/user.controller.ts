@@ -1,10 +1,6 @@
-const {
-  login,
-  register,
-  registerGoogle,
-} = require("../services/user.services");
+const { login, register } = require("../services/user.services");
 import { Request, Response } from "express";
-
+import { isValidEmail, isValidPassword } from "../utils/utils";
 class UserController {
   static async loginUser(req: Request, res: Response) {
     try {
@@ -18,19 +14,12 @@ class UserController {
   static async registerUser(req: Request, res: Response) {
     try {
       const { email, password } = req.body;
-      const user = await register(email, password);
-      return res.status(201).send(user);
+      if (isValidEmail(email) && isValidPassword(password)) {
+        const user = await register(email, password);
+        return res.status(201).send(user);
+      }
     } catch (error) {
       res.status(400).send(error);
-      console.log(error);
-    }
-  }
-  static async registerGoogle(req: Request, res: Response) {
-    try {
-      const data = await registerGoogle();
-      return res.send(data);
-    } catch (error) {
-      console.log(error);
     }
   }
 }
