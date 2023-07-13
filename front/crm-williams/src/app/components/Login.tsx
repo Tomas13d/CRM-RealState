@@ -20,15 +20,13 @@ export default function Login() {
     if (!email || !password) {
       alert("Por favor, completa todos los campos");
       return;
-    }
-
-    if (!isValidEmail(email)) {
+    } else if (!isValidEmail(email)) {
       alert("Por favor, ingresa un correo electrónico válido");
       return;
-    }
-
-    if (password.length < 6) {
-      alert("La contraseña debe tener al menos 6 caracteres");
+    } else if (!isValidPassword(password)) {
+      alert(
+        "La contraseña debe contener al menos 6 caracteres, una mayúscula y un símbolo"
+      );
       return;
     }
     setEmail("");
@@ -40,6 +38,10 @@ export default function Login() {
     return emailRegex.test(email);
   };
 
+  const isValidPassword = (password: string) => {
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[\W_])[a-zA-Z\W_]{6,}$/;
+    return passwordRegex.test(password);
+  };
   return (
     <form
       onSubmit={handleSubmit}
