@@ -9,7 +9,12 @@ class UserController {
   static async loginUser(req: Request, res: Response) {
     try {
       const user = await login(req.body);
-      return res.status(200).send(user);
+      const payload = {
+        uid: user.uid,
+        email: user.email,
+      };
+      res.cookie("TOKEN", user.accessToken);
+      return res.status(200).send(payload);
     } catch (error) {
       res.status(500).json({ message: "Error en el inicio de sesión", error });
     }
