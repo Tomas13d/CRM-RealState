@@ -13,8 +13,13 @@ class UserController {
 
   static async registerUser(req: Request, res: Response) {
     try {
-      const user = await register(req.body);
-    } catch (error) {}
+      const { email, password } = req.body;
+      const user = await register(email, password);
+      return res.status(201).send(user);
+    } catch (error) {
+      res.status(400).send(error);
+      console.log(error);
+    }
   }
 }
 
