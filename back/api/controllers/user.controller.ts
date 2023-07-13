@@ -17,6 +17,8 @@ class UserController {
       if (isValidEmail(email) && isValidPassword(password)) {
         const user = await register(email, password);
         return res.status(201).send(user);
+      } else {
+        throw new Error("Invalid email or password");
       }
     } catch (error) {
       res.status(400).send(error);
