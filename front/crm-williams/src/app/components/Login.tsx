@@ -1,6 +1,7 @@
 "use client";
 import { Button, TextField } from "@mui/material";
 import React, { useState, ChangeEvent, FormEvent } from "react";
+import LoginGoogle from "./loginGoogle";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -74,6 +75,7 @@ export default function Login() {
       >
         Ingresar
       </Button>
+      <LoginGoogle />
     </form>
   );
 }

@@ -1,4 +1,8 @@
-const { login, register } = require("../services/user.services");
+const {
+  login,
+  register,
+  registerGoogle,
+} = require("../services/user.services");
 import { Request, Response } from "express";
 
 class UserController {
@@ -18,6 +22,14 @@ class UserController {
       return res.status(201).send(user);
     } catch (error) {
       res.status(400).send(error);
+      console.log(error);
+    }
+  }
+  static async registerGoogle(req: Request, res: Response) {
+    try {
+      const data = await registerGoogle();
+      return res.send(data);
+    } catch (error) {
       console.log(error);
     }
   }
