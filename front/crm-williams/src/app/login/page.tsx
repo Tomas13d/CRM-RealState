@@ -33,12 +33,6 @@ export default function Login() {
       return;
     }
 
-    if (!isValidPassword(password)) {
-      alert(
-        "La contraseña debe tener al menos 6 caracteres, un simbolo y una mayuscula"
-      );
-      return;
-    }
     setEmail("");
     setPassword("");
   };
@@ -48,10 +42,6 @@ export default function Login() {
     return emailRegex.test(email);
   };
 
-  const isValidPassword = (password: string) => {
-    const passwordRegex = /^(?=.*[A-Z])(?=.*[\W_])[a-zA-Z\W_]{6,}$/;
-    return passwordRegex.test(password);
-  };
   return (
     <Container component="main" maxWidth="sm">
       <Box
