@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Link from "next/link";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -23,7 +24,7 @@ const Navbar: React.FC = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ background: "#263448" }}>
+      <AppBar position="fixed" sx={{ background: "#15223c" }}>
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             LOGO
@@ -57,7 +58,11 @@ const Navbar: React.FC = () => {
               onClose={handleClose}
             >
               <MenuItem onClick={handleClose}>Mi Perfil</MenuItem>
-              <MenuItem onClick={handleClose}>Cerrar sesion</MenuItem>
+              <MenuItem>
+                <Link href="/login" passHref>
+                  Cerrar sesión
+                </Link>
+              </MenuItem>
             </Menu>
           </div>
         </Toolbar>

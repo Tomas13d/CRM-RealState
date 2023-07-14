@@ -7,6 +7,18 @@ import {
 import { useEffect, useState } from "react";
 import { auth } from "../firebase";
 
+import { Button } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import { Google as GoogleIcon } from "@mui/icons-material";
+
+const GoogleButton = styled(Button)({
+  textTransform: "none",
+  backgroundColor: "#DB4437",
+  color: "white",
+  "&:hover": {
+    backgroundColor: "#c5372b",
+  },
+});
 const LoginGoogle = () => {
   const handleOnClick = async () => {
     // llamamos al provedor: en este caso google.
@@ -28,7 +40,14 @@ const LoginGoogle = () => {
 
   return (
     <>
-      <button onClick={handleOnClick}> login google</button>
+      <GoogleButton
+        variant="contained"
+        onClick={handleOnClick}
+        sx={{ borderRadius: "50px" }}
+      >
+        <GoogleIcon sx={{ marginRight: "10px" }} />
+        Iniciar sesión con Google
+      </GoogleButton>
     </>
   );
 };
