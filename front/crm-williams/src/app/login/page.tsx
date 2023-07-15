@@ -10,11 +10,14 @@ import Container from "@mui/material/Container";
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import LoginGoogle from "../components/loginGoogle";
 import "dotenv/config.js";
+import { useDispatch } from "react-redux";
+import { setUser } from "../states/user";
+import axios from "axios";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const dispatch = useDispatch();
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
@@ -23,8 +26,9 @@ const Login: React.FC = () => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (!email || !password) {
       alert("Por favor, completa todos los campos");
       return;
@@ -33,8 +37,21 @@ const Login: React.FC = () => {
       return;
     }
 
-    setEmail("");
-    setPassword("");
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/api/users/login",
+        {
+          email,
+          password,
+        }
+      );
+
+      const user = response.data;
+      dispatch(setUser(user));
+    } catch (error: any) {
+      console.error("Error en el pedido:", error.message);
+      alert("Hubo un error al iniciar sesión. Por favor, inténtalo de nuevo.");
+    }
   };
 
   const isValidEmail = (email: string) => {
