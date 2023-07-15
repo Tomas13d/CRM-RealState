@@ -11,7 +11,7 @@ import React, { useState, ChangeEvent, FormEvent } from "react";
 import LoginGoogle from "../components/loginGoogle";
 import "dotenv/config.js";
 
-export default function Login() {
+const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -144,7 +144,7 @@ export default function Login() {
               />
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2" sx={{ color: "white" }}>
+              <Link href="/recovery" variant="body2" sx={{ color: "white" }}>
                 ¿Olvido su contraseña?
               </Link>
             </Grid>
@@ -174,4 +174,5 @@ export default function Login() {
       </Box>
     </Container>
   );
-}
+};
+export default Login;
