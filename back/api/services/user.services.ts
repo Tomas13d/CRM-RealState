@@ -1,54 +1,50 @@
-import {
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-} from "firebase/auth";
 import "firebase/compat/auth";
 import { auth, db } from "../firebase";
-import { setDoc, getDoc, doc, updateDoc } from "firebase/firestore";
+
 interface User {
+  firstname: string;
+  lastname: string;
+  type?: string;
   password: string;
   email: string;
+  id: string;
 }
 
 export const login = async (user: User) => {
-  const { email, password } = user;
-  const userCredential = await signInWithEmailAndPassword(
-    auth,
-    email,
-    password
-  );
+  const { email } = user;
+  const userCredential = await auth.getUserByEmail(email);
 
-  return userCredential.user;
+  const userId = userCredential.uid;
+  const userDocument = db.collection("Users").doc(`${userId}`);
+  const loginUser = await userDocument.get();
+
+  const userData: User = {
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+    id: "",
+  };
+
+  if (loginUser.exists) {
+    const data = loginUser.data();
+    if (data) {
+      userData.firstname = data.firstname;
+      userData.lastname = data.lastname;
+      userData.email = data.email;
+      userData.password = data["password "];
+      userData.id = userId;
+    }
+  }
+
+  return userData;
 };
 
-export const register = async (email: string, password: string) => {
-  const userCredential = await createUserWithEmailAndPassword(
-    auth,
-    email,
-    password
-  );
+export const createToken = async (user: User) => {
+  const token = await auth.createCustomToken(user.id, user);
+  console.log(token);
 
-  return userCredential.user;
+  return token;
 };
 
-//necesito que llegue la informacion completa del usuario modificado en newInfo
-export const edit = async (uid: any, newInfo: object) => {
-  //extraemos la ruta donde se encuentra la el usuario
-  const docRef = doc(db, "users", uid);
-  //traemos el documento donde esta el usuario
-  const existingDoc = await getDoc(docRef);
-  //sacamos la info del user
-  const existingData = existingDoc.data();
-  //mergeamos la nueva data con la existente
-  const mergedData = { ...existingData, ...newInfo };
-  //setDoc reemplaza la info existente por mergeData
-  return await setDoc(docRef, mergedData);
-};
-
-//solo la informacion modificada del usuario
-export const edit2 = async (uid: any, newInfo: object) => {
-  //extraemos la ruta donde se encuentra la el usuario
-  const docRef = doc(db, "users", uid);
-  //updateDoc solomante actuliza los datos pasados por newInfo e ignora el resto wey
-  return await updateDoc(docRef, newInfo);
-};
+export const register = async (email: string, password: string) => {};

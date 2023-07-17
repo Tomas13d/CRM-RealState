@@ -1,8 +1,6 @@
-import { getAuth } from "firebase/auth";
-import "firebase/compat/auth";
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
+import * as admin from "firebase-admin";
+
+const serverConfig = require("../../serverConfig/firebasekey.json");
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -15,7 +13,11 @@ const firebaseConfig = {
   appId: process.env.FIREBASE_APP_ID,
 };
 
-export const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const db = getFirestore(app);
-export const storage = getStorage(app);
+const app = admin.initializeApp({
+  credential: admin.credential.cert(serverConfig),
+  ...firebaseConfig,
+});
+
+export const auth = admin.auth(app);
+export const db = admin.firestore(app);
+export const storage = admin.storage(app);
