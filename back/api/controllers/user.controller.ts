@@ -1,4 +1,4 @@
-const { login, register } = require("../services/user.services");
+const { login, register, edit } = require("../services/user.services");
 import { Request, Response } from "express";
 import { isValidEmail, isValidPassword } from "../utils/utils";
 class UserController {
@@ -26,6 +26,17 @@ class UserController {
         throw new Error("Invalid email or password");
       }
     } catch (error) {
+      res.status(400).send(error);
+    }
+  }
+  static async editUser(req: Request, res: Response) {
+    try {
+      const { uid, user } = req.body;
+      const editUser = await edit(uid, user);
+      console.log("Datos actualizados correctamente: ", user);
+      return res.status(201).send(user);
+    } catch (error) {
+      console.error("Error al actualizar los datos:", error);
       res.status(400).send(error);
     }
   }
