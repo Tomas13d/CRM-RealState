@@ -21,7 +21,7 @@ const Sidebar = () => {
         backgroundColor: "trasparent",
       }}
     >
-      <div>
+      <Box>
         <SidebarButton icon={<SignalCellularAltIcon />} text="Reportes" />
         <SidebarButton icon={<PeopleAltIcon />} text="Agentes" />
         <SidebarButton
@@ -33,7 +33,7 @@ const Sidebar = () => {
         <SidebarButton icon={<CallIcon />} text="Call center" />
         <SidebarButton icon={<AccountCircleIcon />} text="Usuarios" />
         <SidebarButton icon={<HelpIcon />} text="Ayuda" />
-      </div>
+      </Box>
     </Box>
   );
 };

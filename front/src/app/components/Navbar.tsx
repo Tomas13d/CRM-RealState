@@ -30,7 +30,7 @@ const Navbar: React.FC = () => {
             LOGO
           </Typography>
           <NotificationsIcon />
-          <div>
+          <Box>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -64,7 +64,7 @@ const Navbar: React.FC = () => {
                 </Link>
               </MenuItem>
             </Menu>
-          </div>
+          </Box>
         </Toolbar>
       </AppBar>
     </Box>
