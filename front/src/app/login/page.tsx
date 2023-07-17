@@ -35,6 +35,10 @@ const Login: React.FC = () => {
     } else if (!isValidEmail(email)) {
       alert("Por favor, ingresa un correo electrónico válido");
       return;
+    } else if (!isValidPassword(password)) {
+      alert(
+        "La contraseña debe contener al menos 6 carácteres, una mayúscula y un símbolo"
+      );
     }
 
     try {
@@ -57,6 +61,11 @@ const Login: React.FC = () => {
   const isValidEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
+  };
+
+  const isValidPassword = (password: string) => {
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{6,}$/;
+    return passwordRegex.test(password);
   };
 
   return (
