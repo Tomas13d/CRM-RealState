@@ -15,8 +15,6 @@ class UserController {
       res.cookie("TOKEN", token);
       return res.status(200).send(payload);
     } catch (error) {
-      console.log(error);
-
       res.status(500).json({ message: "Error en el inicio de sesión", error });
     }
   }

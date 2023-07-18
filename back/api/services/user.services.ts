@@ -42,9 +42,24 @@ export const login = async (user: User) => {
 
 export const createToken = async (user: User) => {
   const token = await auth.createCustomToken(user.id, user);
-  console.log(token);
 
   return token;
 };
 
-export const register = async (email: string, password: string) => {};
+export const register = async (user: User) => {
+  const { email, password, firstname, lastname, type } = user;
+  const regiterUser = await auth.createUser({
+    email,
+    password,
+  });
+  const userRef = db.collection("Users");
+  const newUserDoc = userRef.doc(regiterUser.uid);
+  const newUser = await newUserDoc.set({
+    firstname,
+    lastname,
+    email,
+    type,
+  });
+
+  return newUser;
+};
