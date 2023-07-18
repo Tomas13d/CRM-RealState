@@ -120,6 +120,8 @@ const Login: React.FC = () => {
                 "& fieldset": {
                   borderColor: "#FFFFFF",
                 },
+
+                color: "#FFFFFF",
               },
             }}
           />
@@ -151,6 +153,7 @@ const Login: React.FC = () => {
                 "& fieldset": {
                   borderColor: "#FFFFFF",
                 },
+                color: "#FFFFFF",
               },
             }}
           />
