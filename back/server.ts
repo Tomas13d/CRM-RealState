@@ -1,10 +1,11 @@
-import "dotenv/config.js";
-import express from "express";
-const cors = require("cors");
+const express = require("express");
 const volleyball = require("volleyball");
-const PORT = process.env.port || 3001;
-const app = express();
+const cors = require("cors");
+require("dotenv").config();
 import router from "./api/routes";
+const PORT = process.env.port || 3001;
+
+const app = express();
 
 app.use(volleyball);
 app.use(express.json());
