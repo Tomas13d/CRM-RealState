@@ -13,6 +13,7 @@ import "dotenv/config.js";
 import { useDispatch } from "react-redux";
 import { setUser } from "../states/user";
 import axios from "axios";
+import { Toast, Toaster, toast } from "react-hot-toast";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -30,13 +31,13 @@ const Login: React.FC = () => {
     e.preventDefault();
 
     if (!email || !password) {
-      alert("Por favor, completa todos los campos");
+      toast.error("Por favor, completa todos los campos");
       return;
     } else if (!isValidEmail(email)) {
-      alert("Por favor, ingresa un correo electrónico válido");
+      toast.error("Por favor, ingresa un correo electrónico válido");
       return;
     } else if (!isValidPassword(password)) {
-      alert(
+      toast.error(
         "La contraseña debe contener al menos 6 carácteres, una mayúscula y un símbolo"
       );
     }
@@ -54,7 +55,9 @@ const Login: React.FC = () => {
       dispatch(setUser(user));
     } catch (error: any) {
       console.error("Error en el pedido:", error.message);
-      alert("Hubo un error al iniciar sesión. Por favor, inténtalo de nuevo.");
+      toast.error(
+        "Hubo un error al iniciar sesión. Por favor, inténtalo de nuevo."
+      );
     }
   };
 
@@ -198,6 +201,7 @@ const Login: React.FC = () => {
           </Grid>
         </Box>
       </Box>
+      <Toaster position="top-right" reverseOrder={false} />
     </Container>
   );
 };
