@@ -15,7 +15,9 @@ class UserController {
       res.cookie("TOKEN", token);
       return res.status(200).send(payload);
     } catch (error) {
-      res.status(500).json({ message: "Error en el inicio de sesión", error });
+      return res
+        .status(500)
+        .json({ message: "Error en el inicio de sesión", error });
     }
   }
 
@@ -23,13 +25,21 @@ class UserController {
     try {
       const { email, password } = req.body;
       if (isValidEmail(email) && isValidPassword(password)) {
-        const user = await register(email, password);
+        const user = await register(req.body);
         return res.status(201).send(user);
       } else {
         throw new Error("Invalid email or password");
       }
     } catch (error) {
-      res.status(400).send(error);
+      return res.status(400).send(error);
+    }
+  }
+
+  static async persistence(req: Request, res: Response) {
+    try {
+      return res.send(req.user);
+    } catch (error) {
+      return res.status(404).send(error);
     }
   }
 }
