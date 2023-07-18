@@ -15,10 +15,9 @@ const Sidebar = () => {
     <Box
       sx={{
         width: 300,
-        height: 1000,
-        borderLeftColor: "white",
-        marginTop: 8,
-        backgroundColor: "trasparent",
+        borderRight: "1px solid #ccc",
+        paddingTop: 8,
+        backgroundColor: "transparent",
       }}
     >
       <Box>
