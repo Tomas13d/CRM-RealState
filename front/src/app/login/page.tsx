@@ -95,7 +95,15 @@ const Login: React.FC = () => {
             "linear-gradient(45deg, rgba(38,52,72,1) 40%, rgba(72,87,146,1) 100%)",
         }}
       >
-        <Typography component="h1" variant="h5" sx={{ fontSize: "35px" }}>
+        <Typography
+          component="h1"
+          variant="h5"
+          sx={{
+            fontSize: "35px",
+            fontFamily: "'Open Sans', sans-serif",
+            fontWeight: "bold",
+          }}
+        >
           Ingresá
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
