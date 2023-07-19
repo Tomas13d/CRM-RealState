@@ -35,13 +35,13 @@ class UserController {
     }
   }
 
-  static async persistence(req: Request, res: Response) {
-    try {
-      return res.send(req.user);
-    } catch (error) {
-      return res.status(404).send(error);
-    }
-  }
+  // static async persistence(req: Request, res: Response) {
+  //   try {
+  //     return res.send(req.user);
+  //   } catch (error) {
+  //     return res.status(404).send(error);
+  //   }
+  // }
 }
 
 export default UserController;
