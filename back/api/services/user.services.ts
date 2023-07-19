@@ -1,6 +1,14 @@
 import "firebase/compat/auth";
 import { auth, db } from "../firebase";
-import { User } from "./types.md";
+
+export interface User {
+  firstname: string;
+  lastname: string;
+  type?: string;
+  password: string;
+  email: string;
+  id: string;
+}
 
 export const login = async (user: User) => {
   const { email } = user;
