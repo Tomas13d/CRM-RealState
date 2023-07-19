@@ -1,4 +1,4 @@
-import { User } from "./api/services/user.services";
+import { User } from "./api/services/types.md";
 
 declare global {
   namespace Express {

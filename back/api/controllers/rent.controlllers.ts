@@ -1,8 +1,8 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import { getAllRents } from "../services/rent.services";
 
 export default class RentController {
-  static async getAllRents(req: Request, res: Response) {
+  static async getAllRents(res: Response) {
     try {
       const rents = await getAllRents();
       res.status(200).send(rents);
