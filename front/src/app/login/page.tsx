@@ -14,11 +14,13 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../states/user";
 import axios from "axios";
 import { Toast, Toaster, toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
+  const router = useRouter();
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
@@ -48,11 +50,16 @@ const Login: React.FC = () => {
         {
           email,
           password,
+        },
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
         }
       );
 
       const user = response.data;
       dispatch(setUser(user));
+      router.push("/");
     } catch (error: any) {
       console.error("Error en el pedido:", error.message);
       toast.error(
@@ -120,6 +127,8 @@ const Login: React.FC = () => {
                 "& fieldset": {
                   borderColor: "#FFFFFF",
                 },
+
+                color: "#FFFFFF",
               },
             }}
           />
@@ -151,6 +160,7 @@ const Login: React.FC = () => {
                 "& fieldset": {
                   borderColor: "#FFFFFF",
                 },
+                color: "#FFFFFF",
               },
             }}
           />
