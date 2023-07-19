@@ -1,8 +1,9 @@
-import { Request } from "express";
-import { UserRecord } from "firebase-admin";
+import { User } from "./api/services/user.services";
 
-declare module "express-serve-static-core" {
-  interface Request {
-    user?: UserRecord;
+declare global {
+  namespace Express {
+    interface Request {
+      user?: User;
+    }
   }
 }

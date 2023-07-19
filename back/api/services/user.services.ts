@@ -1,7 +1,7 @@
 import "firebase/compat/auth";
 import { auth, db } from "../firebase";
 
-interface User {
+export interface User {
   firstname: string;
   lastname: string;
   type?: string;

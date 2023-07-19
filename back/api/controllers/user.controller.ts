@@ -1,5 +1,6 @@
 const { login, register, createToken } = require("../services/user.services");
 import { Request, Response } from "express";
+
 import { isValidEmail, isValidPassword } from "../utils/utils";
 class UserController {
   static async loginUser(req: Request, res: Response) {
@@ -15,9 +16,8 @@ class UserController {
       res.cookie("TOKEN", token);
       return res.status(200).send(payload);
     } catch (error) {
-      return res
-        .status(500)
-        .json({ message: "Error en el inicio de sesión", error });
+      console.log(error);
+      res.status(500).json({ message: "Error en el inicio de sesión", error });
     }
   }
 
@@ -35,7 +35,7 @@ class UserController {
     }
   }
 
-  static async persistence(req: Request, res: Response) {
+  static async persistence(req: any, res: Response) {
     try {
       return res.send(req.user);
     } catch (error) {

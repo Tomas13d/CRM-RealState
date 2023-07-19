@@ -3,7 +3,12 @@ import { auth, db } from "../firebase";
 import { Request, Response, NextFunction } from "express";
 
 const validateUserMiddleware = async (
-  req: Request,
+  req: Request<
+    Record<string, never>,
+    Record<string, never>,
+    Record<string, never>,
+    Record<string, never>
+  >,
   res: Response,
   next: NextFunction
 ) => {
