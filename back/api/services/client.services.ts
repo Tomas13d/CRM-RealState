@@ -14,6 +14,5 @@ type Client = {
 
 export const createClient = async (client: Client) => {
   const response = await db.collection("Clients").add(client);
-  console.log(response);
   return response;
 };
