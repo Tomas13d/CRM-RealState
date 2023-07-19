@@ -8,7 +8,7 @@ import CallIcon from "@mui/icons-material/Call";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import HelpIcon from "@mui/icons-material/Help";
 
-import SidebarButton from "../utils/sidebarButton";
+import SidebarButton from "../commons/sidebarButton";
 
 const Sidebar = () => {
   return (
