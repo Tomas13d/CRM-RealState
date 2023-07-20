@@ -1,17 +1,22 @@
 "use client";
-import { Button, TextField } from "@mui/material";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import React, { useState, ChangeEvent, FormEvent } from "react";
-import "dotenv/config.js";
+import { useState, ChangeEvent, FormEvent } from "react";
 import { useDispatch } from "react-redux";
 import { setUser } from "../states/user";
 import axios from "axios";
 import { Toast, Toaster, toast } from "react-hot-toast";
+import Layout from "../commons/layout";
+import {
+  TextField,
+  Typography,
+  Button,
+  FormControlLabel,
+  Checkbox,
+  Grid,
+  Box,
+  IconButton,
+  Container,
+} from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const Register: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -105,193 +110,196 @@ const Register: React.FC = () => {
   };
 
   return (
-    <Container component="main" maxWidth="sm">
-      <Box
-        sx={{
-          boxShadow: 3,
-          borderRadius: 2,
-          px: 4,
-          py: 10,
-          marginTop: 15,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          color: "white",
-          background:
-            "linear-gradient(45deg, rgba(38,52,72,1) 40%, rgba(72,87,146,1) 100%)",
-        }}
-      >
-        <Typography component="h1" variant="h5" sx={{ fontSize: "35px" }}>
-          Registro
-        </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <Grid
-            container
-            item
-            xs
-            sx={{ marginTop: "15px", marginLeft: "40px" }}
-          >
-            Email
-          </Grid>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            name="email"
-            autoComplete="email"
-            autoFocus
-            value={email}
-            onChange={handleEmailChange}
+    <>
+      <Layout>
+        <Container component="main" maxWidth="xl">
+          <Box
             sx={{
-              width: "400px",
-              marginTop: "5px",
-              marginLeft: "40px",
-              borderColor: "#FFFFFF",
-              "& .MuiOutlinedInput-root": {
-                borderRadius: "50px",
-                "& fieldset": {
-                  borderColor: "#FFFFFF",
-                },
-              },
-            }}
-          />
-          <Grid
-            container
-            item
-            xs
-            sx={{ marginTop: "15px", marginLeft: "40px" }}
-          >
-            Contraseña
-          </Grid>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            type="password"
-            id="password"
-            value={password}
-            onChange={handlePasswordChange}
-            autoComplete="current-password"
-            sx={{
-              width: "400px",
-              marginTop: "5px",
-              marginLeft: "40px",
-              borderColor: "#FFFFFF",
-              "& .MuiOutlinedInput-root": {
-                borderRadius: "50px",
-                "& fieldset": {
-                  borderColor: "#FFFFFF",
-                },
-              },
-            }}
-          />
-          <Grid
-            container
-            item
-            xs
-            sx={{ marginTop: "15px", marginLeft: "40px" }}
-          >
-            Nombre
-          </Grid>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="firstName"
-            id="firstName"
-            value={firstName}
-            onChange={handleFirstNameChange}
-            sx={{
-              width: "400px",
-              marginTop: "5px",
-              marginLeft: "40px",
-              borderColor: "#FFFFFF",
-              "& .MuiOutlinedInput-root": {
-                borderRadius: "50px",
-                "& fieldset": {
-                  borderColor: "#FFFFFF",
-                },
-              },
-            }}
-          />
-          <Grid
-            container
-            item
-            xs
-            sx={{ marginTop: "15px", marginLeft: "40px" }}
-          >
-            Apellido
-          </Grid>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="lastName"
-            id="lastName"
-            value={lastName}
-            onChange={handleLastNameChange}
-            sx={{
-              width: "400px",
-              marginTop: "5px",
-              marginLeft: "40px",
-              borderColor: "#FFFFFF",
-              "& .MuiOutlinedInput-root": {
-                borderRadius: "50px",
-                "& fieldset": {
-                  borderColor: "#FFFFFF",
-                },
-              },
-            }}
-          />
-          <Grid
-            container
-            alignItems="center"
-            sx={{ marginTop: "15px", marginLeft: "40px" }}
-          >
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={isAdmin}
-                  onChange={handleAdminCheckboxChange}
-                  color="primary"
-                  sx={{ color: "white", marginLeft: "50px" }}
-                />
-              }
-              label="Administrador"
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={isAgent}
-                  onChange={handleAgentCheckboxChange}
-                  color="primary"
-                  sx={{ color: "white" }}
-                />
-              }
-              label="Agente"
-            />
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{
-              mt: 3,
-              mb: 2,
-              borderRadius: "50px",
-              width: "300px",
-              height: "50px",
-              marginLeft: "80px",
+              px: 4,
+              py: 1,
+              marginTop: 15,
+              color: "white",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-start",
+              justifyContent: "flex-start",
+              background: "transparent",
             }}
           >
-            Registrar
-          </Button>
-        </Box>
-      </Box>
-      <Toaster position="top-right" reverseOrder={false} />
-    </Container>
+            <Typography
+              component="h1"
+              variant="h5"
+              sx={{
+                fontSize: "35px",
+                fontFamily: "'Open Sans', sans-serif",
+                fontWeight: "bold",
+                alignSelf: "flex-start",
+                marginBottom: "30px",
+                marginRight: "40px",
+                color: "white",
+              }}
+            >
+              <IconButton
+                onClick={() => window.history.back()}
+                color="primary"
+                sx={{
+                  marginRight: "10px",
+                  color: "white",
+                  backgroundColor: "#6878D6",
+                  borderRadius: "8px",
+                  "&:hover": {
+                    backgroundColor: "#5878D6",
+                  },
+                }}
+              >
+                <ArrowBackIcon />
+              </IconButton>{" "}
+              Registrar nuevo usuario
+            </Typography>
+            <form onSubmit={handleSubmit}>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <Typography variant="subtitle1">Email</Typography>
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="email"
+                    name="email"
+                    autoComplete="email"
+                    autoFocus
+                    value={email}
+                    onChange={handleEmailChange}
+                    sx={{
+                      width: "100%",
+                      borderColor: "#FFFFFF",
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: "50px",
+                        "& fieldset": {
+                          borderColor: "#FFFFFF",
+                        },
+                      },
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="subtitle1">Contraseña</Typography>
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="password"
+                    type="password"
+                    id="password"
+                    value={password}
+                    onChange={handlePasswordChange}
+                    autoComplete="current-password"
+                    sx={{
+                      width: "100%",
+                      borderColor: "#FFFFFF",
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: "50px",
+                        "& fieldset": {
+                          borderColor: "#FFFFFF",
+                        },
+                      },
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography variant="subtitle1">Nombre</Typography>
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="firstName"
+                    id="firstName"
+                    value={firstName}
+                    onChange={handleFirstNameChange}
+                    sx={{
+                      width: "100%",
+                      borderColor: "#FFFFFF",
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: "50px",
+                        "& fieldset": {
+                          borderColor: "#FFFFFF",
+                        },
+                      },
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography variant="subtitle1">Apellido</Typography>
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="lastName"
+                    id="lastName"
+                    value={lastName}
+                    onChange={handleLastNameChange}
+                    sx={{
+                      width: "100%",
+                      borderColor: "#FFFFFF",
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: "50px",
+                        "& fieldset": {
+                          borderColor: "#FFFFFF",
+                        },
+                      },
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="subtitle1">Tipo de usuario</Typography>
+                  <Grid container alignItems="center">
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={isAdmin}
+                          onChange={handleAdminCheckboxChange}
+                          color="primary"
+                          sx={{ color: "white" }}
+                        />
+                      }
+                      label="Administrador"
+                    />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={isAgent}
+                          onChange={handleAgentCheckboxChange}
+                          color="primary"
+                          sx={{ color: "white" }}
+                        />
+                      }
+                      label="Agente"
+                    />
+                  </Grid>
+                </Grid>
+                <Grid item xs={12}>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{
+                      mt: 3,
+                      mb: 2,
+                      borderRadius: "50px",
+                      width: "100%",
+                      height: "50px",
+                    }}
+                  >
+                    Registrar
+                  </Button>
+                </Grid>
+              </Grid>
+            </form>
+          </Box>
+          <Toaster position="top-right" reverseOrder={false} />
+        </Container>
+      </Layout>
+    </>
   );
 };
 
