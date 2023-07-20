@@ -24,7 +24,7 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/users/me", {
+      .get("http://localhost:3001/api/users/me", {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
       })
