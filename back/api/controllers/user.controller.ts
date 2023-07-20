@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 
 import { isValidEmail, isValidPassword } from "../utils/utils";
 class UserController {
+  //login modificado
   static async loginUser(req: Request, res: Response) {
     try {
       const { data, idToken } = await login(req.body);
