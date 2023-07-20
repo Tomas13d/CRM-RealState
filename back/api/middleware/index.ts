@@ -19,6 +19,7 @@ const validateUserMiddleware = async (
     const userRecord = await getUserByUID(uid);
 
     req.user = userRecord;
+
     next();
   } catch (error) {
     console.error("Error in the validation token", error);
