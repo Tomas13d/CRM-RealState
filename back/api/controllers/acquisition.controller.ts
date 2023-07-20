@@ -1,5 +1,8 @@
 import { Request, Response } from "express";
-import { createAcquisition } from "../services/acquisition.services";
+import {
+  createAcquisition,
+  getAcquisitions,
+} from "../services/acquisition.services";
 
 class AcquisitionController {
   static async createAcquisition(req: Request, res: Response) {
@@ -9,6 +12,15 @@ class AcquisitionController {
       return res.status(201).send({ ...req.body, id: acquisitionID });
     } catch (error) {
       return res.status(400).json({ msg: "Error creating acquisition", error });
+    }
+  }
+
+  static async getAllAcquisitions(_req: Request, res: Response) {
+    try {
+      const acquisitions = await getAcquisitions();
+      res.status(200).send(acquisitions);
+    } catch (error) {
+      res.status(400).json({ msg: "Error retrieving Acquisitions", error });
     }
   }
 }
