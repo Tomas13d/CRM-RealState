@@ -3,39 +3,13 @@ import { auth, db } from "../firebase";
 import { User } from "./types.md";
 
 export const login = async (user: User) => {
-  const { email } = user;
+  const { email, idToken } = user;
   const userCredential = await auth.getUserByEmail(email);
-
   const userId = userCredential.uid;
-  const userDocument = db.collection("Users").doc(`${userId}`);
-  const loginUser = await userDocument.get();
 
-  const userData: User = {
-    firstname: "",
-    lastname: "",
-    email: "",
-    password: "",
-    id: "",
-  };
+  const data = await getUserByUID(userId);
 
-  if (loginUser.exists) {
-    const data = loginUser.data();
-    if (data) {
-      userData.firstname = data.firstname;
-      userData.lastname = data.lastname;
-      userData.email = data.email;
-      userData.password = data["password "];
-      userData.id = userId;
-    }
-  }
-
-  return userData;
-};
-
-export const createToken = async (user: User) => {
-  const token = await auth.createCustomToken(user.id, user);
-
-  return token;
+  return { idToken, data };
 };
 
 export const register = async (user: User) => {
@@ -54,4 +28,31 @@ export const register = async (user: User) => {
   });
 
   return newUser;
+};
+//nuevo metodo
+export const getUserByUID = async (uid: string) => {
+  const userDocument = db.collection("Users").doc(`${uid}`);
+  const loginUser = await userDocument.get();
+
+  const userData: User = {
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+    id: "",
+    idToken: "",
+  };
+
+  if (loginUser.exists) {
+    const data = loginUser.data();
+    if (data) {
+      userData.firstname = data.firstname;
+      userData.lastname = data.lastname;
+      userData.email = data.email;
+      userData.password = data["password "];
+      userData.id = uid;
+    }
+  }
+
+  return userData;
 };
