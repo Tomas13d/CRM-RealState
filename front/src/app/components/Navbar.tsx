@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -10,9 +10,31 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import { UseSelector, useSelector } from "react-redux/es/hooks/useSelector";
+import { RootState } from "../states/store";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setUser } from "../states/user";
 
 const Navbar: React.FC = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.user);
+  console.log(user);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/api/users/me", {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      })
+      .then((user) => {
+        dispatch(setUser(user.data));
+      })
+      .catch((error) => {
+        console.error("Error de servidor");
+      });
+  }, []);
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
