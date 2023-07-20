@@ -3,23 +3,13 @@ import { auth, db } from "../firebase";
 import { User } from "./types.md";
 
 export const login = async (user: User) => {
-  const { email } = user;
+  const { email, idToken } = user;
   const userCredential = await auth.getUserByEmail(email);
   const userId = userCredential.uid;
 
-  const expiresIn = 7 * 24 * 60 * 60 * 1000;
-  const sessionCookie = await auth.createSessionCookie(userId, { expiresIn });
-
-  console.log(sessionCookie);
   const data = await getUserByUID(userId);
 
-  return { sessionCookie, data };
-};
-
-export const createToken = async (user: User) => {
-  const token = await auth.createCustomToken(user.id);
-
-  return token;
+  return { idToken, data };
 };
 
 export const register = async (user: User) => {
@@ -50,6 +40,7 @@ export const getUserByUID = async (uid: string) => {
     email: "",
     password: "",
     id: "",
+    idToken: "",
   };
 
   if (loginUser.exists) {

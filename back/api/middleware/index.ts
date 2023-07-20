@@ -14,9 +14,9 @@ const validateUserMiddleware = async (
       return res.status(401).send(console.error("Token does not validate "));
     }
 
-    const decodeToken = await auth.verifySessionCookie(token);
+    const decodeToken = await auth.verifyIdToken(token);
     const uid: string = decodeToken.uid;
-    const userRecord = getUserByUID(uid);
+    const userRecord = await getUserByUID(uid);
 
     req.user = userRecord;
     next();

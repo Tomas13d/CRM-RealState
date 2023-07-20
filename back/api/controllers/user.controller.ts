@@ -5,7 +5,7 @@ import { isValidEmail, isValidPassword } from "../utils/utils";
 class UserController {
   static async loginUser(req: Request, res: Response) {
     try {
-      const { data, sessionCookie } = await login(req.body);
+      const { data, idToken } = await login(req.body);
       const payload = {
         firstname: data.firstname,
         lastname: data.lastname,
@@ -13,7 +13,7 @@ class UserController {
         password: data.password,
       };
 
-      res.cookie("TOKEN", sessionCookie);
+      res.cookie("TOKEN", idToken);
       return res.status(200).send(payload);
     } catch (error) {
       console.log(error);
