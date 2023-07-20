@@ -12,7 +12,7 @@ export const getAllEstates = async () => {
 
   estatesSnapshot.forEach((doc) => {
     const estateData = doc.data() as Estate;
-    estates.push(estateData);
+    estates.push({ ...estateData, id: doc.id });
   });
   return estates;
 };

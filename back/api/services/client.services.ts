@@ -13,7 +13,7 @@ export const getAllClients = async () => {
 
   clientsSnapshot.forEach((doc) => {
     const clientData = doc.data() as Client;
-    clients.push(clientData);
+    clients.push({ ...clientData, id: doc.id });
   });
   return clients;
 };
