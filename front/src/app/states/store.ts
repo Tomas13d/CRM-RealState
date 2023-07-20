@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { userReducer, UserState } from "./user";
 
-interface RootState {
+export interface RootState {
   user: UserState;
 }
 

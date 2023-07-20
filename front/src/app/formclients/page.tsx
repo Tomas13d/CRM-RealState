@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import {
   TextField,
+  Typography,
   Button,
   FormControl,
   FormControlLabel,
@@ -10,22 +11,23 @@ import {
   FormLabel,
   Box,
   Grid,
+  IconButton,
 } from "@mui/material";
-import Sidebar from "../components/Sidebar";
-import Navbar from "../components/Navbar";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import Layout from "../commons/layout";
 
 interface Cliente {
-  nombre: string;
-  correo: string;
-  telefono: string;
-  tipo: "dueño" | "inquilino";
+  name: string;
+  lastName: string;
+  email: string;
+  tipo: "dueño" | "inquilino" | "comprador";
 }
 
 const FormularioCliente: React.FC = () => {
   const [cliente, setCliente] = useState<Cliente>({
-    nombre: "",
-    correo: "",
-    telefono: "",
+    name: "",
+    lastName: "",
+    email: "",
     tipo: "dueño",
   });
 
@@ -43,92 +45,183 @@ const FormularioCliente: React.FC = () => {
     console.log(cliente);
     // Limpia el formulario después de enviar los datos
     setCliente({
-      nombre: "",
-      correo: "",
-      telefono: "",
+      name: "",
+      lastName: "",
+      email: "",
       tipo: "dueño",
     });
   };
 
   return (
     <>
-      <Navbar />
-      <Grid container>
-        <Grid item xs={3}>
-          <Sidebar />
-        </Grid>
-        <Grid item xs={9}>
-          <Box
+      <Layout>
+        <Box
+          sx={{
+            boxShadow: 3,
+            borderRadius: 2,
+            px: 4,
+            py: 1,
+            marginTop: 15,
+            color: "white",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
+            justifyContent: "flex-start",
+            background: "transparent",
+          }}
+        >
+          <Typography
+            component="h1"
+            variant="h5"
             sx={{
-              boxShadow: 3,
-              borderRadius: 2,
-              px: 4,
-              py: 10,
-              marginTop: 15,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              background: "white",
+              fontSize: "35px",
+              fontFamily: "'Open Sans', sans-serif",
+              fontWeight: "bold",
+              alignSelf: "flex-start",
+              marginBottom: "30px",
+              marginRight: "40px",
             }}
           >
-            <form onSubmit={handleSubmit}>
-              <TextField
-                name="nombre"
-                label="Nombre"
-                value={cliente.nombre}
-                onChange={handleChange}
-                fullWidth
-                required
-                margin="normal"
-              />
-              <TextField
-                name="correo"
-                label="Correo electrónico"
-                value={cliente.correo}
-                onChange={handleChange}
-                fullWidth
-                required
-                margin="normal"
-                type="email"
-              />
-              <TextField
-                name="telefono"
-                label="Teléfono"
-                value={cliente.telefono}
-                onChange={handleChange}
-                fullWidth
-                required
-                margin="normal"
-                type="tel"
-              />
-              <FormControl component="fieldset" margin="normal">
-                <FormLabel component="legend">Tipo de cliente</FormLabel>
-                <RadioGroup
-                  aria-label="tipo"
-                  name="tipo"
-                  value={cliente.tipo}
+            <IconButton
+              onClick={() => window.history.back()}
+              color="primary"
+              sx={{
+                marginRight: "10px",
+                color: "white",
+                backgroundColor: "#6878D6",
+                borderRadius: "8px",
+                "&:hover": {
+                  backgroundColor: "#5878D6",
+                },
+              }}
+            >
+              <ArrowBackIcon />
+            </IconButton>{" "}
+            Ingresar Nuevo Cliente
+          </Typography>
+
+          <form onSubmit={handleSubmit}>
+            <Grid container spacing={2} sx={{ margin: "20px" }}>
+              <Grid item xs={6}>
+                <Typography variant="subtitle1">Nombre</Typography>
+                <TextField
+                  name="name"
+                  value={cliente.name}
                   onChange={handleChange}
-                  row
+                  fullWidth
+                  required
+                  margin="normal"
+                  sx={{
+                    borderColor: "#FFFFFF",
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: "50px",
+                      "& fieldset": {
+                        borderColor: "#FFFFFF",
+                      },
+                      color: "#FFFFFF",
+                    },
+                  }}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <Typography variant="subtitle1">Apellido</Typography>
+                <TextField
+                  name="lastName"
+                  value={cliente.lastName}
+                  onChange={handleChange}
+                  fullWidth
+                  required
+                  margin="normal"
+                  type="tel"
+                  sx={{
+                    borderColor: "#FFFFFF",
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: "50px",
+                      "& fieldset": {
+                        borderColor: "#FFFFFF",
+                      },
+                      color: "#FFFFFF",
+                    },
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant="subtitle1">Correo</Typography>
+                <TextField
+                  name="email"
+                  value={cliente.email}
+                  onChange={handleChange}
+                  fullWidth
+                  required
+                  margin="normal"
+                  type="email"
+                  sx={{
+                    borderColor: "#FFFFFF",
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: "50px",
+                      "& fieldset": {
+                        borderColor: "#FFFFFF",
+                      },
+                      color: "#FFFFFF",
+                    },
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControl
+                  component="fieldset"
+                  margin="normal"
+                  sx={{ alignSelf: "flex-start" }}
                 >
-                  <FormControlLabel
-                    value="dueño"
-                    control={<Radio />}
-                    label="Dueño"
-                  />
-                  <FormControlLabel
-                    value="inquilino"
-                    control={<Radio />}
-                    label="Inquilino"
-                  />
-                </RadioGroup>
-              </FormControl>
-              <Button variant="contained" type="submit" color="primary">
-                Agregar cliente
-              </Button>
-            </form>
-          </Box>
-        </Grid>
-      </Grid>
+                  <FormLabel component="legend" sx={{ color: "white" }}>
+                    Tipo de cliente
+                  </FormLabel>
+                  <RadioGroup
+                    aria-label="tipo"
+                    name="tipo"
+                    value={cliente.tipo}
+                    onChange={handleChange}
+                    row
+                  >
+                    <FormControlLabel
+                      value="dueño"
+                      control={<Radio />}
+                      label="Dueño"
+                    />
+                    <FormControlLabel
+                      value="inquilino"
+                      control={<Radio />}
+                      label="Inquilino"
+                    />
+                    <FormControlLabel
+                      value="Comprador"
+                      control={<Radio />}
+                      label="Comprador"
+                    />
+                  </RadioGroup>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12}>
+                <Button
+                  variant="contained"
+                  type="submit"
+                  color="primary"
+                  sx={{
+                    mt: 3,
+                    mb: 2,
+                    borderRadius: "50px",
+                    width: "300px",
+                    height: "50px",
+                    alignSelf: "flex-start",
+                  }}
+                >
+                  Agregar cliente
+                </Button>
+              </Grid>
+            </Grid>
+          </form>
+        </Box>
+      </Layout>
     </>
   );
 };

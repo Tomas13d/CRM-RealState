@@ -2,25 +2,27 @@
 import { Button, TextField } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import LoginGoogle from "../components/loginGoogle";
 import "dotenv/config.js";
 import { useDispatch } from "react-redux";
 import { setUser } from "../states/user";
 import axios from "axios";
 import { Toast, Toaster, toast } from "react-hot-toast";
-import { useRouter } from "next/navigation";
 
-const Login: React.FC = () => {
+const Register: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAgent, setIsAgent] = useState(true);
+
   const dispatch = useDispatch();
-  const router = useRouter();
+
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
@@ -29,10 +31,28 @@ const Login: React.FC = () => {
     setPassword(e.target.value);
   };
 
+  const handleFirstNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFirstName(e.target.value);
+  };
+
+  const handleLastNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setLastName(e.target.value);
+  };
+
+  const handleAdminCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setIsAdmin(e.target.checked);
+    setIsAgent(!e.target.checked);
+  };
+
+  const handleAgentCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setIsAgent(e.target.checked);
+    setIsAdmin(!e.target.checked);
+  };
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!email || !password) {
+    if (!email || !password || !firstName || !lastName) {
       toast.error("Por favor, completa todos los campos");
       return;
     } else if (!isValidEmail(email)) {
@@ -40,32 +60,38 @@ const Login: React.FC = () => {
       return;
     } else if (!isValidPassword(password)) {
       toast.error(
-        "La contraseña debe contener al menos 6 carácteres, una mayúscula y un símbolo"
+        "La contraseña debe contener al menos 6 caracteres, una mayúscula y un símbolo"
       );
+      return;
     }
 
-    try {
-      const response = await axios.post(
-        "http://localhost:3001/api/users/login",
-        {
-          email,
-          password,
-        },
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      );
+    const data = {
+      email,
+      password,
+      firstName,
+      lastName,
+      isAdmin,
+      isAgent,
+    };
+    // try {
+    //   const response = await axios.post(
+    //     "http://localhost:3001/api/users/register",
+    //     {
+    //       email,
+    //       password,
+    //       firstName,
+    //       lastName,
+    //       isAdmin,
+    //       isAgent,
+    //     }
+    //   );
 
-      const user = response.data;
-      dispatch(setUser(user));
-      router.push("/");
-    } catch (error: any) {
-      console.error("Error en el pedido:", error.message);
-      toast.error(
-        "Hubo un error al iniciar sesión. Por favor, inténtalo de nuevo."
-      );
-    }
+    //   const user = response.data;
+    //   dispatch(setUser(user));
+    // } catch (error: any) {
+    //   console.error("Error en el pedido:", error.message);
+    //   toast.error("Hubo un error al registrar. Por favor, inténtalo de nuevo.");
+    // }
   };
 
   const isValidEmail = (email: string) => {
@@ -95,16 +121,8 @@ const Login: React.FC = () => {
             "linear-gradient(45deg, rgba(38,52,72,1) 40%, rgba(72,87,146,1) 100%)",
         }}
       >
-        <Typography
-          component="h1"
-          variant="h5"
-          sx={{
-            fontSize: "35px",
-            fontFamily: "'Open Sans', sans-serif",
-            fontWeight: "bold",
-          }}
-        >
-          Ingresá
+        <Typography component="h1" variant="h5" sx={{ fontSize: "35px" }}>
+          Registro
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <Grid
@@ -135,8 +153,6 @@ const Login: React.FC = () => {
                 "& fieldset": {
                   borderColor: "#FFFFFF",
                 },
-
-                color: "#FFFFFF",
               },
             }}
           />
@@ -168,33 +184,94 @@ const Login: React.FC = () => {
                 "& fieldset": {
                   borderColor: "#FFFFFF",
                 },
-                color: "#FFFFFF",
               },
             }}
           />
           <Grid
             container
-            justifyContent="space-between"
-            alignItems="center"
-            sx={{ paddingTop: "15px" }}
+            item
+            xs
+            sx={{ marginTop: "15px", marginLeft: "40px" }}
           >
-            <Grid item>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    value="remember"
-                    color="primary"
-                    sx={{ color: "white", marginLeft: "50px" }}
-                  />
-                }
-                label="Recordarme"
-              />
-            </Grid>
-            <Grid item>
-              <Link href="/recovery" variant="body2" sx={{ color: "white" }}>
-                ¿Olvido su contraseña?
-              </Link>
-            </Grid>
+            Nombre
+          </Grid>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="firstName"
+            id="firstName"
+            value={firstName}
+            onChange={handleFirstNameChange}
+            sx={{
+              width: "400px",
+              marginTop: "5px",
+              marginLeft: "40px",
+              borderColor: "#FFFFFF",
+              "& .MuiOutlinedInput-root": {
+                borderRadius: "50px",
+                "& fieldset": {
+                  borderColor: "#FFFFFF",
+                },
+              },
+            }}
+          />
+          <Grid
+            container
+            item
+            xs
+            sx={{ marginTop: "15px", marginLeft: "40px" }}
+          >
+            Apellido
+          </Grid>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="lastName"
+            id="lastName"
+            value={lastName}
+            onChange={handleLastNameChange}
+            sx={{
+              width: "400px",
+              marginTop: "5px",
+              marginLeft: "40px",
+              borderColor: "#FFFFFF",
+              "& .MuiOutlinedInput-root": {
+                borderRadius: "50px",
+                "& fieldset": {
+                  borderColor: "#FFFFFF",
+                },
+              },
+            }}
+          />
+          <Grid
+            container
+            alignItems="center"
+            sx={{ marginTop: "15px", marginLeft: "40px" }}
+          >
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={isAdmin}
+                  onChange={handleAdminCheckboxChange}
+                  color="primary"
+                  sx={{ color: "white", marginLeft: "50px" }}
+                />
+              }
+              label="Administrador"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={isAgent}
+                  onChange={handleAgentCheckboxChange}
+                  color="primary"
+                  sx={{ color: "white" }}
+                />
+              }
+              label="Agente"
+            />
           </Grid>
           <Button
             type="submit"
@@ -209,18 +286,13 @@ const Login: React.FC = () => {
               marginLeft: "80px",
             }}
           >
-            Ingresar
+            Registrar
           </Button>
-
-          <Grid container>
-            <Grid item sx={{ marginLeft: "110px", marginTop: "20px" }}>
-              <LoginGoogle />
-            </Grid>
-          </Grid>
         </Box>
       </Box>
       <Toaster position="top-right" reverseOrder={false} />
     </Container>
   );
 };
-export default Login;
+
+export default Register;
