@@ -1,4 +1,9 @@
 "use client";
+import {
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 import { Button, TextField } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
@@ -15,6 +20,7 @@ import { setUser } from "../states/user";
 import axios from "axios";
 import { Toast, Toaster, toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { auth } from "../firebase";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -45,11 +51,15 @@ const Login: React.FC = () => {
     }
 
     try {
+      const userAuth = await signInWithEmailAndPassword(auth, email, password);
+      const idToken = await userAuth.user.getIdToken();
+      console.log(idToken);
       const response = await axios.post(
         "http://localhost:3001/api/users/login",
         {
           email,
           password,
+          idToken,
         },
         {
           headers: { "Content-Type": "application/json" },
