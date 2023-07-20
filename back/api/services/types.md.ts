@@ -12,6 +12,7 @@ export type Acquisition = {
 };
 
 export type Client = {
+  id?: string;
   email: string;
   first_name: string;
   last_name: string;
@@ -23,6 +24,7 @@ export type Client = {
 };
 
 export type Estate = {
+  id?: string;
   name: string;
   address: string;
   description: string;
