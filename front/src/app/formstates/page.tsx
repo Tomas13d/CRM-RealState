@@ -34,7 +34,7 @@ interface Property {
 }
 
 const FormularioPropiedad: React.FC = () => {
-  const [property, setProperty] = useState<Property>({
+  const [newEstate, setNewEstate] = useState<Property>({
     name: "",
     address: "",
     category: "",
@@ -47,26 +47,25 @@ const FormularioPropiedad: React.FC = () => {
     rental_price: 0,
     sale_price: 0,
   });
-
+  console.log(newEstate);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type } = event.target;
-    setProperty((prevProperty) => ({
-      ...prevProperty,
+    setNewEstate((previousEstate) => ({
+      ...previousEstate,
       [name]: type === "checkbox" ? event.target.checked : value,
     }));
   };
 
   const handleCurrency = (event: SelectChangeEvent<string>) => {
     const selectedCurrency = event.target.value;
-    setProperty((prevProperty) => ({
-      ...prevProperty,
+    setNewEstate((previousEstate) => ({
+      ...previousEstate,
       currency: selectedCurrency,
     }));
   };
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(property);
-    setProperty({
+    setNewEstate({
       name: "",
       address: "",
       category: "",
@@ -132,10 +131,10 @@ const FormularioPropiedad: React.FC = () => {
           <form onSubmit={handleSubmit}>
             <Grid container spacing={2} sx={{ margin: "20px" }}>
               <Grid item xs={6}>
-                <Typography variant="subtitle1">Nombre</Typography>
+                <Typography variant="subtitle1">Título</Typography>
                 <TextField
                   name="name"
-                  value={property.name}
+                  value={newEstate.name}
                   onChange={handleChange}
                   fullWidth
                   required
@@ -156,7 +155,7 @@ const FormularioPropiedad: React.FC = () => {
                 <Typography variant="subtitle1">Dirección</Typography>
                 <TextField
                   name="address"
-                  value={property.address}
+                  value={newEstate.address}
                   onChange={handleChange}
                   fullWidth
                   required
@@ -177,7 +176,7 @@ const FormularioPropiedad: React.FC = () => {
                 <Typography variant="subtitle1">Categoría</Typography>
                 <TextField
                   name="category"
-                  value={property.category}
+                  value={newEstate.category}
                   onChange={handleChange}
                   fullWidth
                   required
@@ -198,7 +197,7 @@ const FormularioPropiedad: React.FC = () => {
                 <Typography variant="subtitle1">Ciudad</Typography>
                 <TextField
                   name="city"
-                  value={property.city}
+                  value={newEstate.city}
                   onChange={handleChange}
                   fullWidth
                   required
@@ -220,11 +219,12 @@ const FormularioPropiedad: React.FC = () => {
                 <Select
                   name="currency"
                   onChange={handleCurrency}
-                  value={property.currency}
+                  value={newEstate.currency}
                   fullWidth
                   required
                   margin="none"
                   sx={{
+                    border: "1px solid white",
                     borderColor: "#FFFFFF",
                     "& .MuiOutlinedInput-root": {
                       borderRadius: "50px",
@@ -241,14 +241,16 @@ const FormularioPropiedad: React.FC = () => {
               </Grid>
               <Grid item xs={12}>
                 <Typography variant="subtitle1">
-                  {property.is_for_rent ? "Precio de renta" : "Precio de venta"}
+                  {newEstate.is_for_rent
+                    ? "Precio de renta"
+                    : "Precio de venta"}
                 </Typography>
                 <TextField
-                  name={property.is_for_rent ? "rental_price" : "sale_price"}
+                  name={newEstate.is_for_rent ? "rental_price" : "sale_price"}
                   value={
-                    property.is_for_rent
-                      ? property.rental_price
-                      : property.sale_price
+                    newEstate.is_for_rent
+                      ? newEstate.rental_price
+                      : newEstate.sale_price
                   }
                   onChange={handleChange}
                   fullWidth
@@ -271,7 +273,7 @@ const FormularioPropiedad: React.FC = () => {
                 <Typography variant="subtitle1">Descripción</Typography>
                 <TextField
                   name="description"
-                  value={property.description}
+                  value={newEstate.description}
                   onChange={handleChange}
                   fullWidth
                   required
@@ -303,10 +305,11 @@ const FormularioPropiedad: React.FC = () => {
                     <FormControlLabel
                       control={
                         <Checkbox
-                          checked={property.is_for_rent}
+                          sx={{ color: "white" }}
+                          checked={newEstate.is_for_rent}
                           onChange={(event) =>
-                            setProperty((prevProperty) => ({
-                              ...prevProperty,
+                            setNewEstate((previousEstate) => ({
+                              ...previousEstate,
                               is_for_rent: event.target.checked,
                             }))
                           }
@@ -319,10 +322,11 @@ const FormularioPropiedad: React.FC = () => {
                     <FormControlLabel
                       control={
                         <Checkbox
-                          checked={property.is_for_sale}
+                          sx={{ color: "white" }}
+                          checked={newEstate.is_for_sale}
                           onChange={(event) =>
-                            setProperty((prevProperty) => ({
-                              ...prevProperty,
+                            setNewEstate((previousEstate) => ({
+                              ...previousEstate,
                               is_for_sale: event.target.checked,
                             }))
                           }
