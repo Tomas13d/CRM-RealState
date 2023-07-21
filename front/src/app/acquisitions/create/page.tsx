@@ -64,7 +64,7 @@ const page = () => {
     ) {
       return alert("Por favor, completa todos los campos");
     } else {
-      const createdAcquisition = await createNewAcquistion(newAcquisition);
+      await createNewAcquistion(newAcquisition);
       alert("Captacion creada con exito");
     }
   };
@@ -72,16 +72,11 @@ const page = () => {
   return (
     <Layout
       children={
-        <Box
-          display={"flex"}
-          justifyContent={"center"}
-          alignItems={"center"}
-          sx={{ marginTop: 15 }}
-        >
+        <Box display={"flex"} alignItems={"center"} sx={{ marginTop: 15 }}>
           <Box
             width={"50%"}
             flexDirection={"column"}
-            padding={"10px"}
+            padding={"10px 30px"}
             display={"flex"}
             minHeight={"100vh"}
           >
