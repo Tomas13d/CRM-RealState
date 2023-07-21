@@ -14,9 +14,9 @@ import {
   IconButton,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import Layout from "../commons/layout";
+import Layout from "../../commons/layout";
 
-import { Client } from "../types/types.md";
+import { Client } from "../../types/types.md";
 import axios from "axios";
 
 const FormularioCliente: React.FC = () => {
@@ -24,9 +24,9 @@ const FormularioCliente: React.FC = () => {
     first_name: "",
     last_name: "",
     email: "",
-    isBuyer: false,
-    isOwner: false,
-    isTenant: false,
+    is_buyer: false,
+    is_owner: false,
+    is_tenant: false,
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,9 +41,9 @@ const FormularioCliente: React.FC = () => {
     const { value } = event.target;
     setClient((prevClient) => ({
       ...prevClient,
-      isBuyer: value === "Comprador",
-      isOwner: value === "dueño",
-      isTenant: value === "inquilino",
+      is_buyer: value === "Comprador",
+      is_owner: value === "dueño",
+      is_tenant: value === "inquilino",
     }));
   };
 
@@ -61,9 +61,9 @@ const FormularioCliente: React.FC = () => {
         first_name: "",
         last_name: "",
         email: "",
-        isBuyer: false,
-        isOwner: false,
-        isTenant: false,
+        is_buyer: false,
+        is_owner: false,
+        is_tenant: false,
       });
     } catch (error) {
       alert(error);
@@ -198,9 +198,9 @@ const FormularioCliente: React.FC = () => {
                     aria-label="tipo"
                     name="tipo"
                     value={
-                      client.isBuyer
+                      client.is_buyer
                         ? "Comprador"
-                        : client.isOwner
+                        : client.is_owner
                         ? "dueño"
                         : "inquilino"
                     }
