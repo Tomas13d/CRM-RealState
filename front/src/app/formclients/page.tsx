@@ -16,40 +16,58 @@ import {
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Layout from "../commons/layout";
 
-interface Cliente {
-  name: string;
-  lastName: string;
-  email: string;
-  tipo: "dueño" | "inquilino" | "comprador";
-}
+import { Client } from "../types/types.md";
+import axios from "axios";
 
 const FormularioCliente: React.FC = () => {
-  const [cliente, setCliente] = useState<Cliente>({
-    name: "",
-    lastName: "",
+  const [client, setClient] = useState<Client>({
+    first_name: "",
+    last_name: "",
     email: "",
-    tipo: "dueño",
+    isBuyer: false,
+    isOwner: false,
+    isTenant: false,
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setCliente((prevCliente) => ({
-      ...prevCliente,
+    setClient((prevClient) => ({
+      ...prevClient,
       [name]: value,
     }));
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleTipoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    setClient((prevClient) => ({
+      ...prevClient,
+      isBuyer: value === "Comprador",
+      isOwner: value === "dueño",
+      isTenant: value === "inquilino",
+    }));
+  };
+
+  console.log(client);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // logica del pedido
-    console.log(cliente);
-    // Limpia el formulario después de enviar los datos
-    setCliente({
-      name: "",
-      lastName: "",
-      email: "",
-      tipo: "dueño",
-    });
+    try {
+      const addedClient = await axios.post(
+        "http://localhost:3001/api/clients/create",
+        client
+      );
+
+      setClient({
+        first_name: "",
+        last_name: "",
+        email: "",
+        isBuyer: false,
+        isOwner: false,
+        isTenant: false,
+      });
+    } catch (error) {
+      alert(error);
+    }
   };
 
   return (
@@ -105,8 +123,8 @@ const FormularioCliente: React.FC = () => {
               <Grid item xs={6}>
                 <Typography variant="subtitle1">Nombre</Typography>
                 <TextField
-                  name="name"
-                  value={cliente.name}
+                  name="first_name"
+                  value={client.first_name}
                   onChange={handleChange}
                   fullWidth
                   required
@@ -126,8 +144,8 @@ const FormularioCliente: React.FC = () => {
               <Grid item xs={6}>
                 <Typography variant="subtitle1">Apellido</Typography>
                 <TextField
-                  name="lastName"
-                  value={cliente.lastName}
+                  name="last_name"
+                  value={client.last_name}
                   onChange={handleChange}
                   fullWidth
                   required
@@ -149,7 +167,7 @@ const FormularioCliente: React.FC = () => {
                 <Typography variant="subtitle1">Correo</Typography>
                 <TextField
                   name="email"
-                  value={cliente.email}
+                  value={client.email}
                   onChange={handleChange}
                   fullWidth
                   required
@@ -179,8 +197,14 @@ const FormularioCliente: React.FC = () => {
                   <RadioGroup
                     aria-label="tipo"
                     name="tipo"
-                    value={cliente.tipo}
-                    onChange={handleChange}
+                    value={
+                      client.isBuyer
+                        ? "Comprador"
+                        : client.isOwner
+                        ? "dueño"
+                        : "inquilino"
+                    }
+                    onChange={handleTipoChange}
                     row
                   >
                     <FormControlLabel
