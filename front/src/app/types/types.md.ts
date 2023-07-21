@@ -16,9 +16,9 @@ export type Client = {
   email: string;
   first_name: string;
   last_name: string;
-  isOwner: boolean;
-  isBuyer: boolean;
-  isTenant: boolean;
+  is_owner: boolean;
+  is_buyer: boolean;
+  is_tenant: boolean;
   assigned_agent_name?: string;
   assigned_agent_id?: string;
 };
@@ -29,7 +29,7 @@ export type Estate = {
   address: string;
   description: string;
   city: string;
-  expenses_price: number;
+  expenses_price?: number;
   images?: Array<string>;
   is_for_rent: boolean;
   is_for_sale: boolean;
@@ -38,7 +38,7 @@ export type Estate = {
   rent_price: number;
   currency: string;
   category: string;
-  rooms: number;
+  rooms?: number;
 };
 
 export interface User {
