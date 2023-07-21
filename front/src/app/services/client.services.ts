@@ -14,9 +14,16 @@ export const getAllClients = async () => {
 
 export const getAllBuyersAndTenants = async () => {
   const allClients = await getAllClients();
-  console.log("All clients", allClients);
-  const buyersAndTenants = allClients.filter((client: any) => {
+  const buyersAndTenants = allClients.filter((client: Client) => {
     if (client.is_buyer || client.is_tenant) return client;
   });
   return buyersAndTenants;
+};
+
+export const getAllOwners = async () => {
+  const allClients = await getAllClients();
+  const owners = allClients.filter((client: Client) => {
+    if (client.is_owner) return client;
+  });
+  return owners;
 };
