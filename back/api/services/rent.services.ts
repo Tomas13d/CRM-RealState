@@ -7,11 +7,9 @@ export const getAllRents = async (): Promise<Acquisition[]> => {
     .where("transaction_type", "==", "rent")
     .get();
 
-  const rents: Acquisition[] = [];
-  querySnapshot.forEach((doc) => {
-    const data = doc.data() as Acquisition;
-    rents.push(data);
-  });
+  const rents: Acquisition[] = querySnapshot.docs.map(
+    (doc) => doc.data() as Acquisition
+  );
 
   return rents;
 };

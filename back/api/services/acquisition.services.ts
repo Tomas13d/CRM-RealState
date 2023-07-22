@@ -10,12 +10,8 @@ export const createAcquisition = async (acquisition: Acquisition) => {
 export const getAcquisitions = async () => {
   const acquisitionsRef = db.collection("Acquisitions");
   const snapshot = await acquisitionsRef.get();
-  const acquisitions: Acquisition[] = [];
-
-  snapshot.forEach((doc) => {
-    const data = doc.data() as Acquisition;
-    acquisitions.push(data);
-  });
-
+  const acquisitions: Acquisition[] = snapshot.docs.map(
+    (doc) => doc.data() as Acquisition
+  );
   return acquisitions;
 };

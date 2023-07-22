@@ -8,11 +8,9 @@ export const createEstate = async (estate: Estate) => {
 
 export const getAllEstates = async () => {
   const estatesSnapshot = await db.collection("Estates").get();
-  const estates: Estate[] = [];
-
-  estatesSnapshot.forEach((doc) => {
-    const estateData = doc.data() as Estate;
-    estates.push({ ...estateData, id: doc.id });
+  const estates: Estate[] = estatesSnapshot.docs.map((doc) => {
+    return { ...(doc.data() as Estate), id: doc.id };
   });
+
   return estates;
 };
