@@ -29,7 +29,6 @@ export const register = async (user: User) => {
 
   return newUser;
 };
-//nuevo metodo
 export const getUserByUID = async (uid: string) => {
   const userDocument = db.collection("Users").doc(`${uid}`);
   const loginUser = await userDocument.get();
