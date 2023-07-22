@@ -56,6 +56,7 @@ const FormularioCliente: React.FC = () => {
         "http://localhost:3001/api/clients/create",
         client
       );
+      alert("Cliente creado con exito");
 
       setClient({
         first_name: "",
