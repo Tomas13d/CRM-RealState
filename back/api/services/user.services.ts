@@ -48,7 +48,7 @@ export const getUserByUID = async (uid: string) => {
       userData.firstname = data.firstname;
       userData.lastname = data.lastname;
       userData.email = data.email;
-      userData.password = data["password "];
+      userData.password = data["password"];
       userData.id = uid;
     }
   }
