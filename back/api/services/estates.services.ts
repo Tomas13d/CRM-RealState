@@ -2,8 +2,7 @@ import { db } from "../firebase";
 import { Estate } from "./types.md";
 
 export const createEstate = async (estate: Estate) => {
-  const response = await db.collection("Estates").add(estate);
-  return response;
+  return await db.collection("Estates").add(estate);
 };
 
 export const getAllEstates = async () => {
@@ -11,6 +10,5 @@ export const getAllEstates = async () => {
   const estates: Estate[] = estatesSnapshot.docs.map((doc) => {
     return { ...(doc.data() as Estate), id: doc.id };
   });
-
   return estates;
 };

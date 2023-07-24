@@ -9,6 +9,17 @@ export type Acquisition = {
   transaction_currency: string;
   transaction_date: string;
 };
+export type Rents = {
+  agent_id: string;
+  owner_id: string;
+  tenant_id: string;
+  current_price: number;
+  currency: string;
+  estate_id: string;
+  rent_payments: string;
+  transaction_price: number;
+  transaction_currency: string;
+};
 
 export type Client = {
   id?: string;

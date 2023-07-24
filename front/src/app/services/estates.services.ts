@@ -8,9 +8,7 @@ export const getAllEstates = async () => {
       withCredentials: true,
     }
   );
-
-  const estates = response.data;
-  return estates;
+  return response.data;
 };
 
 export const createNewEstate = async (newEstate: Estate) => {

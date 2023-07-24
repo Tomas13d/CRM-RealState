@@ -19,7 +19,7 @@ import Layout from "../../commons/layout";
 import { Client } from "../../types/types.md";
 import axios from "axios";
 
-const FormularioCliente: React.FC = () => {
+const ClientForm: React.FC = () => {
   const [client, setClient] = useState<Client>({
     first_name: "",
     last_name: "",
@@ -41,9 +41,9 @@ const FormularioCliente: React.FC = () => {
     const { value } = event.target;
     setClient((prevClient) => ({
       ...prevClient,
-      is_buyer: value === "Comprador",
-      is_owner: value === "dueño",
-      is_tenant: value === "inquilino",
+      is_buyer: value === "buyer",
+      is_owner: value === "owner",
+      is_tenant: value === "renter",
     }));
   };
 
@@ -56,7 +56,7 @@ const FormularioCliente: React.FC = () => {
         "http://localhost:3001/api/clients/create",
         client
       );
-      alert("Cliente creado con exito");
+      alert("Client created successfully");
 
       setClient({
         first_name: "",
@@ -251,4 +251,4 @@ const FormularioCliente: React.FC = () => {
   );
 };
 
-export default FormularioCliente;
+export default ClientForm;
