@@ -57,7 +57,6 @@ const FormularioPropiedad: React.FC = () => {
     }));
   };
   const handleOperationType = () => {
-    console.log("previousestate", newEstate);
     setNewEstate((previousEstate) => ({
       ...previousEstate,
       operation_type:
@@ -71,13 +70,13 @@ const FormularioPropiedad: React.FC = () => {
     }));
   };
 
-  const handleCurrency = (event: SelectChangeEvent<string>) => {
-    const selectedCurrency = event.target.value;
+  const handleDropdowns = (event: SelectChangeEvent<string>) => {
     setNewEstate((previousEstate) => ({
       ...previousEstate,
-      currency: selectedCurrency,
+      [event.target.name]: event.target.value,
     }));
   };
+
   const handleOwnerChange = (event: SelectChangeEvent<string>) => {
     const selectedOwnerID = event.target.value;
     setNewEstate((previousEstate) => ({
@@ -87,7 +86,6 @@ const FormularioPropiedad: React.FC = () => {
   };
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(newEstate);
     await createNewEstate(newEstate);
     alert("Propiedad agregada con exito");
     setNewEstate({
@@ -95,7 +93,7 @@ const FormularioPropiedad: React.FC = () => {
       address: "",
       category: "",
       city: "",
-      currency: "pesos",
+      currency: "",
       description: "",
       expenses_price: 0,
       operation_type: "",
@@ -232,26 +230,34 @@ const FormularioPropiedad: React.FC = () => {
                   }}
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={5}>
                 <Typography variant="subtitle1">Categoría</Typography>
-                <TextField
+                <Select
                   name="category"
-                  value={newEstate.category}
-                  onChange={handleChange}
+                  onChange={handleDropdowns}
+                  value={newEstate.currency}
                   fullWidth
                   required
-                  margin="normal"
+                  margin="none"
                   sx={{
+                    border: "1px solid white",
                     borderColor: "#FFFFFF",
                     "& .MuiOutlinedInput-root": {
                       borderRadius: "50px",
                       "& fieldset": {
                         borderColor: "#FFFFFF",
                       },
-                      color: "#FFFFFF",
                     },
+                    color: "white",
                   }}
-                />
+                >
+                  <MenuItem value="house">Casa</MenuItem>
+                  <MenuItem value="garage">Cochera</MenuItem>
+                  <MenuItem value="complex">Complejo</MenuItem>
+                  <MenuItem value="flat">Departamento</MenuItem>
+                  <MenuItem value="shop">Local</MenuItem>
+                  <MenuItem value="office">Oficina</MenuItem>
+                </Select>
               </Grid>
               <Grid item xs={6}>
                 <Typography variant="subtitle1">Ciudad</Typography>
@@ -303,7 +309,7 @@ const FormularioPropiedad: React.FC = () => {
                 <Typography variant="subtitle1">Moneda</Typography>
                 <Select
                   name="currency"
-                  onChange={handleCurrency}
+                  onChange={handleDropdowns}
                   value={newEstate.currency}
                   fullWidth
                   required
