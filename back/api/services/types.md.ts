@@ -1,3 +1,5 @@
+type SupportedCurrencies = "ARS" | "USD";
+
 export type Acquisition = {
   description: string;
   agent_id: string;
@@ -34,7 +36,8 @@ export type Estate = {
   owner_id: string;
   sale_price?: number;
   rent_price?: number;
-  currency: string;
+  rent_currency?: SupportedCurrencies;
+  sale_currency?: SupportedCurrencies;
   category: "house" | "garage" | "complex" | "flat" | "shop" | "office";
   rooms: number;
   operation_type: "rent" | "sale" | "rent_sale";
