@@ -46,7 +46,7 @@ export type Estate = {
   sale_price?: number;
   rent_price?: number;
   currency: string;
-  category: string;
+  category: "house" | "garage" | "complex" | "flat" | "shop" | "office" | "";
   rooms: number;
   operation_type: "rent" | "sale" | "rent_sale" | "";
   is_for_sale: boolean;
