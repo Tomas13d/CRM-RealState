@@ -29,16 +29,15 @@ export type Estate = {
   address: string;
   description: string;
   city: string;
-  expenses_price: number;
+  expenses_price?: number;
   images?: Array<string>;
-  is_for_rent: boolean;
-  is_for_sale: boolean;
   owner_id: string;
-  sale_price: number;
-  rent_price: number;
+  sale_price?: number;
+  rent_price?: number;
   currency: string;
   category: string;
   rooms: number;
+  operation_type: "rent" | "sale" | "rent_sale";
 };
 
 export interface User {

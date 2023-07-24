@@ -40,6 +40,7 @@ const FormularioPropiedad: React.FC = () => {
     currency: "",
     description: "",
     expenses_price: 0,
+    operation_type: "",
     is_for_rent: false,
     is_for_sale: false,
     rent_price: 0,
@@ -47,13 +48,26 @@ const FormularioPropiedad: React.FC = () => {
     owner_id: "",
     rooms: 0,
   });
-  console.log(newEstate);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type } = event.target;
     setNewEstate((previousEstate) => ({
       ...previousEstate,
       [name]: type === "checkbox" ? event.target.checked : value,
+    }));
+  };
+  const handleOperationType = () => {
+    console.log("previousestate", newEstate);
+    setNewEstate((previousEstate) => ({
+      ...previousEstate,
+      operation_type:
+        previousEstate.is_for_rent && previousEstate.is_for_sale
+          ? "rent_sale"
+          : previousEstate.is_for_rent
+          ? "rent"
+          : previousEstate.is_for_sale
+          ? "sale"
+          : "",
     }));
   };
 
@@ -73,6 +87,7 @@ const FormularioPropiedad: React.FC = () => {
   };
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    console.log(newEstate);
     await createNewEstate(newEstate);
     alert("Propiedad agregada con exito");
     setNewEstate({
@@ -83,6 +98,7 @@ const FormularioPropiedad: React.FC = () => {
       currency: "pesos",
       description: "",
       expenses_price: 0,
+      operation_type: "",
       is_for_rent: false,
       is_for_sale: false,
       rent_price: 0,
@@ -91,6 +107,7 @@ const FormularioPropiedad: React.FC = () => {
       rooms: 0,
     });
   };
+  console.log(newEstate);
 
   return (
     <>
@@ -321,13 +338,13 @@ const FormularioPropiedad: React.FC = () => {
                       control={
                         <Checkbox
                           sx={{ color: "white" }}
-                          checked={newEstate.is_for_sale}
-                          onChange={(event) =>
+                          onChange={(event) => {
                             setNewEstate((previousEstate) => ({
                               ...previousEstate,
                               is_for_sale: event.target.checked,
-                            }))
-                          }
+                            }));
+                            handleOperationType();
+                          }}
                           name="is_for_sale"
                           color="primary"
                         />
@@ -338,13 +355,13 @@ const FormularioPropiedad: React.FC = () => {
                       control={
                         <Checkbox
                           sx={{ color: "white" }}
-                          checked={newEstate.is_for_rent}
-                          onChange={(event) =>
+                          onChange={(event) => {
                             setNewEstate((previousEstate) => ({
                               ...previousEstate,
                               is_for_rent: event.target.checked,
-                            }))
-                          }
+                            }));
+                            handleOperationType();
+                          }}
                           name="is_for_rent"
                           color="primary"
                         />
