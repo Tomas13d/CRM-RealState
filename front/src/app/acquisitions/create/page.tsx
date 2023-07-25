@@ -53,7 +53,10 @@ const page = () => {
   });
 
   const handleInput = (e: any) => {
-    setNewAcquisition({ ...newAcquisition, [e.target.name]: e.target.value });
+    setNewAcquisition((previousAcquisition) => ({
+      ...previousAcquisition,
+      [e.target.name]: e.target.value,
+    }));
   };
 
   const handleSubmit = async (e: any) => {

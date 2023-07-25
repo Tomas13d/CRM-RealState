@@ -23,16 +23,7 @@ import { getAllOwners } from "@/app/services/client.services";
 import { createNewEstate } from "@/app/services/estates.services";
 
 const FormularioPropiedad: React.FC = () => {
-  const [owners, setOwners] = useState([]);
-  const handleGetOwners = async () => {
-    const fetchedOwners = await getAllOwners();
-    setOwners(fetchedOwners);
-  };
-  useEffect(() => {
-    handleGetOwners();
-  }, []);
-
-  const [newEstate, setNewEstate] = useState<Estate>({
+  const initialState: Estate = {
     name: "",
     address: "",
     category: "",
@@ -48,7 +39,20 @@ const FormularioPropiedad: React.FC = () => {
     sale_price: 0,
     owner_id: "",
     rooms: 0,
-  });
+  };
+
+  const [owners, setOwners] = useState([]);
+
+  const handleGetOwners = async () => {
+    const fetchedOwners = await getAllOwners();
+    setOwners(fetchedOwners);
+  };
+
+  useEffect(() => {
+    handleGetOwners();
+  }, []);
+
+  const [newEstate, setNewEstate] = useState<Estate>(initialState);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type } = event.target;
@@ -57,6 +61,7 @@ const FormularioPropiedad: React.FC = () => {
       [name]: type === "checkbox" ? event.target.checked : value,
     }));
   };
+
   const handleOperationType = () => {
     setNewEstate((previousEstate) => ({
       ...previousEstate,
@@ -85,28 +90,14 @@ const FormularioPropiedad: React.FC = () => {
       owner_id: selectedOwnerID,
     }));
   };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     await createNewEstate(newEstate);
-    alert("Propiedad agregada con exito");
-    setNewEstate({
-      name: "",
-      address: "",
-      category: "",
-      city: "",
-      rent_currency: "",
-      sale_currency: "",
-      description: "",
-      expenses_price: 0,
-      operation_type: "",
-      is_for_rent: false,
-      is_for_sale: false,
-      rent_price: 0,
-      sale_price: 0,
-      owner_id: "",
-      rooms: 0,
-    });
+    alert("Propiedad agregada con éxito");
+    setNewEstate(initialState);
   };
+
   console.log(newEstate);
 
   return (

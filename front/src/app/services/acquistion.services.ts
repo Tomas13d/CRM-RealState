@@ -22,14 +22,19 @@ const transformNewAcquistionKeys = (
 export const createNewAcquistion = async (
   newAcquisition: RawNewAcquisition
 ) => {
-  const newAcquisitionProcessed = transformNewAcquistionKeys(newAcquisition);
+  try {
+    const newAcquisitionProcessed = transformNewAcquistionKeys(newAcquisition);
 
-  const createdAcquisition = await axios.post(
-    "http://localhost:3001/api/acquisitions/create",
-    newAcquisitionProcessed,
-    {
-      withCredentials: true,
-    }
-  );
-  return createdAcquisition;
+    const createdAcquisition = await axios.post(
+      "http://localhost:3001/api/acquisitions/create",
+      newAcquisitionProcessed,
+      {
+        withCredentials: true,
+      }
+    );
+    return createdAcquisition;
+  } catch (error) {
+    console.error("Ha ocurrido un error al crear la adquisición:", error);
+    throw error;
+  }
 };
