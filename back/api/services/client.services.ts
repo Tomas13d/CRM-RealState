@@ -15,3 +15,13 @@ export const getAllClients = async () => {
 
   return clients;
 };
+export const getClientID = async (id: string) => {
+  const clientRef = db.collection("Clients").doc(id);
+  const clientSnapshot = await clientRef.get();
+  let clientData;
+  clientSnapshot.exists
+    ? (clientData = clientSnapshot.data())
+    : (clientData = "Client no exist.");
+  console.log("El cliente con el id proporcionado no existe.");
+  return clientData;
+};

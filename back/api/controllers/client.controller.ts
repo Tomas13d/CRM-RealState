@@ -1,6 +1,10 @@
 import { Request, Response } from "express";
 import { isValidEmail } from "../utils/utils";
-import { createClient, getAllClients } from "../services/client.services";
+import {
+  createClient,
+  getAllClients,
+  getClientID,
+} from "../services/client.services";
 
 class ClientController {
   static async addClient(req: Request, res: Response) {
@@ -22,6 +26,17 @@ class ClientController {
       return res.status(200).send(clients);
     } catch (error) {
       res.status(401).json({ msg: "Error geting all clients", error });
+    }
+  }
+
+  static async getClientUID(req: Request, res: Response) {
+    try {
+      const id = req.params.id;
+      const client = await getClientID(id);
+      console.log(client);
+      return res.status(200).send(client);
+    } catch (error) {
+      res.status(400).json({ msg: "Error to get client", error });
     }
   }
 }

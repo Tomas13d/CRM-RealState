@@ -1,4 +1,4 @@
-const { login, register } = require("../services/user.services");
+const { login, register, getUserID } = require("../services/user.services");
 import { Request, Response } from "express";
 
 import { isValidEmail, isValidPassword } from "../utils/utils";
@@ -41,6 +41,15 @@ class UserController {
       return res.send(req.user);
     } catch (error) {
       return res.status(404).send(error);
+    }
+  }
+  static async getUserForID(req: Request, res: Response) {
+    try {
+      const id: string = req.params.id;
+      const response = await getUserID(id);
+      return res.status(201).send(response);
+    } catch (error) {
+      return res.status(400).send(error);
     }
   }
 }
