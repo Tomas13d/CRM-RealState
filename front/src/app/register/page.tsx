@@ -20,51 +20,34 @@ import {
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const Register: React.FC = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [isAgent, setIsAgent] = useState(true);
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+    firstName: "",
+    lastName: "",
+    type: "agent",
+  });
 
   const dispatch = useDispatch();
 
-  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
-
-  const handleFirstNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setFirstName(e.target.value);
-  };
-
-  const handleLastNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setLastName(e.target.value);
-  };
-
-  const handleAdminCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setIsAdmin(e.target.checked);
-    setIsAgent(!e.target.checked);
-  };
-
-  const handleAgentCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setIsAgent(e.target.checked);
-    setIsAdmin(!e.target.checked);
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = e.target;
+    setUser((prevUser) => ({
+      ...prevUser,
+      [name]: type === "checkbox" ? (checked ? "admin" : "agent") : value,
+    }));
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!email || !password || !firstName || !lastName) {
+    if (!user.email || !user.password || !user.firstName || !user.lastName) {
       toast.error("Por favor, completa todos los campos");
       return;
-    } else if (!isValidEmail(email)) {
+    } else if (!isValidEmail(user.email)) {
       toast.error("Por favor, ingresa un correo electrónico válido");
       return;
-    } else if (!isValidPassword(password)) {
+    } else if (!isValidPassword(user.password)) {
       toast.error(
         "La contraseña debe contener al menos 6 caracteres, una mayúscula y un símbolo"
       );
@@ -72,24 +55,12 @@ const Register: React.FC = () => {
     }
 
     const data = {
-      email,
-      password,
-      firstName,
-      lastName,
-      isAdmin,
-      isAgent,
+      ...user,
     };
     // try {
     //   const response = await axios.post(
     //     "http://localhost:3001/api/users/register",
-    //     {
-    //       email,
-    //       password,
-    //       firstName,
-    //       lastName,
-    //       isAdmin,
-    //       isAgent,
-    //     }
+    //     data
     //   );
 
     //   const user = response.data;
@@ -170,8 +141,8 @@ const Register: React.FC = () => {
                       name="email"
                       autoComplete="email"
                       autoFocus
-                      value={email}
-                      onChange={handleEmailChange}
+                      value={user.email}
+                      onChange={handleChange}
                       sx={{
                         width: "100%",
                         borderColor: "#FFFFFF",
@@ -193,8 +164,8 @@ const Register: React.FC = () => {
                       name="password"
                       type="password"
                       id="password"
-                      value={password}
-                      onChange={handlePasswordChange}
+                      value={user.password}
+                      onChange={handleChange}
                       autoComplete="current-password"
                       sx={{
                         width: "100%",
@@ -216,8 +187,8 @@ const Register: React.FC = () => {
                       fullWidth
                       name="firstName"
                       id="firstName"
-                      value={firstName}
-                      onChange={handleFirstNameChange}
+                      value={user.firstName}
+                      onChange={handleChange}
                       sx={{
                         width: "100%",
                         borderColor: "#FFFFFF",
@@ -238,8 +209,8 @@ const Register: React.FC = () => {
                       fullWidth
                       name="lastName"
                       id="lastName"
-                      value={lastName}
-                      onChange={handleLastNameChange}
+                      value={user.lastName}
+                      onChange={handleChange}
                       sx={{
                         width: "100%",
                         borderColor: "#FFFFFF",
@@ -258,8 +229,10 @@ const Register: React.FC = () => {
                       <FormControlLabel
                         control={
                           <Checkbox
-                            checked={isAdmin}
-                            onChange={handleAdminCheckboxChange}
+                            checked={user.type === "admin"}
+                            onChange={handleChange}
+                            name="type"
+                            value="admin"
                             color="primary"
                             sx={{ color: "white" }}
                           />
@@ -269,8 +242,10 @@ const Register: React.FC = () => {
                       <FormControlLabel
                         control={
                           <Checkbox
-                            checked={isAgent}
-                            onChange={handleAgentCheckboxChange}
+                            checked={user.type === "agent"}
+                            onChange={handleChange}
+                            name="type"
+                            value="agent"
                             color="primary"
                             sx={{ color: "white" }}
                           />
