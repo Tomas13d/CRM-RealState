@@ -28,7 +28,8 @@ const FormularioPropiedad: React.FC = () => {
     address: "",
     category: "",
     city: "",
-    currency: "pesos",
+    rent_currency: "",
+    sale_currency: "",
     description: "",
     expenses_price: 0,
     operation_type: "",
@@ -62,7 +63,6 @@ const FormularioPropiedad: React.FC = () => {
   };
 
   const handleOperationType = () => {
-    console.log("previousestate", newEstate);
     setNewEstate((previousEstate) => ({
       ...previousEstate,
       operation_type:
@@ -76,11 +76,10 @@ const FormularioPropiedad: React.FC = () => {
     }));
   };
 
-  const handleCurrency = (event: SelectChangeEvent<string>) => {
-    const selectedCurrency = event.target.value;
+  const handleDropdowns = (event: SelectChangeEvent<string>) => {
     setNewEstate((previousEstate) => ({
       ...previousEstate,
-      currency: selectedCurrency,
+      [event.target.name]: event.target.value,
     }));
   };
 
@@ -94,7 +93,6 @@ const FormularioPropiedad: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(newEstate);
     await createNewEstate(newEstate);
     alert("Propiedad agregada con éxito");
     setNewEstate(initialState);
@@ -225,26 +223,34 @@ const FormularioPropiedad: React.FC = () => {
                   }}
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={5}>
                 <Typography variant="subtitle1">Categoría</Typography>
-                <TextField
+                <Select
                   name="category"
+                  onChange={handleDropdowns}
                   value={newEstate.category}
-                  onChange={handleChange}
                   fullWidth
                   required
-                  margin="normal"
+                  margin="none"
                   sx={{
+                    border: "1px solid white",
                     borderColor: "#FFFFFF",
                     "& .MuiOutlinedInput-root": {
                       borderRadius: "50px",
                       "& fieldset": {
                         borderColor: "#FFFFFF",
                       },
-                      color: "#FFFFFF",
                     },
+                    color: "white",
                   }}
-                />
+                >
+                  <MenuItem value="house">Casa</MenuItem>
+                  <MenuItem value="garage">Cochera</MenuItem>
+                  <MenuItem value="complex">Complejo</MenuItem>
+                  <MenuItem value="flat">Departamento</MenuItem>
+                  <MenuItem value="shop">Local</MenuItem>
+                  <MenuItem value="office">Oficina</MenuItem>
+                </Select>
               </Grid>
               <Grid item xs={6}>
                 <Typography variant="subtitle1">Ciudad</Typography>
@@ -292,32 +298,7 @@ const FormularioPropiedad: React.FC = () => {
                   }}
                 />
               </Grid>
-              <Grid item xs={5}>
-                <Typography variant="subtitle1">Moneda</Typography>
-                <Select
-                  name="currency"
-                  onChange={handleCurrency}
-                  value={newEstate.currency}
-                  fullWidth
-                  required
-                  margin="none"
-                  sx={{
-                    border: "1px solid white",
-                    borderColor: "#FFFFFF",
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: "50px",
-                      "& fieldset": {
-                        borderColor: "#FFFFFF",
-                      },
-                    },
-                    color: "white",
-                  }}
-                >
-                  <MenuItem value="ARS">Pesos argentinos</MenuItem>
-                  <MenuItem value="USD">Dólar</MenuItem>
-                </Select>
-              </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={12}>
                 <FormControl
                   component="fieldset"
                   margin="normal"
@@ -365,7 +346,7 @@ const FormularioPropiedad: React.FC = () => {
                 </FormControl>
               </Grid>
 
-              <Grid item xs={12}>
+              <Grid item xs={6}>
                 <Typography variant="subtitle1">Precio de venta</Typography>
                 <TextField
                   name="sale_price"
@@ -388,7 +369,33 @@ const FormularioPropiedad: React.FC = () => {
                   }}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={6}>
+                <Typography variant="subtitle1">Moneda venta</Typography>
+                <Select
+                  name="sale_currency"
+                  onChange={handleDropdowns}
+                  value={newEstate.sale_currency}
+                  fullWidth
+                  required
+                  margin="none"
+                  disabled={!newEstate.is_for_sale}
+                  sx={{
+                    border: "1px solid white",
+                    borderColor: "#FFFFFF",
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: "50px",
+                      "& fieldset": {
+                        borderColor: "#FFFFFF",
+                      },
+                    },
+                    color: "white",
+                  }}
+                >
+                  <MenuItem value="ARS">Pesos argentinos</MenuItem>
+                  <MenuItem value="USD">Dólar</MenuItem>
+                </Select>
+              </Grid>
+              <Grid item xs={6}>
                 <Typography variant="subtitle1">Precio de alquiler</Typography>
                 <TextField
                   name="rent_price"
@@ -410,6 +417,32 @@ const FormularioPropiedad: React.FC = () => {
                     },
                   }}
                 />
+              </Grid>
+              <Grid item xs={6}>
+                <Typography variant="subtitle1">Moneda alquiler</Typography>
+                <Select
+                  name="rent_currency"
+                  onChange={handleDropdowns}
+                  value={newEstate.rent_currency}
+                  fullWidth
+                  required
+                  margin="none"
+                  disabled={!newEstate.is_for_rent}
+                  sx={{
+                    border: "1px solid white",
+                    borderColor: "#FFFFFF",
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: "50px",
+                      "& fieldset": {
+                        borderColor: "#FFFFFF",
+                      },
+                    },
+                    color: "white",
+                  }}
+                >
+                  <MenuItem value="ARS">Pesos argentinos</MenuItem>
+                  <MenuItem value="USD">Dólar</MenuItem>
+                </Select>
               </Grid>
               <Grid item xs={12}>
                 <Typography variant="subtitle1">Descripción</Typography>

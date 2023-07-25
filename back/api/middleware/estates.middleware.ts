@@ -12,8 +12,10 @@ class EstatesMiddlewares {
 
     if (operation_type === "rent") {
       delete req.body.sale_price;
+      delete req.body.sale_currency;
     } else if (operation_type === "sale") {
       delete req.body.rent_price;
+      delete req.body.rent_currency;
     }
 
     next();
