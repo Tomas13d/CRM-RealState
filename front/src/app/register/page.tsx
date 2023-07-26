@@ -23,8 +23,8 @@ const Register: React.FC = () => {
   const [user, setUser] = useState({
     email: "",
     password: "",
-    firstName: "",
-    lastName: "",
+    firstname: "",
+    lastname: "",
     type: "agent",
   });
 
@@ -41,7 +41,7 @@ const Register: React.FC = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!user.email || !user.password || !user.firstName || !user.lastName) {
+    if (!user.email || !user.password || !user.firstname || !user.lastname) {
       toast.error("Por favor, completa todos los campos");
       return;
     } else if (!isValidEmail(user.email)) {
@@ -57,18 +57,18 @@ const Register: React.FC = () => {
     const data = {
       ...user,
     };
-    // try {
-    //   const response = await axios.post(
-    //     "http://localhost:3001/api/users/register",
-    //     data
-    //   );
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/api/users/register",
+        data
+      );
 
-    //   const user = response.data;
-    //   dispatch(setUser(user));
-    // } catch (error: any) {
-    //   console.error("Error en el pedido:", error.message);
-    //   toast.error("Hubo un error al registrar. Por favor, inténtalo de nuevo.");
-    // }
+      setUser(response.data);
+      dispatch(user);
+    } catch (error) {
+      console.error("Error en el pedido:", error);
+      toast.error("Hubo un error al registrar. Por favor, inténtalo de nuevo.");
+    }
   };
 
   const isValidEmail = (email: string) => {
@@ -80,7 +80,7 @@ const Register: React.FC = () => {
     const passwordRegex = /^(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{6,}$/;
     return passwordRegex.test(password);
   };
-
+  console.log(user);
   return (
     <>
       <ProtectedRoute>
@@ -185,9 +185,9 @@ const Register: React.FC = () => {
                       margin="normal"
                       required
                       fullWidth
-                      name="firstName"
-                      id="firstName"
-                      value={user.firstName}
+                      name="firstname"
+                      id="firstname"
+                      value={user.firstname}
                       onChange={handleChange}
                       sx={{
                         width: "100%",
@@ -207,9 +207,9 @@ const Register: React.FC = () => {
                       margin="normal"
                       required
                       fullWidth
-                      name="lastName"
-                      id="lastName"
-                      value={user.lastName}
+                      name="lastname"
+                      id="lastname"
+                      value={user.lastname}
                       onChange={handleChange}
                       sx={{
                         width: "100%",

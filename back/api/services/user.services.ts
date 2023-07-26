@@ -7,7 +7,7 @@ export const login = async (user: User) => {
   const userCredential = await auth.getUserByEmail(email);
   const userId = userCredential.uid;
 
-  const data = await getUserByUID(userId);
+  const data = await getUserID(userId);
 
   return { idToken, data };
 };
@@ -37,32 +37,5 @@ export const getUserID = async (id: string) => {
   userSnapshot.exists
     ? (userData = userSnapshot.data())
     : console.log("El usuario con el id proporcionado no existe.");
-  return userData;
-};
-
-export const getUserByUID = async (uid: string) => {
-  const userDocument = db.collection("Users").doc(`${uid}`);
-  const loginUser = await userDocument.get();
-
-  const userData: User = {
-    firstname: "",
-    lastname: "",
-    email: "",
-    password: "",
-    id: "",
-    idToken: "",
-  };
-
-  if (loginUser.exists) {
-    const data = loginUser.data();
-    if (data) {
-      userData.firstname = data.firstname;
-      userData.lastname = data.lastname;
-      userData.email = data.email;
-      userData.password = data["password"];
-      userData.id = uid;
-    }
-  }
-
   return userData;
 };
