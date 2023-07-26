@@ -1,7 +1,7 @@
 import "firebase/compat/auth";
 import { auth } from "../firebase";
 import { Request, Response, NextFunction } from "express";
-const { getUserByUID } = require("../services/user.services");
+const { getUserID } = require("../services/user.services");
 
 const validateUserMiddleware = async (
   req: Request,
@@ -16,7 +16,7 @@ const validateUserMiddleware = async (
 
     const decodeToken = await auth.verifyIdToken(token);
     const uid: string = decodeToken.uid;
-    const userRecord = await getUserByUID(uid);
+    const userRecord = await getUserID(uid);
 
     req.user = userRecord;
 

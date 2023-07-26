@@ -12,6 +12,7 @@ class UserController {
         lastname: data.lastname,
         email: data.email,
         password: data.password,
+        type: data.type,
       };
 
       res.cookie("TOKEN", idToken);
