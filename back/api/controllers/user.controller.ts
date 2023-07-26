@@ -18,6 +18,7 @@ class UserController {
       return res.status(200).send(payload);
     } catch (error) {
       console.log(error);
+
       res.status(500).json({ message: "Error en el inicio de sesión", error });
     }
   }
@@ -32,7 +33,7 @@ class UserController {
         throw new Error("Invalid email or password");
       }
     } catch (error) {
-      return res.status(400).send(error);
+      return res.status(400).json({ error });
     }
   }
 
