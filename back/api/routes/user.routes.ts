@@ -6,5 +6,6 @@ import validateUserMiddleware from "../middleware";
 usersRouter.post("/login", UserController.loginUser);
 usersRouter.post("/register", UserController.registerUser);
 usersRouter.get("/me", validateUserMiddleware, UserController.persistence);
+usersRouter.get("/:id", UserController.getUserForID);
 
 export default usersRouter;

@@ -22,7 +22,7 @@ import { Toaster } from "react-hot-toast";
 import SearchIcon from "@mui/icons-material/Search";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
-const AdminRentals = () => {
+const adminRentals = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const inquilinos = [
     {
@@ -229,4 +229,4 @@ const AdminRentals = () => {
   );
 };
 
-export default AdminRentals;
+export default adminRentals;

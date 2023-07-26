@@ -29,6 +29,17 @@ export const register = async (user: User) => {
 
   return newUser;
 };
+
+export const getUserID = async (id: string) => {
+  const userRef = db.collection("Users").doc(id);
+  const userSnapshot = await userRef.get();
+  let userData;
+  userSnapshot.exists
+    ? (userData = userSnapshot.data())
+    : console.log("El usuario con el id proporcionado no existe.");
+  return userData;
+};
+
 export const getUserByUID = async (uid: string) => {
   const userDocument = db.collection("Users").doc(`${uid}`);
   const loginUser = await userDocument.get();

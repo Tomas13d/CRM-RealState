@@ -9,5 +9,6 @@ estateRouter.post(
   EstatesMiddlewares.processNewEstateRequest,
   EstateController.addEstate
 );
+estateRouter.get("/:id", EstateController.getEstateUID);
 
 export default estateRouter;

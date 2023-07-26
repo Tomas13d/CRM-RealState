@@ -12,3 +12,13 @@ export const getAllEstates = async () => {
   });
   return estates;
 };
+
+export const getEstateID = async (id: string) => {
+  const estateRef = db.collection("Estates").doc(id);
+  const estateSnapshot = await estateRef.get();
+  let estateData;
+  estateSnapshot.exists
+    ? (estateData = estateSnapshot.data())
+    : console.log("La propiedad con el id proporcionado no existe.");
+  return estateData;
+};

@@ -1,5 +1,9 @@
 import { Request, Response } from "express";
-import { createEstate, getAllEstates } from "../services/estates.services";
+import {
+  createEstate,
+  getAllEstates,
+  getEstateID,
+} from "../services/estates.services";
 
 class EstateController {
   static async addEstate(req: Request, res: Response) {
@@ -18,6 +22,15 @@ class EstateController {
       return res.status(200).send(estates);
     } catch (error) {
       res.status(400).json({ msg: "Error to get all estates", error });
+    }
+  }
+  static async getEstateUID(_req: Request, res: Response) {
+    try {
+      const id = _req.params.id;
+      const estate = await getEstateID(id);
+      return res.status(200).send(estate);
+    } catch (error) {
+      res.status(400).json({ msg: "Error to get estate", error });
     }
   }
 }
