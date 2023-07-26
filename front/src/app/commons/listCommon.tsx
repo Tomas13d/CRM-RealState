@@ -24,7 +24,7 @@ interface CustomListProps {
 
 const CustomList: React.FC<CustomListProps> = ({ columns, data }) => {
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box sx={{ width: "100%", marginTop: 10, marginLeft: 5 }}>
       <Table sx={{ borderCollapse: "separate" }}>
         <TableHead sx={{ overflow: "hidden", margin: "5px" }}>
           <TableRow>
