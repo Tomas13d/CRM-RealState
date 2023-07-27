@@ -18,7 +18,7 @@ const validateUserMiddleware = async (
     const uid: string = decodeToken.uid;
     const userRecord = await getUserID(uid);
 
-    req.user = userRecord;
+    req.user = { ...userRecord, id: uid };
 
     next();
   } catch (error) {
