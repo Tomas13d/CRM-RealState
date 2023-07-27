@@ -6,6 +6,7 @@ import acquisitionRouter from "./acquisition.routes";
 import rentRouter from "./rent.routes";
 import estateRouter from "./estate.routes";
 import rentpayRouter from "./rentpay.routes";
+import agentRouter from "./agent.routes";
 
 router.use("/users", usersRouter);
 router.use("/clients", clientRouter);
@@ -14,5 +15,6 @@ router.use("/rents", rentRouter);
 router.use("/rentpay", rentpayRouter);
 
 router.use("/estates", estateRouter);
+router.use("/agents", agentRouter);
 
 export default router;

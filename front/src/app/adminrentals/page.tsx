@@ -24,7 +24,7 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import { detalleAdminRentals } from "../services/acquistion.services";
 import { Acquisition } from "../types/types.md";
 
-const AdminRentals = () => {
+const adminRentals = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   async function obtenerDetalleRents() {
@@ -248,4 +248,4 @@ const AdminRentals = () => {
   );
 };
 
-export default AdminRentals;
+export default adminRentals;
