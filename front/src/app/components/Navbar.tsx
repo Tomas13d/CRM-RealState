@@ -19,7 +19,7 @@ import { setUser } from "../states/user";
 const Navbar: React.FC = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const dispatch = useDispatch();
-  const user = useSelector((state: RootState) => state.user);
+  /*   const user = useSelector((state: RootState) => state.user); */
 
   useEffect(() => {
     axios
