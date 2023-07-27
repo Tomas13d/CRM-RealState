@@ -9,6 +9,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import HelpIcon from "@mui/icons-material/Help";
 
 import SidebarButton from "../commons/sidebarButton";
+import Link from "next/link";
 
 const Sidebar = () => {
   return (
@@ -22,13 +23,18 @@ const Sidebar = () => {
     >
       <Box>
         <SidebarButton icon={<SignalCellularAltIcon />} text="Reportes" />
-        <SidebarButton icon={<PeopleAltIcon />} text="Agentes" />
-        <SidebarButton
-          icon={<HomeWorkIcon />}
-          text="Administracion de alquileres"
-        />
-        <SidebarButton icon={<PersonIcon />} text="Clientes" />
-
+        <Link href="/agents" passHref>
+          <SidebarButton icon={<PeopleAltIcon />} text="Agentes" />
+        </Link>
+        <Link href="/adminrentals" passHref>
+          <SidebarButton
+            icon={<HomeWorkIcon />}
+            text="Administracion de alquileres"
+          />
+        </Link>
+        <Link href="/clients/create" passHref>
+          <SidebarButton icon={<PersonIcon />} text="Clientes" />
+        </Link>
         <SidebarButton icon={<CallIcon />} text="Call center" />
         <SidebarButton icon={<AccountCircleIcon />} text="Usuarios" />
         <SidebarButton icon={<HelpIcon />} text="Ayuda" />
