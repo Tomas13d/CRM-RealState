@@ -21,9 +21,27 @@ import { Box } from "@mui/system";
 import { Toaster } from "react-hot-toast";
 import SearchIcon from "@mui/icons-material/Search";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import { detalleAdminRentals } from "../services/acquistion.services";
+import { Acquisition } from "../types/types.md";
 
 const AdminRentals = () => {
   const [searchQuery, setSearchQuery] = useState("");
+
+  async function obtenerDetalleRents() {
+    try {
+      const getAllRentsToAcquisition: Array<Acquisition> =
+        await detalleAdminRentals();
+      return getAllRentsToAcquisition;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  /* Ver como devolver la promesa !!!!!!!!!!  
+ const detalleRents:Acquisition[]= obtenerDetalleRents();
+  Al tipo "Promise<Acquisition[] | undefined>" le faltan las propiedades siguientes del tipo "Acquisition[]": length, push, pop, concat y más.
+  console.log(detalleAdminRentals()); */
+
   const inquilinos = [
     {
       id: 1,
@@ -40,6 +58,7 @@ const AdminRentals = () => {
       alquiler: "$800",
     },
   ];
+
   const filteredInquilinos = inquilinos.filter((inquilino) =>
     inquilino.propiedad.toLowerCase().includes(searchQuery.toLowerCase())
   );
