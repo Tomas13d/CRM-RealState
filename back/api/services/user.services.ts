@@ -9,7 +9,7 @@ export const login = async (user: User) => {
 
   const data = await getUserID(userId);
 
-  return { idToken, data };
+  return { idToken, data, userId };
 };
 
 export const register = async (user: User) => {
@@ -38,4 +38,12 @@ export const getUserID = async (id: string) => {
     ? (userData = userSnapshot.data())
     : console.log("El usuario con el id proporcionado no existe.");
   return userData;
+};
+
+export const getAllUsers = async () => {
+  const usersSnapshot = await db.collection("Users").get();
+  const users: User[] = usersSnapshot.docs.map((doc) => {
+    return { ...(doc.data() as User), id: doc.id };
+  });
+  return users;
 };
