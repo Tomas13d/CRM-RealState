@@ -2,25 +2,24 @@ const { login, register, getUserID } = require("../services/user.services");
 import { Request, Response } from "express";
 
 import { isValidEmail, isValidPassword } from "../utils/utils";
+import { getAllUsers } from "../services/user.services";
 class UserController {
   //login modificado
   static async loginUser(req: Request, res: Response) {
     try {
-      const { data, idToken } = await login(req.body);
+      const { data, idToken, userId } = await login(req.body);
       const payload = {
         firstname: data.firstname,
         lastname: data.lastname,
         email: data.email,
         password: data.password,
         type: data.type,
-        id: data.uid,
+        id: userId,
       };
 
       res.cookie("TOKEN", idToken);
       return res.status(200).send(payload);
     } catch (error) {
-      console.log(error);
-
       res.status(500).json({ message: "Error en el inicio de sesión", error });
     }
   }
@@ -53,6 +52,14 @@ class UserController {
       return res.status(201).send(response);
     } catch (error) {
       return res.status(400).send(error);
+    }
+  }
+  static async getAllUsers(_req: Request, res: Response) {
+    try {
+      const users = await getAllUsers();
+      return res.status(200).send(users);
+    } catch (error) {
+      res.status(400).json({ msg: "Error retrieving users", error });
     }
   }
 }
