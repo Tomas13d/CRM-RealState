@@ -2,7 +2,7 @@
 import CustomList from "../commons/listCommon";
 import Layout from "../commons/layout";
 import { useEffect, useState } from "react";
-import { getAllAgents } from "../services/agent.services";
+import { getAllAgents } from "../services/user.services";
 
 const AgentList = () => {
   const columns = [
