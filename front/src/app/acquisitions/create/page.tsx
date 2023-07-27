@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { getAllEstates } from "@/app/services/estates.services";
 import {
   Box,
   Typography,
@@ -15,11 +14,15 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
+import { getAllEstates } from "@/app/services/estates.services";
 import { getAllBuyersAndTenants } from "@/app/services/client.services";
-import { Client, Estate } from "@/app/types/types.md";
+import { fetchUsersAccordingToLoggedUserType } from "@/app/services/user.services";
+import { Client, Estate, User } from "@/app/types/types.md";
 import { createNewAcquistion } from "@/app/services/acquistion.services";
 import Layout from "@/app/commons/layout";
-
+import { useSelector } from "react-redux";
+import { RootState } from "@/app/states/store";
+import { Roofing } from "@mui/icons-material";
 const page = () => {
   const inputStyle = {
     color: "white",
@@ -32,16 +35,25 @@ const page = () => {
 
   const [buyerAndTenants, setBuyersAndTenants] = useState([]);
   const [estates, setEstates] = useState([]);
-  const handleGetStates = async () => {
+  const [users, setUsers] = useState([]);
+  const loggedUser = useSelector((state: RootState) => state.user);
+  const handleGetData = async () => {
     const fetchedEstates = await getAllEstates();
     setEstates(fetchedEstates);
     const fetchedBuyerAndTenants = await getAllBuyersAndTenants();
     setBuyersAndTenants(fetchedBuyerAndTenants);
+
+    const fetchedUsers = await fetchUsersAccordingToLoggedUserType(
+      loggedUser.type,
+      loggedUser.id
+    );
+
+    setUsers(fetchedUsers);
   };
 
   useEffect(() => {
-    handleGetStates();
-  }, []);
+    handleGetData();
+  }, [loggedUser.id]);
 
   const [newAcquisition, setNewAcquisition] = useState({
     description: "",
@@ -50,6 +62,7 @@ const page = () => {
     transactionType: "",
     transactionCurrency: "",
     transactionPrice: "",
+    agentID: "",
   });
 
   const handleInput = (e: any) => {
@@ -151,6 +164,32 @@ const page = () => {
                   {buyerAndTenants.map((client: Client) => (
                     <MenuItem key={client.id} value={client.id}>
                       {`${client.first_name} ${client.last_name}`}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <InputLabel
+                htmlFor="agentID"
+                sx={{ color: "white", paddingLeft: "20px" }}
+              >
+                Agente asociado
+              </InputLabel>
+              <FormControl>
+                <Select
+                  onChange={handleInput}
+                  value={newAcquisition.agentID}
+                  name="agentID"
+                  sx={inputStyle}
+                  displayEmpty
+                  disableUnderline
+                  required
+                >
+                  <MenuItem value="" disabled>
+                    Selecciona un agente
+                  </MenuItem>
+                  {users?.map((user: User) => (
+                    <MenuItem key={user.id} value={user.id}>
+                      {`${user.firstname} ${user.lastname}`}
                     </MenuItem>
                   ))}
                 </Select>
