@@ -96,65 +96,56 @@ const Properties: React.FC = () => {
                 <ArrowBackIcon />
               </IconButton>{" "}
               Propiedades
-              <Typography variant="subtitle1" sx={{ color: "white", mt: 3 }}>
+              
+            </Typography>
+            <Grid container spacing={2} sx={{ margin: "10px", alignItems: "center" }}>
+            <Grid item xs={12}>
+              <Typography variant="subtitle1" sx={{ color: "white", mt: 1 }}>
                 Buscar
               </Typography>
-            </Typography>
-            <Grid
-              container
-              spacing={2}
-              sx={{ margin: "20px", alignItems: "center" }}
-            >
-              <Grid
-                item
-                xs={8}
+            </Grid>
+            <Grid item xs={8} sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <TextField
+                fullWidth
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon sx={{ color: "white" }} />
+                    </InputAdornment>
+                  ),
+                  sx: {
+                    color: "white",
+                    backgroundColor: "#2A3541",
+                    borderRadius: "20px",
+                    overflow: "hidden",
+                    mt: 1,
+                  },
+                }}
+                inputProps={{
+                  style: { color: "white" },
+                }}
+              />
+
+              <Button
+                variant="contained"
+                type="submit"
+                color="primary"
                 sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  mt: 1,
+                  mb: 1,
+                  borderRadius: "50px",
+                  width: "300px",
+                  height: "50px",
+                  alignSelf: "flex-end",
+                  marginLeft: "100px",
                 }}
               >
-                <TextField
-                  fullWidth
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <SearchIcon sx={{ color: "white" }} />
-                      </InputAdornment>
-                    ),
-                    sx: {
-                      color: "white",
-                      backgroundColor: "#2A3541",
-                      borderRadius: "20px",
-                      overflow: "hidden",
-                      mt: 1,
-                    },
-                  }}
-                  inputProps={{
-                    style: { color: "white" },
-                  }}
-                />
-
-                <Button
-                  variant="contained"
-                  type="submit"
-                  color="primary"
-                  sx={{
-                    mt: 1,
-                    mb: 1,
-                    borderRadius: "50px",
-                    width: "300px",
-                    height: "50px",
-                    alignSelf: "flex-end",
-                    marginLeft: "100px",
-                  }}
-                >
-                  Agregar Propiedad
-                </Button>
-              </Grid>
+                Agregar Propiedad
+              </Button>
             </Grid>
+          </Grid>
 
             <CustomList
               columns={columns}

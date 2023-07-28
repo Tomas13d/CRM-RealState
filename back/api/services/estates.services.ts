@@ -1,8 +1,15 @@
 import { db } from "../firebase";
-import { Estate } from "./types.md";
+import { getClientID } from "./client.services";
+import { estateData, Estate, Client } from "./types.md";
 
-export const createEstate = async (estate: Estate) => {
-  return await db.collection("Estates").add(estate);
+export const createEstate = async (estate: estateData) => {
+  const owner = (await getClientID(estate.owner_id)) as Client;
+  const newState: Estate = {
+    ...estate,
+    owner: owner,
+  };
+
+  return await db.collection("Estates").add(newState);
 };
 
 export const getAllEstates = async () => {
