@@ -52,7 +52,7 @@ const Properties: React.FC = () => {
             sx={{
               px: 4,
               py: 1,
-              marginTop: 15,
+              marginTop: 10,
               color: "white",
               display: "flex",
               flexDirection: "column",
@@ -91,15 +91,17 @@ const Properties: React.FC = () => {
                 <ArrowBackIcon />
               </IconButton>{" "}
               Propiedades
-              <Typography variant="subtitle1" sx={{ color: "white", mt: 3 }}>
-                Buscar
-              </Typography>
             </Typography>
             <Grid
               container
               spacing={2}
-              sx={{ margin: "20px", alignItems: "center" }}
+              sx={{ margin: "10px", alignItems: "center" }}
             >
+              <Grid item xs={12}>
+                <Typography variant="subtitle1" sx={{ color: "white", mt: 1 }}>
+                  Buscar
+                </Typography>
+              </Grid>
               <Grid
                 item
                 xs={8}
