@@ -3,7 +3,6 @@ import { useState } from "react";
 import {
   Container,
   Typography,
-  TextField,
   Table,
   TableBody,
   TableCell,
@@ -12,17 +11,17 @@ import {
   TableRow,
   IconButton,
   Paper,
-  InputAdornment,
   Grid,
 } from "@mui/material";
 import Layout from "../commons/layout";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Box } from "@mui/system";
 import { Toaster } from "react-hot-toast";
-import SearchIcon from "@mui/icons-material/Search";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import { detalleAdminRentals } from "../services/acquistion.services";
 import { Acquisition } from "../types/types.md";
+import CommonSearch from "../commons/search/search";
+import Tablehead from "./tableHead";
 
 const adminRentals = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -110,31 +109,7 @@ const adminRentals = () => {
                 <ArrowBackIcon />
               </IconButton>{" "}
               Administración de alquileres
-              <Typography variant="subtitle1" sx={{ color: "white", mt: 3 }}>
-                Buscar
-              </Typography>
-              <TextField
-                fullWidth
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon sx={{ color: "white" }} />
-                    </InputAdornment>
-                  ),
-                  sx: {
-                    color: "white",
-                    backgroundColor: "#2A3541",
-                    borderRadius: "20px",
-                    overflow: "hidden",
-                    mt: 1,
-                  },
-                }}
-                inputProps={{
-                  style: { color: "white" },
-                }}
-              />
+              <CommonSearch value={searchQuery} onChange={setSearchQuery} />
             </Typography>
             <TableContainer component={Paper} sx={{ mt: 2 }}>
               <Table
@@ -144,73 +119,7 @@ const adminRentals = () => {
                   borderRadius: "20px",
                 }}
               >
-                <TableHead
-                  sx={{
-                    mt: 1,
-                  }}
-                >
-                  <TableRow
-                    sx={{
-                      color: "white",
-                      backgroundColor: "#2A3541",
-                      borderRadius: "20px",
-                      overflow: "hidden",
-                    }}
-                  >
-                    <TableCell
-                      sx={{
-                        fontSize: "18px",
-                        "& svg": {
-                          color: "white",
-                        },
-                      }}
-                    >
-                      <Grid container alignItems="center">
-                        <span>Propiedades</span>
-                        <ArrowDownwardIcon />
-                      </Grid>
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        fontSize: "18px",
-                        "& svg": {
-                          color: "white",
-                        },
-                      }}
-                    >
-                      <Grid container alignItems="center">
-                        <span>Tipología</span>
-                        <ArrowDownwardIcon />
-                      </Grid>
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        fontSize: "18px",
-                        "& svg": {
-                          color: "white",
-                        },
-                      }}
-                    >
-                      <Grid container alignItems="center">
-                        <span>Inquilino</span>
-                        <ArrowDownwardIcon />
-                      </Grid>
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        fontSize: "18px",
-                        "& svg": {
-                          color: "white",
-                        },
-                      }}
-                    >
-                      <Grid container alignItems="center">
-                        <span>Alquiler</span>
-                        <ArrowDownwardIcon />
-                      </Grid>
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
+                <Tablehead />
                 <TableBody>
                   {filteredInquilinos.map((inquilino) => (
                     <TableRow
