@@ -101,10 +101,6 @@ export default function SingleEstateModal({
           </Grid>
           <Grid container spacing={1} sx={{ margin: "20px 0px" }}>
             <Grid item xs={12}>
-              <Subtitle1>Descripción</Subtitle1>
-              <SubtitleDesciption1>
-                {estateData.description}
-              </SubtitleDesciption1>
               <Subtitle1>Agente asignado</Subtitle1>
               <SubtitleDesciption1>Don Draper </SubtitleDesciption1>
             </Grid>
