@@ -16,12 +16,19 @@ export const getAllClients = async () => {
   return clients;
 };
 export const getClientID = async (id: string) => {
-  const clientRef = db.collection("Clients").doc(id);
-  const clientSnapshot = await clientRef.get();
-  let clientData;
-  clientSnapshot.exists
-    ? (clientData = clientSnapshot.data())
-    : (clientData = "Client no exist.");
-  console.log("El cliente con el id proporcionado no existe.");
-  return clientData;
+  try {
+    const clientRef = db.collection("Clients").doc(id);
+    const clientSnapshot = await clientRef.get();
+
+    if (!clientSnapshot.exists) {
+      console.log("El cliente con el id proporcionado no existe.");
+      return null; // O podrías lanzar una excepción, dependiendo del caso de uso.
+    }
+
+    const clientData = clientSnapshot.data();
+    return clientData;
+  } catch (error) {
+    console.error("Error al obtener el cliente:", error);
+    return null; // O podrías lanzar una excepción, dependiendo del caso de uso.
+  }
 };
