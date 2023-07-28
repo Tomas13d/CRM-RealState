@@ -54,6 +54,7 @@ export type Estate = {
   operation_type: "rent" | "sale" | "rent_sale" | "";
   is_for_sale: boolean;
   is_for_rent: boolean;
+  owner: Client;
 };
 
 export interface User {
