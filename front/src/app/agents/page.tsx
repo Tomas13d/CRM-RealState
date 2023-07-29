@@ -2,8 +2,8 @@
 import CustomList from "../commons/listCommon";
 import Layout from "../commons/layout";
 import { useEffect, useState } from "react";
-import { getAllAgents } from "../services/user.services";
-
+import { getAllUsers } from "../services/user.services";
+import { User } from "../types/types.md";
 const AgentList = () => {
   const columns = [
     { key: "firstname", label: "Nombre" },
@@ -12,8 +12,8 @@ const AgentList = () => {
   ];
   const [agents, setAgents] = useState([]);
   const handleGetAgents = async () => {
-    const fetchedAgents = await getAllAgents();
-    setAgents(fetchedAgents);
+    const fetchedUsers = await getAllUsers();
+    setAgents(fetchedUsers.filter((user: User) => user.type === "agent"));
   };
   useEffect(() => {
     handleGetAgents();
