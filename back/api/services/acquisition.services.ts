@@ -55,3 +55,13 @@ export const getAllAcquisitionsSales = async () => {
 
   return acquisitions;
 };
+
+export const getAllAcquisitionsRents = async () => {
+  const acquisitionsRef = db.collection("Acquisitions");
+  const snapshot = await acquisitionsRef.get();
+  const acquisitions: Acquisition[] = snapshot.docs
+    .map((doc) => doc.data() as Acquisition)
+    .filter((acquisition) => acquisition.transaction_type == "rent");
+
+  return acquisitions;
+};
