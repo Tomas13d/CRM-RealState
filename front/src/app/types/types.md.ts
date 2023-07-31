@@ -13,10 +13,10 @@ export type Acquisition = {
 };
 export type AcquisitionFrond = {
   description: string;
-  agent_id?: User;
-  buyer_id?: Client;
-  tenant_id?: Client;
-  estate_id: Estate;
+  agent?: User;
+  buyer?: Client;
+  tenant?: Client;
+  estate: Estate;
   transaction_type: string;
   transaction_price: number;
   transaction_currency: string;

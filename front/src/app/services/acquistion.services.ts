@@ -45,15 +45,14 @@ export const createNewAcquistion = async (
 
 export const detalleAdminRentals = async () => {
   try {
-    const getAllRentsToAcquisitions = await axios.get(
+    const response = await axios.get(
       "http://localhost:3001/api/acquisitions/rents",
       {
         withCredentials: true,
       }
     );
-    const rentsAcquisition: Array<AcquisitionFrond> =
-      getAllRentsToAcquisitions.data;
-    console.log(rentsAcquisition);
+
+    return response.data;
 
     /*     rentsAcquisition.map(async (acquisition: AcquisitionFrond) => {
       const agent_id = await axios.get(
@@ -76,8 +75,6 @@ export const detalleAdminRentals = async () => {
       );
     });
     console.log(rentsAcquisition); */
-
-    return rentsAcquisition;
   } catch (error) {
     console.error("An error occurred while getting all rentals:", error);
     throw error;
