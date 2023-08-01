@@ -4,6 +4,7 @@ import {
   getAcquisitions,
   getAllAcquisitionsSales,
   getAllAcquisitionsRents,
+  postModifiedPrice,
 } from "../services/acquisition.services";
 
 class AcquisitionController {
@@ -42,6 +43,17 @@ class AcquisitionController {
       res.status(200).send(acquisitions);
     } catch (error) {
       res.status(400).json({ msg: "Error retrieving Acquisitions", error });
+    }
+  }
+
+  static async postModifiedPrice(_req: Request, res: Response) {
+    try {
+      const id: string = _req.params.id;
+      const { newPrice } = _req.body;
+      const acquisition = await postModifiedPrice(id, Number(newPrice));
+      res.status(200).send(acquisition);
+    } catch (error) {
+      res.status(400).json({ msg: "Error to route modified-Price", error });
     }
   }
 }

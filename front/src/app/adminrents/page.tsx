@@ -12,7 +12,7 @@ const columns = [
   { key: "description", label: "Nombre" },
   { key: "transaction_date", label: "Fecha de inicio" },
   { key: "transaction_type", label: "Operacion" },
-  { key: "button", label: "" },
+  { key: "button", label: "bottones" },
 ];
 
 const Adminrents: React.FC = () => {

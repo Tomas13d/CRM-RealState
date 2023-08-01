@@ -22,13 +22,13 @@ export const getClientID = async (id: string) => {
 
     if (!clientSnapshot.exists) {
       console.log("El cliente con el id proporcionado no existe.");
-      return null; // O podrías lanzar una excepción, dependiendo del caso de uso.
+      return null;
     }
 
     const clientData = clientSnapshot.data();
     return clientData;
   } catch (error) {
     console.error("Error al obtener el cliente:", error);
-    return null; // O podrías lanzar una excepción, dependiendo del caso de uso.
+    return null;
   }
 };

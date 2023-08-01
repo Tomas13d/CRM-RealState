@@ -57,11 +57,32 @@ export const getAllAcquisitionsSales = async () => {
 };
 
 export const getAllAcquisitionsRents = async () => {
-  const acquisitionsRef = db.collection("Acquisitions");
-  const snapshot = await acquisitionsRef.get();
-  const acquisitions: Acquisition[] = snapshot.docs
-    .map((doc) => doc.data() as Acquisition)
-    .filter((acquisition) => acquisition.transaction_type == "rent");
+  const snapshot = await db.collection("Acquisitions").get();
+  const getAllAcquisitions: Acquisition[] = snapshot.docs.map((doc) => {
+    return { ...(doc.data() as Acquisition), id: doc.id };
+  });
+  const acquisitions = getAllAcquisitions.filter(
+    (acquisition) => acquisition.transaction_type == "rent"
+  );
 
   return acquisitions;
+};
+
+export const postModifiedPrice = async (uid: string, newPrice: number) => {
+  const acquisitionsRef = await db.collection("Acquisitions").doc(uid);
+  const newDate = { transaction_price: newPrice };
+  let updatedDoc;
+  await acquisitionsRef.update(newDate);
+  await acquisitionsRef.get().then((docSnapshot) => {
+    if (docSnapshot.exists) {
+      updatedDoc = {
+        ...(docSnapshot.data() as Acquisition),
+        id: docSnapshot.id,
+      };
+      console.log("Documento actualizado:", updatedDoc);
+    } else {
+      console.log("El documento no existe.");
+    }
+  });
+  return updatedDoc;
 };
