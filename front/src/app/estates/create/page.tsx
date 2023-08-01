@@ -21,6 +21,7 @@ import Layout from "../../commons/layout";
 import { Client, Estate } from "@/app/types/types.md";
 import { getAllOwners } from "@/app/services/client.services";
 import { createNewEstate } from "@/app/services/estates.services";
+import ProtectedRoutes from "@/app/components/ProtectedRoutes";
 
 const FormularioPropiedad: React.FC = () => {
   const initialState: Estate = {
@@ -102,393 +103,398 @@ const FormularioPropiedad: React.FC = () => {
 
   return (
     <>
-      <Layout>
-        <Box
-          sx={{
-            boxShadow: 3,
-            borderRadius: 2,
-            px: 4,
-            py: 1,
-            color: "white",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-            justifyContent: "flex-start",
-            background: "transparent",
-            padding: 10,
-          }}
-        >
-          <Typography
-            component="h1"
-            variant="h5"
+      {" "}
+      <ProtectedRoutes>
+        <Layout>
+          <Box
             sx={{
-              fontSize: "35px",
-              fontFamily: "'Open Sans', sans-serif",
-              fontWeight: "bold",
-              alignSelf: "flex-start",
-              marginBottom: "30px",
-              marginRight: "40px",
+              boxShadow: 3,
+              borderRadius: 2,
+              px: 4,
+              py: 1,
+              color: "white",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-start",
+              justifyContent: "flex-start",
+              background: "transparent",
+              padding: 10,
             }}
           >
-            <IconButton
-              onClick={() => window.history.back()}
-              color="primary"
+            <Typography
+              component="h1"
+              variant="h5"
               sx={{
-                marginRight: "10px",
-                color: "white",
-                backgroundColor: "#6878D6",
-                borderRadius: "8px",
-                "&:hover": {
-                  backgroundColor: "#5878D6",
-                },
+                fontSize: "35px",
+                fontFamily: "'Open Sans', sans-serif",
+                fontWeight: "bold",
+                alignSelf: "flex-start",
+                marginBottom: "30px",
+                marginRight: "40px",
               }}
             >
-              <ArrowBackIcon />
-            </IconButton>
-            Ingresar Nueva Propiedad
-          </Typography>
+              <IconButton
+                onClick={() => window.history.back()}
+                color="primary"
+                sx={{
+                  marginRight: "10px",
+                  color: "white",
+                  backgroundColor: "#6878D6",
+                  borderRadius: "8px",
+                  "&:hover": {
+                    backgroundColor: "#5878D6",
+                  },
+                }}
+              >
+                <ArrowBackIcon />
+              </IconButton>
+              Ingresar Nueva Propiedad
+            </Typography>
 
-          <form onSubmit={handleSubmit}>
-            <Grid container spacing={2} sx={{ margin: "20px" }}>
-              <Grid item xs={6}>
-                <Typography variant="subtitle1">Título</Typography>
-                <TextField
-                  name="name"
-                  value={newEstate.name}
-                  onChange={handleChange}
-                  fullWidth
-                  required
-                  margin="normal"
-                  sx={{
-                    borderColor: "#FFFFFF",
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: "50px",
-                      "& fieldset": {
-                        borderColor: "#FFFFFF",
+            <form onSubmit={handleSubmit}>
+              <Grid container spacing={2} sx={{ margin: "20px" }}>
+                <Grid item xs={6}>
+                  <Typography variant="subtitle1">Título</Typography>
+                  <TextField
+                    name="name"
+                    value={newEstate.name}
+                    onChange={handleChange}
+                    fullWidth
+                    required
+                    margin="normal"
+                    sx={{
+                      borderColor: "#FFFFFF",
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: "50px",
+                        "& fieldset": {
+                          borderColor: "#FFFFFF",
+                        },
+                        color: "#FFFFFF",
                       },
-                      color: "#FFFFFF",
-                    },
-                  }}
-                />
-              </Grid>
-              <Grid item xs={5}>
-                <Typography variant="subtitle1">Propietario</Typography>
-                <Select
-                  name="owner_id"
-                  onChange={handleOwnerChange}
-                  value={newEstate.owner_id}
-                  fullWidth
-                  required
-                  margin="none"
-                  sx={{
-                    border: "1px solid white",
-                    borderColor: "#FFFFFF",
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: "50px",
-                      "& fieldset": {
-                        borderColor: "#FFFFFF",
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={5}>
+                  <Typography variant="subtitle1">Propietario</Typography>
+                  <Select
+                    name="owner_id"
+                    onChange={handleOwnerChange}
+                    value={newEstate.owner_id}
+                    fullWidth
+                    required
+                    margin="none"
+                    sx={{
+                      border: "1px solid white",
+                      borderColor: "#FFFFFF",
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: "50px",
+                        "& fieldset": {
+                          borderColor: "#FFFFFF",
+                        },
                       },
-                    },
-                    color: "white",
-                  }}
-                >
-                  <MenuItem value="" disabled>
-                    Selecciona un propietario
-                  </MenuItem>
-                  {owners.map((owner: Client) => (
-                    <MenuItem key={owner.id} value={owner.id}>
-                      {`${owner.first_name} ${owner.last_name}`}
+                      color: "white",
+                    }}
+                  >
+                    <MenuItem value="" disabled>
+                      Selecciona un propietario
                     </MenuItem>
-                  ))}
-                </Select>
-              </Grid>
-              <Grid item xs={6}>
-                <Typography variant="subtitle1">Dirección</Typography>
-                <TextField
-                  name="address"
-                  value={newEstate.address}
-                  onChange={handleChange}
-                  fullWidth
-                  required
-                  margin="normal"
-                  sx={{
-                    borderColor: "#FFFFFF",
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: "50px",
-                      "& fieldset": {
-                        borderColor: "#FFFFFF",
+                    {owners.map((owner: Client) => (
+                      <MenuItem key={owner.id} value={owner.id}>
+                        {`${owner.first_name} ${owner.last_name}`}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography variant="subtitle1">Dirección</Typography>
+                  <TextField
+                    name="address"
+                    value={newEstate.address}
+                    onChange={handleChange}
+                    fullWidth
+                    required
+                    margin="normal"
+                    sx={{
+                      borderColor: "#FFFFFF",
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: "50px",
+                        "& fieldset": {
+                          borderColor: "#FFFFFF",
+                        },
+                        color: "#FFFFFF",
                       },
-                      color: "#FFFFFF",
-                    },
-                  }}
-                />
-              </Grid>
-              <Grid item xs={5}>
-                <Typography variant="subtitle1">Categoría</Typography>
-                <Select
-                  name="category"
-                  onChange={handleDropdowns}
-                  value={newEstate.category}
-                  fullWidth
-                  required
-                  margin="none"
-                  sx={{
-                    border: "1px solid white",
-                    borderColor: "#FFFFFF",
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: "50px",
-                      "& fieldset": {
-                        borderColor: "#FFFFFF",
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={5}>
+                  <Typography variant="subtitle1">Categoría</Typography>
+                  <Select
+                    name="category"
+                    onChange={handleDropdowns}
+                    value={newEstate.category}
+                    fullWidth
+                    required
+                    margin="none"
+                    sx={{
+                      border: "1px solid white",
+                      borderColor: "#FFFFFF",
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: "50px",
+                        "& fieldset": {
+                          borderColor: "#FFFFFF",
+                        },
                       },
-                    },
-                    color: "white",
-                  }}
-                >
-                  <MenuItem value="house">Casa</MenuItem>
-                  <MenuItem value="garage">Cochera</MenuItem>
-                  <MenuItem value="complex">Complejo</MenuItem>
-                  <MenuItem value="flat">Departamento</MenuItem>
-                  <MenuItem value="shop">Local</MenuItem>
-                  <MenuItem value="office">Oficina</MenuItem>
-                </Select>
-              </Grid>
-              <Grid item xs={6}>
-                <Typography variant="subtitle1">Ciudad</Typography>
-                <TextField
-                  name="city"
-                  value={newEstate.city}
-                  onChange={handleChange}
-                  fullWidth
-                  required
-                  margin="normal"
-                  sx={{
-                    borderColor: "#FFFFFF",
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: "50px",
-                      "& fieldset": {
-                        borderColor: "#FFFFFF",
+                      color: "white",
+                    }}
+                  >
+                    <MenuItem value="house">Casa</MenuItem>
+                    <MenuItem value="garage">Cochera</MenuItem>
+                    <MenuItem value="complex">Complejo</MenuItem>
+                    <MenuItem value="flat">Departamento</MenuItem>
+                    <MenuItem value="shop">Local</MenuItem>
+                    <MenuItem value="office">Oficina</MenuItem>
+                  </Select>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography variant="subtitle1">Ciudad</Typography>
+                  <TextField
+                    name="city"
+                    value={newEstate.city}
+                    onChange={handleChange}
+                    fullWidth
+                    required
+                    margin="normal"
+                    sx={{
+                      borderColor: "#FFFFFF",
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: "50px",
+                        "& fieldset": {
+                          borderColor: "#FFFFFF",
+                        },
+                        color: "#FFFFFF",
                       },
-                      color: "#FFFFFF",
-                    },
-                  }}
-                />
-              </Grid>
+                    }}
+                  />
+                </Grid>
 
-              <Grid item xs={12}>
-                <Typography variant="subtitle1">
-                  Cantidad de ambientes
-                </Typography>
-                <TextField
-                  name="rooms"
-                  value={newEstate.rooms}
-                  onChange={handleChange}
-                  fullWidth
-                  required
-                  margin="normal"
-                  type="number"
-                  sx={{
-                    borderColor: "#FFFFFF",
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: "50px",
-                      "& fieldset": {
-                        borderColor: "#FFFFFF",
+                <Grid item xs={12}>
+                  <Typography variant="subtitle1">
+                    Cantidad de ambientes
+                  </Typography>
+                  <TextField
+                    name="rooms"
+                    value={newEstate.rooms}
+                    onChange={handleChange}
+                    fullWidth
+                    required
+                    margin="normal"
+                    type="number"
+                    sx={{
+                      borderColor: "#FFFFFF",
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: "50px",
+                        "& fieldset": {
+                          borderColor: "#FFFFFF",
+                        },
+                        color: "#FFFFFF",
                       },
-                      color: "#FFFFFF",
-                    },
-                  }}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControl
-                  component="fieldset"
-                  margin="normal"
-                  sx={{ alignSelf: "flex-start", marginLeft: "20px" }}
-                >
-                  <FormLabel component="legend" sx={{ color: "white" }}>
-                    Tipo de oferta
-                  </FormLabel>
-                  <FormGroup>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          sx={{ color: "white" }}
-                          onChange={(event) => {
-                            setNewEstate((previousEstate) => ({
-                              ...previousEstate,
-                              is_for_sale: event.target.checked,
-                            }));
-                            handleOperationType();
-                          }}
-                          name="is_for_sale"
-                          color="primary"
-                        />
-                      }
-                      label="En venta"
-                    />
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          sx={{ color: "white" }}
-                          onChange={(event) => {
-                            setNewEstate((previousEstate) => ({
-                              ...previousEstate,
-                              is_for_rent: event.target.checked,
-                            }));
-                            handleOperationType();
-                          }}
-                          name="is_for_rent"
-                          color="primary"
-                        />
-                      }
-                      label="En alquiler"
-                    />
-                  </FormGroup>
-                </FormControl>
-              </Grid>
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <FormControl
+                    component="fieldset"
+                    margin="normal"
+                    sx={{ alignSelf: "flex-start", marginLeft: "20px" }}
+                  >
+                    <FormLabel component="legend" sx={{ color: "white" }}>
+                      Tipo de oferta
+                    </FormLabel>
+                    <FormGroup>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            sx={{ color: "white" }}
+                            onChange={(event) => {
+                              setNewEstate((previousEstate) => ({
+                                ...previousEstate,
+                                is_for_sale: event.target.checked,
+                              }));
+                              handleOperationType();
+                            }}
+                            name="is_for_sale"
+                            color="primary"
+                          />
+                        }
+                        label="En venta"
+                      />
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            sx={{ color: "white" }}
+                            onChange={(event) => {
+                              setNewEstate((previousEstate) => ({
+                                ...previousEstate,
+                                is_for_rent: event.target.checked,
+                              }));
+                              handleOperationType();
+                            }}
+                            name="is_for_rent"
+                            color="primary"
+                          />
+                        }
+                        label="En alquiler"
+                      />
+                    </FormGroup>
+                  </FormControl>
+                </Grid>
 
-              <Grid item xs={6}>
-                <Typography variant="subtitle1">Precio de venta</Typography>
-                <TextField
-                  name="sale_price"
-                  value={newEstate.sale_price}
-                  onChange={handleChange}
-                  fullWidth
-                  required
-                  disabled={!newEstate.is_for_sale}
-                  margin="normal"
-                  type="number"
-                  sx={{
-                    borderColor: "#FFFFFF",
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: "50px",
-                      "& fieldset": {
-                        borderColor: "#FFFFFF",
+                <Grid item xs={6}>
+                  <Typography variant="subtitle1">Precio de venta</Typography>
+                  <TextField
+                    name="sale_price"
+                    value={newEstate.sale_price}
+                    onChange={handleChange}
+                    fullWidth
+                    required
+                    disabled={!newEstate.is_for_sale}
+                    margin="normal"
+                    type="number"
+                    sx={{
+                      borderColor: "#FFFFFF",
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: "50px",
+                        "& fieldset": {
+                          borderColor: "#FFFFFF",
+                        },
+                        color: "#FFFFFF",
                       },
-                      color: "#FFFFFF",
-                    },
-                  }}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <Typography variant="subtitle1">Moneda venta</Typography>
-                <Select
-                  name="sale_currency"
-                  onChange={handleDropdowns}
-                  value={newEstate.sale_currency}
-                  fullWidth
-                  required
-                  margin="none"
-                  disabled={!newEstate.is_for_sale}
-                  sx={{
-                    border: "1px solid white",
-                    borderColor: "#FFFFFF",
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: "50px",
-                      "& fieldset": {
-                        borderColor: "#FFFFFF",
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography variant="subtitle1">Moneda venta</Typography>
+                  <Select
+                    name="sale_currency"
+                    onChange={handleDropdowns}
+                    value={newEstate.sale_currency}
+                    fullWidth
+                    required
+                    margin="none"
+                    disabled={!newEstate.is_for_sale}
+                    sx={{
+                      border: "1px solid white",
+                      borderColor: "#FFFFFF",
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: "50px",
+                        "& fieldset": {
+                          borderColor: "#FFFFFF",
+                        },
                       },
-                    },
-                    color: "white",
-                  }}
-                >
-                  <MenuItem value="ARS">Pesos argentinos</MenuItem>
-                  <MenuItem value="USD">Dólar</MenuItem>
-                </Select>
-              </Grid>
-              <Grid item xs={6}>
-                <Typography variant="subtitle1">Precio de alquiler</Typography>
-                <TextField
-                  name="rent_price"
-                  value={newEstate.rent_price}
-                  onChange={handleChange}
-                  fullWidth
-                  required
-                  margin="normal"
-                  type="number"
-                  disabled={!newEstate.is_for_rent}
-                  sx={{
-                    borderColor: "#FFFFFF",
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: "50px",
-                      "& fieldset": {
-                        borderColor: "#FFFFFF",
+                      color: "white",
+                    }}
+                  >
+                    <MenuItem value="ARS">Pesos argentinos</MenuItem>
+                    <MenuItem value="USD">Dólar</MenuItem>
+                  </Select>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography variant="subtitle1">
+                    Precio de alquiler
+                  </Typography>
+                  <TextField
+                    name="rent_price"
+                    value={newEstate.rent_price}
+                    onChange={handleChange}
+                    fullWidth
+                    required
+                    margin="normal"
+                    type="number"
+                    disabled={!newEstate.is_for_rent}
+                    sx={{
+                      borderColor: "#FFFFFF",
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: "50px",
+                        "& fieldset": {
+                          borderColor: "#FFFFFF",
+                        },
+                        color: "#FFFFFF",
                       },
-                      color: "#FFFFFF",
-                    },
-                  }}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <Typography variant="subtitle1">Moneda alquiler</Typography>
-                <Select
-                  name="rent_currency"
-                  onChange={handleDropdowns}
-                  value={newEstate.rent_currency}
-                  fullWidth
-                  required
-                  margin="none"
-                  disabled={!newEstate.is_for_rent}
-                  sx={{
-                    border: "1px solid white",
-                    borderColor: "#FFFFFF",
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: "50px",
-                      "& fieldset": {
-                        borderColor: "#FFFFFF",
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography variant="subtitle1">Moneda alquiler</Typography>
+                  <Select
+                    name="rent_currency"
+                    onChange={handleDropdowns}
+                    value={newEstate.rent_currency}
+                    fullWidth
+                    required
+                    margin="none"
+                    disabled={!newEstate.is_for_rent}
+                    sx={{
+                      border: "1px solid white",
+                      borderColor: "#FFFFFF",
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: "50px",
+                        "& fieldset": {
+                          borderColor: "#FFFFFF",
+                        },
                       },
-                    },
-                    color: "white",
-                  }}
-                >
-                  <MenuItem value="ARS">Pesos argentinos</MenuItem>
-                  <MenuItem value="USD">Dólar</MenuItem>
-                </Select>
-              </Grid>
-              <Grid item xs={12}>
-                <Typography variant="subtitle1">Descripción</Typography>
-                <TextField
-                  name="description"
-                  value={newEstate.description}
-                  onChange={handleChange}
-                  fullWidth
-                  required
-                  margin="normal"
-                  multiline
-                  rows={4}
-                  sx={{
-                    borderColor: "#FFFFFF",
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: "50px",
-                      "& fieldset": {
-                        borderColor: "#FFFFFF",
+                      color: "white",
+                    }}
+                  >
+                    <MenuItem value="ARS">Pesos argentinos</MenuItem>
+                    <MenuItem value="USD">Dólar</MenuItem>
+                  </Select>
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="subtitle1">Descripción</Typography>
+                  <TextField
+                    name="description"
+                    value={newEstate.description}
+                    onChange={handleChange}
+                    fullWidth
+                    required
+                    margin="normal"
+                    multiline
+                    rows={4}
+                    sx={{
+                      borderColor: "#FFFFFF",
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: "50px",
+                        "& fieldset": {
+                          borderColor: "#FFFFFF",
+                        },
+                        color: "#FFFFFF",
                       },
-                      color: "#FFFFFF",
-                    },
-                  }}
-                />
-              </Grid>
+                    }}
+                  />
+                </Grid>
 
-              <Grid item xs={12}>
-                <Button
-                  variant="contained"
-                  type="submit"
-                  color="primary"
-                  sx={{
-                    mt: 3,
-                    mb: 2,
-                    borderRadius: "50px",
-                    width: "300px",
-                    height: "50px",
-                    alignSelf: "flex-start",
-                  }}
-                >
-                  Agregar propiedad
-                </Button>
+                <Grid item xs={12}>
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    color="primary"
+                    sx={{
+                      mt: 3,
+                      mb: 2,
+                      borderRadius: "50px",
+                      width: "300px",
+                      height: "50px",
+                      alignSelf: "flex-start",
+                    }}
+                  >
+                    Agregar propiedad
+                  </Button>
+                </Grid>
               </Grid>
-            </Grid>
-          </form>
-        </Box>
-      </Layout>
+            </form>
+          </Box>
+        </Layout>
+      </ProtectedRoutes>
     </>
   );
 };
