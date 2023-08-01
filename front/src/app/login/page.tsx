@@ -53,7 +53,7 @@ const Login: React.FC = () => {
     try {
       const userAuth = await signInWithEmailAndPassword(auth, email, password);
       const idToken = await userAuth.user.getIdToken();
-      console.log(idToken);
+      
       const response = await axios.post(
         "http://localhost:3001/api/users/login",
         {

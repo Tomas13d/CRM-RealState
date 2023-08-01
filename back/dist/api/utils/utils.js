@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isValidPassword = exports.isValidEmail = void 0;
+exports.removeUndefined = exports.isValidPassword = exports.isValidEmail = void 0;
 const isValidEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
@@ -11,3 +11,7 @@ const isValidPassword = (password) => {
     return passwordRegex.test(password);
 };
 exports.isValidPassword = isValidPassword;
+const removeUndefined = (obj) => {
+    return Object.fromEntries(Object.entries(obj).filter(([_, v]) => v !== undefined));
+};
+exports.removeUndefined = removeUndefined;

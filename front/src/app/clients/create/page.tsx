@@ -21,52 +21,45 @@ import axios from "axios";
 import ProtectedRoutes from "@/app/components/ProtectedRoutes";
 
 const ClientForm: React.FC = () => {
-  const [client, setClient] = useState<Client>({
+  const initialState: Client = {
     first_name: "",
     last_name: "",
     email: "",
     is_buyer: false,
     is_owner: false,
     is_tenant: false,
-  });
+  };
+
+  const [newClient, setNewClient] = useState<Client>(initialState);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setClient((prevClient) => ({
-      ...prevClient,
+    setNewClient((previousClient) => ({
+      ...previousClient,
       [name]: value,
     }));
   };
 
   const handleTipoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
-    setClient((prevClient) => ({
-      ...prevClient,
+    setNewClient((previousClient) => ({
+      ...previousClient,
       is_buyer: value === "buyer",
       is_owner: value === "owner",
       is_tenant: value === "renter",
     }));
   };
 
-  console.log(client);
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
       const addedClient = await axios.post(
         "http://localhost:3001/api/clients/create",
-        client
+        newClient
       );
       alert("Client created successfully");
 
-      setClient({
-        first_name: "",
-        last_name: "",
-        email: "",
-        is_buyer: false,
-        is_owner: false,
-        is_tenant: false,
-      });
+      setNewClient(initialState);
     } catch (error) {
       alert(error);
     }
@@ -126,7 +119,7 @@ const ClientForm: React.FC = () => {
                 <Typography variant="subtitle1">Nombre</Typography>
                 <TextField
                   name="first_name"
-                  value={client.first_name}
+                  value={newClient.first_name}
                   onChange={handleChange}
                   fullWidth
                   required
@@ -147,7 +140,7 @@ const ClientForm: React.FC = () => {
                 <Typography variant="subtitle1">Apellido</Typography>
                 <TextField
                   name="last_name"
-                  value={client.last_name}
+                  value={newClient.last_name}
                   onChange={handleChange}
                   fullWidth
                   required
@@ -169,7 +162,7 @@ const ClientForm: React.FC = () => {
                 <Typography variant="subtitle1">Correo</Typography>
                 <TextField
                   name="email"
-                  value={client.email}
+                  value={newClient.email}
                   onChange={handleChange}
                   fullWidth
                   required
@@ -200,9 +193,9 @@ const ClientForm: React.FC = () => {
                     aria-label="tipo"
                     name="tipo"
                     value={
-                      client.is_buyer
+                      newClient.is_buyer
                         ? "Comprador"
-                        : client.is_owner
+                        : newClient.is_owner
                         ? "dueño"
                         : "inquilino"
                     }

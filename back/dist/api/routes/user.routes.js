@@ -10,5 +10,6 @@ const middleware_1 = __importDefault(require("../middleware"));
 usersRouter.post("/login", user_controller_1.default.loginUser);
 usersRouter.post("/register", user_controller_1.default.registerUser);
 usersRouter.get("/me", middleware_1.default, user_controller_1.default.persistence);
+usersRouter.get("/", user_controller_1.default.getAllUsers);
 usersRouter.get("/:id", user_controller_1.default.getUserForID);
 exports.default = usersRouter;

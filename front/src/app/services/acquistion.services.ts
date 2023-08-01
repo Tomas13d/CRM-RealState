@@ -73,8 +73,7 @@ export const detalleAdminRentals = async () => {
           withCredentials: true,
         }
       );
-    });
-    console.log(rentsAcquisition); */
+    }); */
   } catch (error) {
     console.error("An error occurred while getting all rentals:", error);
     throw error;
