@@ -18,6 +18,7 @@ import Layout from "../../commons/layout";
 
 import { Client } from "../../types/types.md";
 import axios from "axios";
+import ProtectedRoutes from "@/app/components/ProtectedRoutes";
 
 const ClientForm: React.FC = () => {
   const [client, setClient] = useState<Client>({

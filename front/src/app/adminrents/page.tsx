@@ -7,6 +7,7 @@ import { detalleAdminRentals } from "../services/acquistion.services";
 import { AcquisitionFrond } from "../types/types.md";
 import HeaderPage from "./headerPage";
 import SingleRentModal from "./SingleRentModal";
+import ProtectedRoutes from "@/app/components/ProtectedRoutes";
 
 const columns = [
   { key: "description", label: "Nombre" },
@@ -36,36 +37,39 @@ const Adminrents: React.FC = () => {
 
   return (
     <>
-      <Layout>
-        <Container component="main" maxWidth="xl">
-          <Box
-            sx={{
-              px: 4,
-              py: 1,
-              marginTop: 10,
-              color: "white",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-start",
-              justifyContent: "flex-start",
-              background: "transparent",
-            }}
-          >
-            <HeaderPage
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
-            />
+      {" "}
+      <ProtectedRoutes>
+        <Layout>
+          <Container component="main" maxWidth="xl">
+            <Box
+              sx={{
+                px: 4,
+                py: 1,
+                marginTop: 10,
+                color: "white",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-start",
+                justifyContent: "flex-start",
+                background: "transparent",
+              }}
+            >
+              <HeaderPage
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+              />
 
-            <CustomList
-              columns={columns}
-              data={filteredData1.map((rent: AcquisitionFrond) => ({
-                ...rent,
-                button: <SingleRentModal rentData={rent}></SingleRentModal>,
-              }))}
-            />
-          </Box>
-        </Container>
-      </Layout>
+              <CustomList
+                columns={columns}
+                data={filteredData1.map((rent: AcquisitionFrond) => ({
+                  ...rent,
+                  button: <SingleRentModal rentData={rent}></SingleRentModal>,
+                }))}
+              />
+            </Box>
+          </Container>
+        </Layout>
+      </ProtectedRoutes>
     </>
   );
 };

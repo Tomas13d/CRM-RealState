@@ -1,12 +1,14 @@
+"use client";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
-import Register from "./register/page";
-
+import ProtectedRoutes from "./components/ProtectedRoutes";
 export default function Home() {
   return (
     <>
-      <Navbar />
-      <Sidebar />
+      <ProtectedRoutes>
+        <Navbar />
+        <Sidebar />
+      </ProtectedRoutes>
     </>
   );
 }

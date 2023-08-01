@@ -4,6 +4,7 @@ import Layout from "../commons/layout";
 import { useEffect, useState } from "react";
 import { getAllUsers } from "../services/user.services";
 import { User } from "../types/types.md";
+import ProtectedRoutes from "@/app/components/ProtectedRoutes";
 const AgentList = () => {
   const columns = [
     { key: "firstname", label: "Nombre" },
@@ -20,9 +21,11 @@ const AgentList = () => {
   }, []);
 
   return (
-    <Layout
-      children={<CustomList columns={columns} data={agents}></CustomList>}
-    ></Layout>
+    <ProtectedRoutes>
+      <Layout
+        children={<CustomList columns={columns} data={agents}></CustomList>}
+      ></Layout>
+    </ProtectedRoutes>
   );
 };
 
