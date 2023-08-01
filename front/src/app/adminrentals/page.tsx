@@ -108,7 +108,7 @@ const adminRentals = () => {
                 }}
               >
                 <ArrowBackIcon />
-              </IconButton>{" "}
+              </IconButton>
               Administración de alquileres
               <Typography variant="subtitle1" sx={{ color: "white", mt: 3 }}>
                 Buscar
