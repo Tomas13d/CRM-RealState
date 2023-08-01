@@ -16,6 +16,7 @@ export type AcquisitionFrond = {
   agent?: User;
   buyer?: Client;
   tenant?: Client;
+  owner?: Client;
   estate: Estate;
   transaction_type: string;
   transaction_price: number;
