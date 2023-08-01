@@ -80,3 +80,15 @@ export const detalleAdminRentals = async () => {
     throw error;
   }
 };
+
+
+export const getAllAcquisitions = async () =>{
+  try{
+    const response = await axios.get("http://localhost:3001/api/acquisitions")
+    const fetchedAcquisitions = response.data
+    return fetchedAcquisitions
+  }
+  catch (error){
+    throw error
+  }
+}
