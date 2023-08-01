@@ -29,8 +29,7 @@ const Properties: React.FC = () => {
     const fetchedEstates = await getAllEstates();
     setEstates(fetchedEstates);
   };
-
-  console.log("estates", estates);
+ 
 
   useEffect(() => {
     handleGetEstates();

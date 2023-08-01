@@ -40,6 +40,14 @@ const FormularioPropiedad: React.FC = () => {
     sale_price: 0,
     owner_id: "",
     rooms: 0,
+    owner: {
+      email: "",
+      first_name: "",
+      last_name: "",
+      is_owner: false,
+      is_buyer: false,
+      is_tenant: false,
+    },
   };
 
   const [owners, setOwners] = useState([]);
@@ -98,9 +106,6 @@ const FormularioPropiedad: React.FC = () => {
     alert("Propiedad agregada con éxito");
     setNewEstate(initialState);
   };
-
-  console.log(newEstate);
-
   return (
     <>
       {" "}

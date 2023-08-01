@@ -11,34 +11,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 require("firebase/compat/auth");
 const firebase_1 = require("../firebase");
+const { getUserID } = require("../services/user.services");
 const validateUserMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const token = req.headers.authorization;
+        const token = req.cookies.TOKEN;
         if (!token) {
             return res.status(401).send(console.error("Token does not validate "));
         }
         const decodeToken = yield firebase_1.auth.verifyIdToken(token);
         const uid = decodeToken.uid;
-        const userDocument = firebase_1.db.collection("Users").doc(`${uid}`);
-        const loginUser = yield userDocument.get();
-        const userRecord = {
-            firstname: "",
-            lastname: "",
-            email: "",
-            password: "",
-            id: "",
-        };
-        if (loginUser.exists) {
-            const data = loginUser.data();
-            if (data) {
-                userRecord.firstname = data.firstname;
-                userRecord.lastname = data.lastname;
-                userRecord.email = data.email;
-                userRecord.password = data["password "];
-                userRecord.id = uid;
-            }
-        }
-        req.user = userRecord;
+        const userRecord = yield getUserID(uid);
+        req.user = Object.assign(Object.assign({}, userRecord), { id: uid });
         next();
     }
     catch (error) {

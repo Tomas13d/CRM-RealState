@@ -19,8 +19,6 @@ const Adminrents: React.FC = () => {
     setRents(fetchedRents);
   };
 
-  console.log("handle Rents: ", rents);
-
   useEffect(() => {
     handleGetRents();
   }, []);
