@@ -12,6 +12,7 @@ export type Acquisition = {
   transaction_date: string;
 };
 export type AcquisitionFrond = {
+  id: string;
   description: string;
   agent?: User;
   buyer?: Client;

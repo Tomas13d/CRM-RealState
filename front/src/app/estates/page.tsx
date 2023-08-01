@@ -19,13 +19,7 @@ import { Estate } from "../types/types.md";
 import SingleEstateModal from "./SingleEstateModal";
 import PrimaryButton from "../commons/buttons/primaryButton";
 import ProtectedRoutes from "@/app/components/ProtectedRoutes";
-
-const columns = [
-  { key: "name", label: "Nombre" },
-  { key: "category", label: "SubCategoria" },
-  { key: "operation_type", label: "Operacion" },
-  { key: "button", label: "" },
-];
+import columns from "./columns";
 
 const Properties: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -35,8 +29,7 @@ const Properties: React.FC = () => {
     const fetchedEstates = await getAllEstates();
     setEstates(fetchedEstates);
   };
-
-  console.log("estates", estates);
+ 
 
   useEffect(() => {
     handleGetEstates();

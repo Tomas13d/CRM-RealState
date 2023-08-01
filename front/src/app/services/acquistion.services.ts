@@ -53,42 +53,36 @@ export const detalleAdminRentals = async () => {
     );
 
     return response.data;
-
-    /*     rentsAcquisition.map(async (acquisition: AcquisitionFrond) => {
-      const agent_id = await axios.get(
-        `http://localhost:3001/api/users/${acquisition.agent_id}`,
-        {
-          withCredentials: true,
-        }
-      );
-      const tenant_id = await axios.get(
-        `http://localhost:3001/api/clients/${acquisition.tenant_id}`,
-        {
-          withCredentials: true,
-        }
-      );
-      const estate_id = await axios.get(
-        `http://localhost:3001/api/estates/${acquisition.estate_id}`,
-        {
-          withCredentials: true,
-        }
-      );
-    });
-    console.log(rentsAcquisition); */
   } catch (error) {
     console.error("An error occurred while getting all rentals:", error);
     throw error;
   }
 };
 
+export const modifiedAcquisitionRent = async (
+  uid: string,
+  newPrice: Number
+) => {
+  try {
+    const response = await axios.post(
+      `http://localhost:3001/api/acquisitions/modified-price/${uid}`,
+      { newPrice },
+      {
+        withCredentials: true,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
 
-export const getAllAcquisitions = async () =>{
-  try{
-    const response = await axios.get("http://localhost:3001/api/acquisitions")
-    const fetchedAcquisitions = response.data
-    return fetchedAcquisitions
+export const getAllAcquisitions = async () => {
+  try {
+    const response = await axios.get("http://localhost:3001/api/acquisitions");
+    const fetchedAcquisitions = response.data;
+    return fetchedAcquisitions;
+  } catch (error) {
+    throw error;
   }
-  catch (error){
-    throw error
-  }
-}
+};

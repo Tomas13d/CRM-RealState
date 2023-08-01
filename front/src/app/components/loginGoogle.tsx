@@ -30,9 +30,9 @@ const LoginGoogle = () => {
         //esta function es de firebase y requiere una autentificacion y el proveedor
         const res = await signInWithPopup(auth, googleProvider);
         // devuelve info del usuario, token, email, fullname, etc
-        console.log("res: ", res);
+        
       } catch (error) {
-        console.log(error);
+        
       }
     };
     await signInWithGoogle(googleProvider);
