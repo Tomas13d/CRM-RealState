@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { Grid, Modal, Button, Box, Divider, Typography } from "@mui/material";
+import { Grid, Modal, Box, Divider } from "@mui/material";
 import CloseButton from "@/app/commons/buttons/closeButton";
 import { H4, H5 } from "@/app/commons/headlines";
 import {
@@ -55,12 +55,18 @@ export default function SingleEstateModal({
           </H5>
           <Grid container spacing={2} sx={{ margin: "10px 0px" }}>
             <Grid item xs={6}>
-              <Subtitle1>Propietario</Subtitle1>
-              <SubtitleDesciption1>{`${estateData.owner.first_name} ${estateData.owner.last_name}`}</SubtitleDesciption1>
-              <Subtitle1>Teléfono de contacto</Subtitle1>
-              <SubtitleDesciption1>11 1234 5678</SubtitleDesciption1>
-              <Subtitle1>Email</Subtitle1>
-              <SubtitleDesciption1>
+              <Subtitle1 sx={{ marginBottom: "5px" }}>Propietario</Subtitle1>
+              <SubtitleDesciption1
+                sx={{ marginBottom: "15px" }}
+              >{`${estateData.owner.first_name} ${estateData.owner.last_name}`}</SubtitleDesciption1>
+              <Subtitle1 sx={{ marginBottom: "5px" }}>
+                Teléfono de contacto
+              </Subtitle1>
+              <SubtitleDesciption1 sx={{ marginBottom: "15px" }}>
+                11 1234 5678
+              </SubtitleDesciption1>
+              <Subtitle1 sx={{ marginBottom: "5px" }}>Email</Subtitle1>
+              <SubtitleDesciption1 sx={{ marginBottom: "15px" }}>
                 {estateData.owner.email}
               </SubtitleDesciption1>
             </Grid>
@@ -82,18 +88,28 @@ export default function SingleEstateModal({
           </Grid>
           <Grid container spacing={2} sx={{ margin: "10px 0px" }}>
             <Grid item xs={6}>
-              <Subtitle1>Tipo de producto</Subtitle1>
-              <SubtitleDesciption1>{estateData.category}</SubtitleDesciption1>
-              <Subtitle1>Dirección</Subtitle1>
-              <SubtitleDesciption1>{estateData.address}</SubtitleDesciption1>
+              <Subtitle1 sx={{ marginBottom: "5px" }}>
+                Tipo de producto
+              </Subtitle1>
+              <SubtitleDesciption1 sx={{ marginBottom: "15px" }}>
+                {estateData.category}
+              </SubtitleDesciption1>
+              <Subtitle1 sx={{ marginBottom: "5px" }}>Dirección</Subtitle1>
+              <SubtitleDesciption1 sx={{ marginBottom: "15px" }}>
+                {estateData.address}
+              </SubtitleDesciption1>
             </Grid>
             <Grid item xs={6}>
-              <Subtitle1>Tipo de operación</Subtitle1>
-              <SubtitleDesciption1>
+              <Subtitle1 sx={{ marginBottom: "5px" }}>
+                Tipo de operación
+              </Subtitle1>
+              <SubtitleDesciption1 sx={{ marginBottom: "15px" }}>
                 {estateData.operation_type}
               </SubtitleDesciption1>
-              <Subtitle1>Barrio</Subtitle1>
-              <SubtitleDesciption1>{estateData.city}</SubtitleDesciption1>
+              <Subtitle1 sx={{ marginBottom: "5px" }}>Barrio</Subtitle1>
+              <SubtitleDesciption1 sx={{ marginBottom: "15px" }}>
+                {estateData.city}
+              </SubtitleDesciption1>
             </Grid>
             <Divider
               sx={{ width: "95%", bgcolor: "#576B7E", margin: "20px 0px" }}
@@ -101,8 +117,12 @@ export default function SingleEstateModal({
           </Grid>
           <Grid container spacing={1} sx={{ margin: "20px 0px" }}>
             <Grid item xs={12}>
-              <Subtitle1>Agente asignado</Subtitle1>
-              <SubtitleDesciption1>Don Draper </SubtitleDesciption1>
+              <Subtitle1 sx={{ marginBottom: "5px" }}>
+                Agente asignado
+              </Subtitle1>
+              <SubtitleDesciption1 sx={{ marginBottom: "15px" }}>
+                Don Draper{" "}
+              </SubtitleDesciption1>
             </Grid>
           </Grid>
         </ModalBox>
