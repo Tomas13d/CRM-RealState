@@ -11,6 +11,18 @@ export type Acquisition = {
   transaction_currency: string;
   transaction_date: string;
 };
+export type AcquisitionFrond = {
+  description: string;
+  agent?: User;
+  buyer?: Client;
+  tenant?: Client;
+  estate: Estate;
+  transaction_type: string;
+  transaction_price: number;
+  transaction_currency: string;
+  transaction_date: string;
+};
+
 export type Rents = {
   agent_id: string;
   owner_id: string;
@@ -54,6 +66,7 @@ export type Estate = {
   operation_type: "rent" | "sale" | "rent_sale" | "";
   is_for_sale: boolean;
   is_for_rent: boolean;
+  owner: Client;
 };
 
 export interface User {
