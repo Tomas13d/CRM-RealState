@@ -38,7 +38,7 @@ export const createAcquisition = async (acquisition: AcquisitionData) => {
 };
 
 export const getAcquisitions = async () => {
-  const acquisitionsRef = db.collection("Acquisition");
+  const acquisitionsRef = db.collection("Acquisitions");
   const snapshot = await acquisitionsRef.get();
   const acquisitions: Acquisition[] = snapshot.docs.map(
     (doc) => doc.data() as Acquisition
