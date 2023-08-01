@@ -8,13 +8,7 @@ import { AcquisitionFrond } from "../types/types.md";
 import HeaderPage from "./headerPage";
 import SingleRentModal from "./SingleRentModal";
 import ProtectedRoutes from "@/app/components/ProtectedRoutes";
-
-const columns = [
-  { key: "description", label: "Nombre" },
-  { key: "transaction_date", label: "Fecha de inicio" },
-  { key: "transaction_type", label: "Operacion" },
-  { key: "button", label: "" },
-];
+import columns from "./columns";
 
 const Adminrents: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");

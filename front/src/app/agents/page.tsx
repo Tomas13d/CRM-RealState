@@ -5,12 +5,9 @@ import { useEffect, useState } from "react";
 import { getAllUsers } from "../services/user.services";
 import { User } from "../types/types.md";
 import ProtectedRoutes from "@/app/components/ProtectedRoutes";
+import columns from "./columns";
+
 const AgentList = () => {
-  const columns = [
-    { key: "firstname", label: "Nombre" },
-    { key: "lastname", label: "Apellido" },
-    { key: "email", label: "N° Captaciones" }, // Acquisition number not available in DB yet.
-  ];
   const [agents, setAgents] = useState([]);
   const handleGetAgents = async () => {
     const fetchedUsers = await getAllUsers();

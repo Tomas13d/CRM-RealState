@@ -18,14 +18,7 @@ import { getAllAcquisitions } from "../services/acquistion.services";
 import SingleAcquisitionModal from "./SingleAcquisitionModal";
 import ArrowBackButton from "../commons/buttons/arrowBackButton";
 import Link from "next/link";
-
-const columns = [
-  { key: "description", label: "Nombre" },
-  { key: "transaction_type", label: "Operación" },
-  { key: "category", label: "Tipología" },
-  { key: "transaction_date", label: "Fecha" },
-  { key: "button", label: "" },
-];
+import columns from "./columns";
 
 const Properties: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
