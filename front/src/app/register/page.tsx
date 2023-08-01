@@ -80,7 +80,7 @@ const Register: React.FC = () => {
     const passwordRegex = /^(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{6,}$/;
     return passwordRegex.test(password);
   };
-  console.log(user);
+
   return (
     <>
       <ProtectedRoute>
