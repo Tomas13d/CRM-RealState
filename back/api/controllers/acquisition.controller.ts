@@ -14,7 +14,7 @@ class AcquisitionController {
       const acquisitionID = response.path.split("/")[1];
       return res.status(201).send({ ...req.body, id: acquisitionID });
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return res.status(400).json({ msg: "Error creating acquisition", error });
     }
   }

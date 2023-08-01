@@ -26,6 +26,6 @@ export const getEstateID = async (id: string) => {
   let estateData;
   estateSnapshot.exists
     ? (estateData = estateSnapshot.data())
-    : console.log("La propiedad con el id proporcionado no existe.");
+    : console.error("La propiedad con el id proporcionado no existe.");
   return estateData;
 };

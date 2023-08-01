@@ -33,7 +33,7 @@ class ClientController {
     try {
       const id = req.params.id;
       const client = await getClientID(id);
-      console.log(client);
+      console.error(client);
       return res.status(200).send(client);
     } catch (error) {
       res.status(400).json({ msg: "Error to get client", error });

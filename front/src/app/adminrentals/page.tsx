@@ -41,7 +41,7 @@ const adminRentals = () => {
   /* Ver como devolver la promesa !!!!!!!!!!  
  const detalleRents:Acquisition[]= obtenerDetalleRents();
   Al tipo "Promise<Acquisition[] | undefined>" le faltan las propiedades siguientes del tipo "Acquisition[]": length, push, pop, concat y más.
-  console.log(detalleAdminRentals()); */
+  */
 
   const inquilinos = [
     {

@@ -36,7 +36,7 @@ export const getUserID = async (id: string) => {
   let userData;
   userSnapshot.exists
     ? (userData = userSnapshot.data())
-    : console.log("El usuario con el id proporcionado no existe.");
+    : console.error("El usuario con el id proporcionado no existe.");
   return userData;
 };
 

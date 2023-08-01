@@ -5,7 +5,7 @@ export default class RentPayController {
   static async payRent(_req: Request, res: Response) {
     try {
       const data = _req.body;
-      console.log(data);
+      console.error(data);
       const rentPay = await payRent(data);
       res.status(200).send(rentPay);
     } catch (error) {

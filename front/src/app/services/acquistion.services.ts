@@ -58,3 +58,31 @@ export const detalleAdminRentals = async () => {
     throw error;
   }
 };
+
+export const modifiedAcquisitionRent = async (
+  uid: string,
+  newPrice: Number
+) => {
+  try {
+    const response = await axios.post(
+      `http://localhost:3001/api/acquisitions/modified-price/${uid}`,
+      { newPrice },
+      {
+        withCredentials: true,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getAllAcquisitions = async () => {
+  try {
+    const response = await axios.get("http://localhost:3001/api/acquisitions");
+    const fetchedAcquisitions = response.data;
+    return fetchedAcquisitions;
+  } catch (error) {
+    throw error;
+  }
+};
