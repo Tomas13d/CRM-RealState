@@ -18,22 +18,8 @@ import { setUser } from "../states/user";
 
 const Navbar: React.FC = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const dispatch = useDispatch();
-  /*   const user = useSelector((state: RootState) => state.user); */
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:3001/api/users/me", {
-        headers: { "Content-Type": "application/json" },
-        withCredentials: true,
-      })
-      .then((user) => {
-        dispatch(setUser(user.data));
-      })
-      .catch((error) => {
-        console.error("Error de servidor");
-      });
-  }, []);
+  const user = useSelector((state: RootState) => state.user);
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);

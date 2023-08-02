@@ -43,9 +43,9 @@ export type Client = {
   email: string;
   first_name: string;
   last_name: string;
-  is_owner: boolean;
-  is_buyer: boolean;
-  is_tenant: boolean;
+  is_owner: boolean | string;
+  is_buyer: boolean | string;
+  is_tenant: boolean | string;
   assigned_agent_name?: string;
   assigned_agent_id?: string;
 };

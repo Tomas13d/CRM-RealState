@@ -1,4 +1,5 @@
 import axios from "axios";
+import { User } from "firebase/auth";
 
 const handleErrors = (error: unknown) => {
   return { msg: "Error al obtener los agentes", error };
@@ -39,4 +40,12 @@ export const fetchUsersAccordingToLoggedUserType = async (
   } catch (error) {
     return handleErrors(error);
   }
+};
+
+export const persistence = async () => {
+  const user = await axios.get("http://localhost:3001/api/users/me", {
+    headers: { "Content-Type": "application/json" },
+    withCredentials: true,
+  });
+  return user.data;
 };
