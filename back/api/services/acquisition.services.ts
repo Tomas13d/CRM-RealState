@@ -5,10 +5,12 @@ import { getUserID } from "./user.services";
 import { getClientID } from "./client.services";
 import { getEstateID } from "./estates.services";
 import { removeUndefined } from "../utils/utils";
+import { increaseAgentAcquisitionNum } from "./user.services";
 
 export const createAcquisition = async (acquisition: AcquisitionData) => {
   const { agent_id, owner_id, buyer_id, tenant_id, estate_id } = acquisition;
   const agent = (await getUserID(agent_id)) as User;
+  await increaseAgentAcquisitionNum(agent_id);
   const owner = (await getClientID(owner_id)) as Client;
   const buyer = buyer_id
     ? ((await getClientID(buyer_id)) as Client)

@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllUsers = exports.getUserID = exports.register = exports.login = void 0;
+exports.increaseAgentAcquisitionNum = exports.getAllUsers = exports.getUserID = exports.register = exports.login = void 0;
 require("firebase/compat/auth");
 const firebase_1 = require("../firebase");
 const login = (user) => __awaiter(void 0, void 0, void 0, function* () {
@@ -55,3 +55,13 @@ const getAllUsers = () => __awaiter(void 0, void 0, void 0, function* () {
     return users;
 });
 exports.getAllUsers = getAllUsers;
+const increaseAgentAcquisitionNum = (agent_id) => __awaiter(void 0, void 0, void 0, function* () {
+    const agentReference = firebase_1.db.collection("Users").doc(agent_id);
+    const agent = yield agentReference.get();
+    const { acquisition_number } = agent.data();
+    const response = yield agentReference.update({
+        acquisition_number: acquisition_number + 1,
+    });
+    return response;
+});
+exports.increaseAgentAcquisitionNum = increaseAgentAcquisitionNum;

@@ -87,7 +87,7 @@ const page = () => {
   };
 
   return (
-    <ProtectedRoutes>
+    
       <Layout
         children={
           <Box display={"flex"} alignItems={"center"} sx={{ marginTop: 15 }}>
@@ -304,7 +304,7 @@ const page = () => {
           </Box>
         }
       ></Layout>
-    </ProtectedRoutes>
+    
   );
 };
 

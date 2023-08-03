@@ -41,7 +41,7 @@ const Properties: React.FC = () => {
   return (
     <>
       {" "}
-      <ProtectedRoutes>
+    
         <Layout>
           <Container component="main" maxWidth="xl">
             <Box
@@ -149,7 +149,7 @@ const Properties: React.FC = () => {
             </Box>
           </Container>
         </Layout>
-      </ProtectedRoutes>
+
     </>
   );
 };
