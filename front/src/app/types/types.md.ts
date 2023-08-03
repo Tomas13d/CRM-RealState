@@ -87,4 +87,6 @@ export type RawNewAcquisition = {
   transactionType: string;
   transactionCurrency: string;
   transactionPrice: string;
+  ownerID: string;
+  agentID: string;
 };
