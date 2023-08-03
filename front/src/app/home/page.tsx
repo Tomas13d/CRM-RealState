@@ -7,11 +7,12 @@ import {
   Divider,
   Button,
 } from "@mui/material";
+import React from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Layout from "../commons/layout";
 import DonutChart from "../commons/DonutChart";
 import BarChart from "../commons/BarChart";
-import ProtectedRoutes from "@/app/components/ProtectedRoutes";
+import ProtectedRoutes from "../components/ProtectedRoutes";
 
 const Home: React.FC = () => {
   return (

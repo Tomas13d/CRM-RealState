@@ -18,7 +18,7 @@ import { getAllEstates } from "../services/estates.services";
 import { Estate } from "../types/types.md";
 import SingleEstateModal from "./SingleEstateModal";
 import PrimaryButton from "../commons/buttons/primaryButton";
-import ProtectedRoutes from "@/app/components/ProtectedRoutes";
+
 import columns from "./columns";
 
 const Properties: React.FC = () => {
@@ -41,7 +41,7 @@ const Properties: React.FC = () => {
   return (
     <>
       {" "}
-      <ProtectedRoutes>
+    
         <Layout>
           <Container component="main" maxWidth="xl">
             <Box
@@ -149,7 +149,7 @@ const Properties: React.FC = () => {
             </Box>
           </Container>
         </Layout>
-      </ProtectedRoutes>
+
     </>
   );
 };
