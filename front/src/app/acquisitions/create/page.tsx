@@ -23,6 +23,13 @@ import Layout from "@/app/commons/layout";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/states/store";
 import ProtectedRoutes from "@/app/components/ProtectedRoutes";
+import { H3 } from "@/app/commons/headlines";
+import {
+  Subtitle1,
+  SubtitleDesciption1,
+} from "@/app/commons/subtitles/index.tsx";
+import { CRMFontFamily } from "@/app/font";
+import PrimaryButton from "@/app/commons/buttons/primaryButton";
 
 const page = () => {
   const inputStyle = {
@@ -64,13 +71,27 @@ const page = () => {
     transactionCurrency: "",
     transactionPrice: "",
     agentID: "",
+    ownerID: "",
   });
 
   const handleInput = (e: any) => {
-    setNewAcquisition((previousAcquisition) => ({
-      ...previousAcquisition,
-      [e.target.name]: e.target.value,
-    }));
+    if (e.target.name === "estateID") {
+      const selectedEstate: Estate = estates.filter(
+        (estate: Estate) => e.target.value === estate.id
+      )[0];
+      const selectedEstateOwnerID = selectedEstate.owner_id;
+
+      setNewAcquisition((previousAcquisition) => ({
+        ...previousAcquisition,
+        [e.target.name]: e.target.value,
+        ownerID: selectedEstateOwnerID,
+      }));
+    } else {
+      setNewAcquisition((previousAcquisition) => ({
+        ...previousAcquisition,
+        [e.target.name]: e.target.value,
+      }));
+    }
   };
 
   const handleSubmit = async (e: any) => {
@@ -90,7 +111,11 @@ const page = () => {
     
       <Layout
         children={
-          <Box display={"flex"} alignItems={"center"} sx={{ marginTop: 15 }}>
+          <Box
+            display={"flex"}
+            alignItems={"center"}
+            sx={{ marginTop: 15, marginLeft: 10 }}
+          >
             <Box
               width={"50%"}
               flexDirection={"column"}
@@ -98,31 +123,19 @@ const page = () => {
               display={"flex"}
               minHeight={"100vh"}
             >
-              <Typography variant="h3" sx={{ color: "white", margin: "10px" }}>
-                Añadir Captación
-              </Typography>
+              <H3 bold={true}>Añadir Captación</H3>
               <form onSubmit={handleSubmit}>
-                <InputLabel
-                  htmlFor="description"
-                  sx={{ color: "white", paddingLeft: "20px" }}
-                >
-                  Descripción
-                </InputLabel>
+                <Subtitle1>Descripción</Subtitle1>
                 <Input
                   onChange={handleInput}
                   value={newAcquisition.description}
                   name="description"
-                  sx={inputStyle}
+                  sx={{ ...inputStyle, height: "50px" }}
                   disableUnderline={true}
                   required
                 />
 
-                <InputLabel
-                  htmlFor="estate"
-                  sx={{ color: "white", paddingLeft: "20px" }}
-                >
-                  Propiedad asociada
-                </InputLabel>
+                <Subtitle1>Propiedad Asociada</Subtitle1>
                 <FormControl>
                   <Select
                     onChange={handleInput}
@@ -134,7 +147,9 @@ const page = () => {
                     required
                   >
                     <MenuItem value="" disabled>
-                      Selecciona una propiedad
+                      <SubtitleDesciption1>
+                        Selecciona una propiedad
+                      </SubtitleDesciption1>
                     </MenuItem>
                     {estates.map((estate: Estate) => (
                       <MenuItem key={estate.id} value={estate.id}>
@@ -144,12 +159,7 @@ const page = () => {
                   </Select>
                 </FormControl>
 
-                <InputLabel
-                  htmlFor="buyerOrTenantID"
-                  sx={{ color: "white", paddingLeft: "20px" }}
-                >
-                  Comprador o Inquilino asociado
-                </InputLabel>
+                <Subtitle1>Comprador/Inquilino asociado </Subtitle1>
                 <FormControl>
                   <Select
                     onChange={handleInput}
@@ -161,7 +171,9 @@ const page = () => {
                     required
                   >
                     <MenuItem value="" disabled>
-                      Selecciona un cliente
+                      <SubtitleDesciption1>
+                        Selecciona un cliente
+                      </SubtitleDesciption1>
                     </MenuItem>
                     {buyerAndTenants.map((client: Client) => (
                       <MenuItem key={client.id} value={client.id}>
@@ -170,12 +182,7 @@ const page = () => {
                     ))}
                   </Select>
                 </FormControl>
-                <InputLabel
-                  htmlFor="agentID"
-                  sx={{ color: "white", paddingLeft: "20px" }}
-                >
-                  Agente asociado
-                </InputLabel>
+                <Subtitle1>Agente asociado</Subtitle1>
                 <FormControl>
                   <Select
                     onChange={handleInput}
@@ -187,7 +194,9 @@ const page = () => {
                     required
                   >
                     <MenuItem value="" disabled>
-                      Selecciona un agente
+                      <SubtitleDesciption1>
+                        Selecciona un agente
+                      </SubtitleDesciption1>
                     </MenuItem>
                     {users?.map((user: User) => (
                       <MenuItem key={user.id} value={user.id}>
@@ -206,7 +215,7 @@ const page = () => {
                 >
                   <FormControl sx={{ color: "white" }}>
                     <FormLabel id="transactionType" sx={{ color: "white" }}>
-                      Tipo de operación
+                      <Subtitle1>Tipo de operación</Subtitle1>
                     </FormLabel>
                     <RadioGroup>
                       <FormControlLabel
@@ -222,6 +231,7 @@ const page = () => {
                         }
                         label="Venta"
                       />
+
                       <FormControlLabel
                         value="rent"
                         name="transactionType"
@@ -239,7 +249,7 @@ const page = () => {
                   </FormControl>
                   <FormControl sx={{ color: "white" }}>
                     <FormLabel id="transactionCurrency" sx={{ color: "white" }}>
-                      Tipo de cambio
+                      <Subtitle1>Tipo de cambio</Subtitle1>
                     </FormLabel>
                     <RadioGroup>
                       <FormControlLabel
@@ -270,12 +280,8 @@ const page = () => {
                       />
                     </RadioGroup>
                   </FormControl>
-                  <InputLabel
-                    htmlFor="transactionPrice"
-                    sx={{ color: "white" }}
-                  >
-                    Precio
-                  </InputLabel>
+                  <Subtitle1>Precio</Subtitle1>
+
                   <Input
                     onChange={handleInput}
                     value={newAcquisition.transactionPrice}
@@ -286,19 +292,7 @@ const page = () => {
                     required
                   />
                 </Box>
-
-                <Button
-                  type="submit"
-                  sx={{
-                    color: "white",
-                    background: "#6878d6",
-                    borderRadius: "25px",
-                    width: "25%",
-                    margin: "20px 20px",
-                  }}
-                >
-                  Añadir
-                </Button>
+                <PrimaryButton type="submit">Añadir</PrimaryButton>
               </form>
             </Box>
           </Box>

@@ -18,7 +18,7 @@ import { useEffect, useState } from "react";
 import { getAllUsers } from "../services/user.services";
 import { User } from "../types/types.md";
 import ProtectedRoutes from "@/app/components/ProtectedRoutes";
-import columns from "./columns";
+//import columns from "./columns";
 
 const AgentList: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -142,6 +142,7 @@ const AgentList: React.FC = () => {
       </ProtectedRoutes>
     </>
   );
-};
+}; 
 
 export default AgentList;
+*/

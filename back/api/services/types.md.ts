@@ -14,6 +14,7 @@ export type AcquisitionData = {
 };
 
 export type Acquisition = {
+  id?: string;
   description: string;
   agent: User;
   owner: Client;

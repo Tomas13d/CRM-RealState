@@ -8,6 +8,7 @@ const usersRouter = express_1.default.Router();
 const user_controller_1 = __importDefault(require("../controllers/user.controller"));
 const middleware_1 = __importDefault(require("../middleware"));
 usersRouter.post("/login", user_controller_1.default.loginUser);
+usersRouter.get("/logout", user_controller_1.default.logoutUser);
 usersRouter.post("/register", user_controller_1.default.registerUser);
 usersRouter.get("/me", middleware_1.default, user_controller_1.default.persistence);
 usersRouter.get("/", user_controller_1.default.getAllUsers);

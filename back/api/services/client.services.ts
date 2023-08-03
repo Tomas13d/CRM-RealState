@@ -21,14 +21,14 @@ export const getClientID = async (id: string) => {
     const clientSnapshot = await clientRef.get();
 
     if (!clientSnapshot.exists) {
-      console.error("El cliente con el id proporcionado no existe.");
-      return null; 
+      console.log("El cliente con el id proporcionado no existe.");
+      return null;
     }
 
     const clientData = clientSnapshot.data();
     return clientData;
   } catch (error) {
     console.error("Error al obtener el cliente:", error);
-    return null; 
+    return null;
   }
 };

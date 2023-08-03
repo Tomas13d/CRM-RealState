@@ -54,6 +54,7 @@ class UserController {
     static persistence(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                console.log(req.user);
                 return res.send(req.user);
             }
             catch (error) {
@@ -85,4 +86,8 @@ class UserController {
         });
     }
 }
+UserController.logoutUser = (_req, res) => {
+    res.clearCookie("TOKEN");
+    res.sendStatus(204);
+};
 exports.default = UserController;

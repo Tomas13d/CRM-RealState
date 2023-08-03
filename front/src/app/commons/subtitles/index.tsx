@@ -7,19 +7,25 @@ export function Subtitle1(props: SubtitleProps) {
     fontSize: "14px",
     fontFamily: CRMFontFamily,
     fontWeight: 500,
-    marginBottom: "5px",
+    color: "white",
   };
 
-  return <Typography {...props} sx={{ ...s1Style }}></Typography>;
+  return <Typography {...props} sx={{ ...props.sx, ...s1Style }}></Typography>;
 }
 export function SubtitleDesciption1(props: SubtitleProps) {
   const s3DescriptionStyle = {
     fontSize: "12px",
     fontFamily: CRMFontFamily,
-    marginBottom: "15px",
+
+    color: "white",
   };
 
-  return <Typography {...props} sx={{ ...s3DescriptionStyle }}></Typography>;
+  return (
+    <Typography
+      {...props}
+      sx={{ ...s3DescriptionStyle, ...props.sx }}
+    ></Typography>
+  );
 }
 
 export function Subtitle2(props: SubtitleProps) {
@@ -27,9 +33,10 @@ export function Subtitle2(props: SubtitleProps) {
     fontSize: "12px",
     fontFamily: CRMFontFamily,
     marginBottom: "5px",
+    color: "white",
   };
 
-  return <Typography {...props} sx={{ ...s2Style }}></Typography>;
+  return <Typography {...props} sx={{ ...s2Style, ...props.sx }}></Typography>;
 }
 
 export function SubtitleDesciption2(props: SubtitleProps) {
@@ -37,7 +44,13 @@ export function SubtitleDesciption2(props: SubtitleProps) {
     fontSize: "10px",
     fontFamily: CRMFontFamily,
     marginBottom: "15px",
+    color: "white",
   };
 
-  return <Typography {...props} sx={{ ...s2DescriptionStyle }}></Typography>;
+  return (
+    <Typography
+      {...props}
+      sx={{ ...s2DescriptionStyle, ...props.sx }}
+    ></Typography>
+  );
 }
