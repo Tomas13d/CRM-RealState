@@ -31,10 +31,10 @@ const TableDate: React.FC<TableDateProps> = ({
   const num = 89;
   const data: DataRow[] = [
     { id: 1, name: "Alquiler", amount: price },
-    /*   { id: 2, name: "Luz", amount: 200 },
+    { id: 2, name: "Luz", amount: 200 },
     { id: 3, name: "Gas", amount: 150 },
     { id: 4, name: "Agua", amount: 100 },
-    { id: 5, name: "Expensas", amount: 300 }, */
+    { id: 5, name: "Expensas", amount: 300 },
   ];
 
   const [selectedRows, setSelectedRows] = useState<number[]>([]);

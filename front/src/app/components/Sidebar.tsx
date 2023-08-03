@@ -35,9 +35,6 @@ const Sidebar = () => {
         <Link href="/clients/create" passHref>
           <SidebarButton icon={<PersonIcon />} text="Clientes" />
         </Link>
-        <SidebarButton icon={<CallIcon />} text="Call center" />
-        <SidebarButton icon={<AccountCircleIcon />} text="Usuarios" />
-        <SidebarButton icon={<HelpIcon />} text="Ayuda" />
       </Box>
     </Box>
   );
