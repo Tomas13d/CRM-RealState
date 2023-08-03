@@ -10,7 +10,7 @@ export interface UserState {
 
 export const setUser = createAction<UserState>("SET_USER");
 
-const userInitialState: UserState = {
+export const userInitialState: UserState = {
   email: null,
   firstname: null,
   lastname: null,

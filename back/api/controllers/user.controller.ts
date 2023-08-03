@@ -1,8 +1,8 @@
 const { login, register, getUserID } = require("../services/user.services");
 import { Request, Response } from "express";
-
 import { isValidEmail, isValidPassword } from "../utils/utils";
 import { getAllUsers } from "../services/user.services";
+
 class UserController {
   //login modificado
   static async loginUser(req: Request, res: Response) {
@@ -24,6 +24,11 @@ class UserController {
     }
   }
 
+  static logoutUser = (_req: Request, res: Response) => {
+    res.clearCookie("TOKEN");
+    res.sendStatus(204);
+  };
+
   static async registerUser(req: Request, res: Response) {
     try {
       const { email, password } = req.body;
@@ -40,6 +45,7 @@ class UserController {
 
   static async persistence(req: Request, res: Response) {
     try {
+      console.log(req.user);
       return res.send(req.user);
     } catch (error) {
       return res.status(404).send(error);
