@@ -1,8 +1,8 @@
 const { login, register, getUserID } = require("../services/user.services");
 import { Request, Response } from "express";
-
 import { isValidEmail, isValidPassword } from "../utils/utils";
 import { getAllUsers } from "../services/user.services";
+
 class UserController {
   //login modificado
   static async loginUser(req: Request, res: Response) {
@@ -23,6 +23,11 @@ class UserController {
       res.status(500).json({ message: "Error en el inicio de sesión", error });
     }
   }
+
+  static logoutUser = (_req: Request, res: Response) => {
+    res.clearCookie("TOKEN");
+    res.sendStatus(204);
+  };
 
   static async registerUser(req: Request, res: Response) {
     try {

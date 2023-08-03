@@ -14,19 +14,34 @@ import { UseSelector, useSelector } from "react-redux/es/hooks/useSelector";
 import { RootState } from "../states/store";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { setUser } from "../states/user";
+import { setUser, userInitialState } from "../states/user";
+import { useRouter } from "next/navigation";
 
 const Navbar: React.FC = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
+  const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user);
-
+  const router = useRouter();
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await axios.get("http://localhost:3001/api/users/logout", {
+        withCredentials: true,
+      });
+
+      dispatch(setUser(userInitialState));
+
+      router.push("/login");
+    } catch (error) {
+      console.error("Error al cerrar sesión:", error);
+    }
   };
 
   return (
@@ -66,7 +81,7 @@ const Navbar: React.FC = () => {
             >
               <MenuItem onClick={handleClose}>Mi Perfil</MenuItem>
               <MenuItem>
-                <Link href="/login" passHref>
+                <Link href={"#"} onClick={handleLogout}>
                   Cerrar sesión
                 </Link>
               </MenuItem>

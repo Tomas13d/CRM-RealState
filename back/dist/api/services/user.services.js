@@ -9,40 +9,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.register = exports.createToken = exports.login = void 0;
+exports.getAllUsers = exports.getUserID = exports.register = exports.login = void 0;
 require("firebase/compat/auth");
 const firebase_1 = require("../firebase");
 const login = (user) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email } = user;
+    const { email, idToken } = user;
     const userCredential = yield firebase_1.auth.getUserByEmail(email);
     const userId = userCredential.uid;
-    const userDocument = firebase_1.db.collection("Users").doc(`${userId}`);
-    const loginUser = yield userDocument.get();
-    const userData = {
-        firstname: "",
-        lastname: "",
-        email: "",
-        password: "",
-        id: "",
-    };
-    if (loginUser.exists) {
-        const data = loginUser.data();
-        if (data) {
-            userData.firstname = data.firstname;
-            userData.lastname = data.lastname;
-            userData.email = data.email;
-            userData.password = data["password "];
-            userData.id = userId;
-        }
-    }
-    return userData;
+    const data = yield (0, exports.getUserID)(userId);
+    return { idToken, data, userId };
 });
 exports.login = login;
-const createToken = (user) => __awaiter(void 0, void 0, void 0, function* () {
-    const token = yield firebase_1.auth.createCustomToken(user.id, user);
-    return token;
-});
-exports.createToken = createToken;
 const register = (user) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password, firstname, lastname, type } = user;
     const regiterUser = yield firebase_1.auth.createUser({
@@ -60,3 +37,21 @@ const register = (user) => __awaiter(void 0, void 0, void 0, function* () {
     return newUser;
 });
 exports.register = register;
+const getUserID = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const userRef = firebase_1.db.collection("Users").doc(id);
+    const userSnapshot = yield userRef.get();
+    let userData;
+    userSnapshot.exists
+        ? (userData = userSnapshot.data())
+        : console.error("El usuario con el id proporcionado no existe.");
+    return userData;
+});
+exports.getUserID = getUserID;
+const getAllUsers = () => __awaiter(void 0, void 0, void 0, function* () {
+    const usersSnapshot = yield firebase_1.db.collection("Users").get();
+    const users = usersSnapshot.docs.map((doc) => {
+        return Object.assign(Object.assign({}, doc.data()), { id: doc.id });
+    });
+    return users;
+});
+exports.getAllUsers = getAllUsers;
