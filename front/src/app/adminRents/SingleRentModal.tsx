@@ -1,14 +1,14 @@
 "use client";
 import * as React from "react";
 import { Grid, Modal, Box, Divider } from "@mui/material";
-import { H3, H5 } from "../../commons/headlines";
+import { H3, H5 } from "../commons/headlines";
 
 import TextField from "@mui/material/TextField";
-import PrimaryButton from "../../commons/buttons/primaryButton";
+import PrimaryButton from "../commons/buttons/primaryButton";
 import SecondaryButton from "../commons/buttons/secondaryButton";
 import CloseSecondaryButton from "../commons/buttons/closeSecondaryButton";
-import ModalBox from "../../commons/ModalBox";
-import { AcquisitionFrond } from "../../types/types.md";
+import ModalBox from "../commons/ModalBox";
+import { AcquisitionFrond } from "../types/types.md";
 import { modifiedAcquisitionRent } from "../services/acquistion.services";
 import TableDate from "./columnDate";
 import BasicAlerts from "./alert";
