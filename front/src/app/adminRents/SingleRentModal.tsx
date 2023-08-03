@@ -10,13 +10,19 @@ import CloseSecondaryButton from "../commons/buttons/closeSecondaryButton";
 import ModalBox from "@/app/commons/ModalBox";
 import { AcquisitionFrond } from "@/app/types/types.md";
 import { modifiedAcquisitionRent } from "../services/acquistion.services";
+import TableDate from "./columnDate";
+import BasicAlerts from "./alert";
+import { postPaymentRentAcquisitions } from "../services/acquistion.services";
+
 export default function SingleRentModal({
   rentData,
 }: {
   rentData: AcquisitionFrond;
 }) {
+  const [showAlert, setShowAlert] = React.useState(false);
   const [price, setPrice] = React.useState(Number);
   const [open, setOpen] = React.useState(false);
+  const [openPayment, setOpenPayment] = React.useState(false);
   const [acquisition, setAcquisition] = React.useState(rentData);
 
   const handleNewPriceChange = async () => {
@@ -28,20 +34,29 @@ export default function SingleRentModal({
     setPrice(0);
     setOpen(false);
   };
+
   const handlePriceChange = (e: any) => {
     const input = e.target.value;
     const regex = /^[0-9]*$/;
     if (regex.test(input)) {
       setPrice(input);
+      setShowAlert(false);
     } else {
-      alert("Debe ingresar unicamente caracteres numéricos.");
+      setShowAlert(true);
     }
   };
 
+  const handleAddPaymentChange = async () => {
+    await postPaymentRentAcquisitions(
+      acquisition.id,
+      acquisition.transaction_price
+    );
+    setOpen(false);
+  };
   return (
     <>
       <Box>
-        <PrimaryButton onClick={() => setOpen(true)}>
+        <PrimaryButton onClick={() => setOpenPayment(true)}>
           Agregar Pago
         </PrimaryButton>
         <PrimaryButton onClick={() => setOpen(true)}>
@@ -63,7 +78,7 @@ export default function SingleRentModal({
                 flexDirection={"column"}
                 justifyContent={"center"}
               >
-                <H3 bold={true}>Modificar Precio</H3>
+                <H5 bold={true}>Actulice el monto mensual</H5>
               </Grid>
             </Grid>
             <Grid container spacing={2} sx={{ margin: "10px 0px" }}>
@@ -86,13 +101,14 @@ export default function SingleRentModal({
                       color: "white",
                     },
                     "& .MuiOutlinedInput-notchedOutline": {
-                      borderColor: "blue", // Contorno en color azul
+                      borderColor: "blue",
                     },
                     "&:hover .MuiOutlinedInput-notchedOutline": {
                       borderColor: "blue",
                     },
                   }}
                 />
+                {showAlert && <BasicAlerts />}
               </Grid>
               <Grid item xs={6} display={"flex"} justifyContent={"center"}>
                 <H5> ${" " + acquisition.transaction_price}</H5>
@@ -110,6 +126,34 @@ export default function SingleRentModal({
                   Modificar Precio
                 </SecondaryButton>
               </Grid>
+            </Grid>
+          </ModalBox>
+        </Modal>
+
+        <Modal
+          open={openPayment}
+          onClose={() => setOpenPayment(false)}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <ModalBox>
+            <Grid container spacing={1}>
+              <Grid
+                item
+                xs={5}
+                display={"flex"}
+                flexDirection={"column"}
+                justifyContent={"center"}
+              >
+                <H3 bold={true}>Agregar Pago</H3>
+              </Grid>
+            </Grid>
+            <Grid container spacing={2} sx={{ margin: "10px 0px" }}>
+              <TableDate
+                price={acquisition.transaction_price}
+                setOpenPayment={setOpenPayment}
+                handleAddPaymentChange={handleAddPaymentChange}
+              ></TableDate>
             </Grid>
           </ModalBox>
         </Modal>

@@ -5,9 +5,9 @@ import { useEffect, useState } from "react";
 import { getAllUsers } from "../services/user.services";
 import { User } from "../types/types.md";
 import ProtectedRoutes from "@/app/components/ProtectedRoutes";
-import columns from "./columns";
+//import columns from "./columns";
 
-const AgentList = () => {
+/* const AgentList = () => {
   const [agents, setAgents] = useState([]);
   const handleGetAgents = async () => {
     const fetchedUsers = await getAllUsers();
@@ -18,12 +18,13 @@ const AgentList = () => {
   }, []);
 
   return (
-    <ProtectedRoutes>
+     <ProtectedRoutes>
       <Layout
         children={<CustomList columns={columns} data={agents}></CustomList>}
       ></Layout>
-    </ProtectedRoutes>
+    </ProtectedRoutes> 
   );
-};
+}; 
 
 export default AgentList;
+*/
