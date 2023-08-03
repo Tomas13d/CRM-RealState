@@ -7,7 +7,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import CallIcon from "@mui/icons-material/Call";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import HelpIcon from "@mui/icons-material/Help";
-
+import CottageIcon from "@mui/icons-material/Cottage";
 import SidebarButton from "../commons/sidebarButton";
 import Link from "next/link";
 
@@ -22,7 +22,9 @@ const Sidebar = () => {
       }}
     >
       <Box>
-        <SidebarButton icon={<SignalCellularAltIcon />} text="Reportes" />
+        <Link href="/home" passHref>
+          <SidebarButton icon={<SignalCellularAltIcon />} text="Reportes" />
+        </Link>
         <Link href="/agents" passHref>
           <SidebarButton icon={<PeopleAltIcon />} text="Agentes" />
         </Link>
@@ -32,8 +34,15 @@ const Sidebar = () => {
             text="Administracion de alquileres"
           />
         </Link>
-        <Link href="/clients/create" passHref>
+        <Link href="/clients" passHref>
           <SidebarButton icon={<PersonIcon />} text="Clientes" />
+        </Link>
+        <Link href="/estates" passHref>
+          <SidebarButton
+            icon={<CottageIcon />}
+            text="
+          Propiedades"
+          />
         </Link>
       </Box>
     </Box>
