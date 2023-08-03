@@ -10,5 +10,9 @@ acquisitionRouter.post(
   "/modified-price/:id",
   AcquisitionController.postModifiedPrice
 );
+acquisitionRouter.post(
+  "/payment-rent/:id",
+  AcquisitionController.postPaymentRent
+);
 
 export default acquisitionRouter;

@@ -86,3 +86,69 @@ export const postModifiedPrice = async (uid: string, newPrice: number) => {
   });
   return updatedDoc;
 };
+
+export const postPaymentRent = async (uid: string, amount: number) => {
+  const newDate = new Date();
+  const year = newDate.getFullYear();
+  const months = [
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
+  ];
+  const currentMonth = months[newDate.getMonth()];
+  const newDocId = currentMonth;
+
+  const newDocDate: NewDoc = {
+    amount: amount,
+    month: currentMonth,
+    year: year,
+    payment_date: newDate,
+  };
+
+  const exist = await checkCollectionExists(uid, "Billing");
+  const docFatherRef = await db.collection("Acquisitions").doc(uid);
+
+  if (exist) {
+    const response = await docFatherRef
+      .collection("Billing")
+      .doc(newDocId)
+      .set(newDocDate);
+    return response;
+  } else {
+    const newColletionRef = await docFatherRef.collection("Billing");
+    const response = await newColletionRef.doc(newDocId).set(newDocDate);
+    return response;
+  }
+};
+
+async function checkCollectionExists(
+  documentId: string,
+  collectionName: string
+) {
+  try {
+    const documentRef = db.collection("Acquisitions").doc(documentId);
+    const collections = await documentRef.listCollections();
+    const collectionExists = collections.some(
+      (collection) => collection.id === collectionName
+    );
+    return collectionExists;
+  } catch (error) {
+    console.error("Error al verificar si existe la colección:", error);
+    return false;
+  }
+}
+interface NewDoc {
+  amount: number;
+  month: string;
+  payment_date: Date;
+  year: number;
+}

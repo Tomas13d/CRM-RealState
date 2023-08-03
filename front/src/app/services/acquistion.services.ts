@@ -88,3 +88,21 @@ export const getAllAcquisitions = async () => {
     throw error;
   }
 };
+
+export const postPaymentRentAcquisitions = async (
+  uid: string,
+  paymentRent: Number
+) => {
+  try {
+    const response = await axios.post(
+      `http://localhost:3001/api/acquisitions/payment-rent/${uid}`,
+      { paymentRent },
+      {
+        withCredentials: true,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

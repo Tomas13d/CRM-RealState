@@ -26,7 +26,7 @@ const Sidebar = () => {
         <Link href="/agents" passHref>
           <SidebarButton icon={<PeopleAltIcon />} text="Agentes" />
         </Link>
-        <Link href="/adminrentals" passHref>
+        <Link href="/adminRents" passHref>
           <SidebarButton
             icon={<HomeWorkIcon />}
             text="Administracion de alquileres"
@@ -35,9 +35,6 @@ const Sidebar = () => {
         <Link href="/clients/create" passHref>
           <SidebarButton icon={<PersonIcon />} text="Clientes" />
         </Link>
-        <SidebarButton icon={<CallIcon />} text="Call center" />
-        <SidebarButton icon={<AccountCircleIcon />} text="Usuarios" />
-        <SidebarButton icon={<HelpIcon />} text="Ayuda" />
       </Box>
     </Box>
   );
