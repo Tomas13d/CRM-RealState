@@ -48,7 +48,6 @@ const page = () => {
   const handleGetData = async () => {
     const fetchedEstates = await getAllEstates();
     setEstates(fetchedEstates);
-    console.log(fetchedEstates);
     const fetchedBuyerAndTenants = await getAllBuyersAndTenants();
     setBuyersAndTenants(fetchedBuyerAndTenants);
 
