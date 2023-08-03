@@ -1,15 +1,15 @@
 "use client";
 import * as React from "react";
 import { Grid, Modal, Box, Divider } from "@mui/material";
-import CloseButton from "@/app/commons/buttons/closeButton";
-import { H4, H5 } from "@/app/commons/headlines";
+import CloseButton from "../../commons/buttons/closeButton";
+import { H4, H5 } from "../../commons/headlines";
 import {
   Subtitle1,
   SubtitleDesciption1,
-} from "@/app/commons/subtitles/index.tsx";
-import PrimaryButton from "@/app/commons/buttons/primaryButton";
-import ModalBox from "@/app/commons/ModalBox";
-import { Estate } from "@/app/types/types.md";
+} from "../../commons/subtitles/index.tsx";
+import PrimaryButton from "../../commons/buttons/primaryButton";
+import ModalBox from "../../commons/ModalBox";
+import { Estate } from "../../types/types.md";
 
 export default function SingleEstateModal({
   estateData,

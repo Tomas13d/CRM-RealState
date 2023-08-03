@@ -8,7 +8,7 @@ import { AcquisitionFrond } from "../types/types.md";
 import HeaderPage from "./headerPage";
 import SingleRentModal from "./SingleRentModal";
 
-import ProtectedRoutes from "@/app/components/ProtectedRoutes";
+import ProtectedRoutes from "../../components/ProtectedRoutes";
 
 const Adminrents: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
