@@ -18,6 +18,8 @@ const transformNewAcquistionKeys = (
     transaction_currency: newAcquisition.transactionCurrency,
     transaction_price: parseInt(newAcquisition.transactionPrice),
     transaction_date: date.toLocaleDateString("en-AR"),
+    owner_id: newAcquisition.ownerID,
+    agent_id: newAcquisition.agentID,
   };
 
   return newAcquisitionProcessed;
