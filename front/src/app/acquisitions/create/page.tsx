@@ -48,6 +48,7 @@ const page = () => {
   const handleGetData = async () => {
     const fetchedEstates = await getAllEstates();
     setEstates(fetchedEstates);
+    console.log(fetchedEstates);
     const fetchedBuyerAndTenants = await getAllBuyersAndTenants();
     setBuyersAndTenants(fetchedBuyerAndTenants);
 
@@ -71,13 +72,27 @@ const page = () => {
     transactionCurrency: "",
     transactionPrice: "",
     agentID: "",
+    ownerID: "",
   });
 
   const handleInput = (e: any) => {
-    setNewAcquisition((previousAcquisition) => ({
-      ...previousAcquisition,
-      [e.target.name]: e.target.value,
-    }));
+    if (e.target.name === "estateID") {
+      const selectedEstate: Estate = estates.filter(
+        (estate: Estate) => e.target.value === estate.id
+      )[0];
+      const selectedEstateOwnerID = selectedEstate.owner_id;
+
+      setNewAcquisition((previousAcquisition) => ({
+        ...previousAcquisition,
+        [e.target.name]: e.target.value,
+        ownerID: selectedEstateOwnerID,
+      }));
+    } else {
+      setNewAcquisition((previousAcquisition) => ({
+        ...previousAcquisition,
+        [e.target.name]: e.target.value,
+      }));
+    }
   };
 
   const handleSubmit = async (e: any) => {
