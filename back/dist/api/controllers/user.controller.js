@@ -13,7 +13,6 @@ const { login, register, getUserID } = require("../services/user.services");
 const utils_1 = require("../utils/utils");
 const user_services_1 = require("../services/user.services");
 class UserController {
-    //login modificado
     static loginUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
