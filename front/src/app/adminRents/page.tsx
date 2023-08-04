@@ -56,8 +56,8 @@ const Adminrents: React.FC = () => {
               color: "white",
               display: "flex",
               flexDirection: "column",
-              alignItems: "center", // Centrar horizontalmente las columnas
-              justifyContent: "center", // Centrar verticalmente las filas
+              alignItems: "center",
+              justifyContent: "center",
               background: "transparent",
             }}
           >
