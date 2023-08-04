@@ -19,8 +19,8 @@ const DonutChart: React.FC<DonutChartProps> = ({ data, labels, colors }) => {
         data: {
           datasets: [
             {
-              data: [100, 200, 1000],
-              backgroundColor: ["#613090", "#846DB3", "#3D62D5"],
+              data: data,
+              backgroundColor: colors,
             },
           ],
         },
