@@ -60,8 +60,7 @@ const page = () => {
   useEffect(() => {
     handleGetData();
   }, [loggedUser.id]);
-
-  const [newAcquisition, setNewAcquisition] = useState({
+  const initialState = {
     description: "",
     estateID: "",
     buyerOrTenantID: "",
@@ -70,7 +69,8 @@ const page = () => {
     transactionPrice: "",
     agentID: "",
     ownerID: "",
-  });
+  };
+  const [newAcquisition, setNewAcquisition] = useState(initialState);
 
   const handleInput = (e: any) => {
     if (e.target.name === "estateID") {
@@ -102,6 +102,7 @@ const page = () => {
     } else {
       await createNewAcquistion(newAcquisition);
       alert("Captacion creada con exito");
+      location.reload();
     }
   };
 
