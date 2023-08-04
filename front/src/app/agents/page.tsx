@@ -135,7 +135,13 @@ const AgentList: React.FC = () => {
               </Grid>
             </Grid>
 
-            <CustomList columns={columns} data={filteredData} />
+            <CustomList
+              columns={columns}
+              data={filteredData.sort(
+                (a: User, b: User) =>
+                  b.acquisition_number - a.acquisition_number
+              )}
+            />
           </Box>
         </Container>
       </Layout>
