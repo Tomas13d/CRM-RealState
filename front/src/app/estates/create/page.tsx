@@ -22,6 +22,7 @@ import { Client, Estate } from "../../types/types.md";
 import { getAllOwners } from "../../services/client.services";
 import { createNewEstate } from "../../services/estates.services";
 import ProtectedRoutes from "../../components/ProtectedRoutes";
+import PrimaryButton from "@/app/commons/buttons/primaryButton";
 
 const FormularioPropiedad: React.FC = () => {
   const initialState: Estate = {
@@ -479,7 +480,7 @@ const FormularioPropiedad: React.FC = () => {
                 </Grid>
 
                 <Grid item xs={12}>
-                  <Button
+                  <PrimaryButton
                     variant="contained"
                     type="submit"
                     color="primary"
@@ -493,7 +494,7 @@ const FormularioPropiedad: React.FC = () => {
                     }}
                   >
                     Agregar propiedad
-                  </Button>
+                  </PrimaryButton>
                 </Grid>
               </Grid>
             </form>
