@@ -48,9 +48,21 @@ const Navbar: React.FC = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed" sx={{ background: "#15223c" }}>
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            LOGO
-          </Typography>
+          <Link href="/home">
+            <Box
+              component="img"
+              src="https://media.istockphoto.com/id/1269248658/es/vector/lindo-l%C3%A9mur-divertido-sobre-un-fondo-blanco-aislado.jpg?s=612x612&w=0&k=20&c=_ogtgCUqVcQGYTPfucydV8ancnG2OuD2WfQ8av6q8Zo="
+              sx={{ height: "50px", width: "80px", borderRadius: "25px" }}
+              alt="logo"
+            />
+          </Link>
+
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1 }}
+          ></Typography>
+
           <NotificationsIcon />
           <Box>
             <IconButton
