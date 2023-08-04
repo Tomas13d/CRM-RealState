@@ -70,7 +70,7 @@ const ClientForm: React.FC = () => {
         "http://localhost:3001/api/clients/create",
         newClient
       );
-      alert("Client created successfully");
+      alert("Cliente creado con éxito");
 
       setNewClient(initialState);
     } catch (error) {
