@@ -44,7 +44,6 @@ class UserController {
 
   static async persistence(req: Request, res: Response) {
     try {
-      console.log(req.user);
       return res.send(req.user);
     } catch (error) {
       return res.status(404).send(error);

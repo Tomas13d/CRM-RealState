@@ -46,7 +46,7 @@ const TableDate: React.FC<TableDateProps> = ({
       setSelectedRows([...selectedRows, id]);
     }
   };
-  console.log(selectedRows);
+
   const getTotalAmount = () => {
     return selectedRows.reduce(
       (total, id) => total + (data?.find((row) => row.id === id)?.amount || 0),

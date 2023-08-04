@@ -29,8 +29,6 @@ const Adminrents: React.FC = () => {
     handleGetRents();
   }, []);
 
-  console.log(rents);
-
   const filteredData1 = rents.filter(
     (rent: AcquisitionFrond) =>
       rent.description.toLowerCase().includes(searchQuery.toLowerCase()) ||

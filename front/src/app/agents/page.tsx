@@ -27,10 +27,9 @@ const AgentList: React.FC = () => {
 
   const handleGetAgents = async () => {
     const fetchedUsers = await getAllUsers();
-    console.log(fetchedUsers);
+
     setAgents(fetchedUsers.filter((user: User) => user.type === "agent"));
   };
-
 
   useEffect(() => {
     handleGetAgents();
