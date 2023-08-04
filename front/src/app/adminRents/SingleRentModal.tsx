@@ -56,12 +56,14 @@ export default function SingleRentModal({
   return (
     <>
       <Box>
-        <PrimaryButton onClick={() => setOpenPayment(true)}>
-          Agregar Pago
-        </PrimaryButton>
-        <PrimaryButton onClick={() => setOpen(true)}>
-          Modificar Precio
-        </PrimaryButton>
+        <Box display="flex" justifyContent="column">
+          <PrimaryButton onClick={() => setOpenPayment(true)}>
+            Agregar Pago
+          </PrimaryButton>
+          <PrimaryButton onClick={() => setOpen(true)}>
+            Modificar Precio
+          </PrimaryButton>
+        </Box>
 
         <Modal
           open={open}
