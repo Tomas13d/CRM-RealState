@@ -122,18 +122,6 @@ const Home: React.FC = () => {
                 USD$ {totalRents + totalSales}
               </Typography>
             </Grid>
-            <Button
-              type="submit"
-              sx={{
-                color: "white",
-                background: "#6878d6",
-                borderRadius: "25px",
-                width: "25%",
-                marginTop: "8px",
-              }}
-            >
-              ver detalles
-            </Button>
           </Box>
           <Grid container justifyContent="center" pt={10} pl={10} pr={10}>
             <Grid item xs={6}>
@@ -191,18 +179,6 @@ const Home: React.FC = () => {
                 55/100
               </Typography>
             </Grid>
-            <Button
-              type="submit"
-              sx={{
-                color: "white",
-                background: "#6878d6",
-                borderRadius: "25px",
-                width: "25%",
-                marginTop: "8px",
-              }}
-            >
-              ver detalles
-            </Button>
           </Box>
           <Grid container justifyContent="center" pt={10} pl={10} pr={10}>
             <Grid item xs={6}>
