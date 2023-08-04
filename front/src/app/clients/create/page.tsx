@@ -18,6 +18,7 @@ import Layout from "../../commons/layout";
 
 import { Client } from "../../types/types.md";
 import axios from "axios";
+import PrimaryButton from "@/app/commons/buttons/primaryButton";
 
 const ClientForm: React.FC = () => {
   const initialState: Client = {
@@ -25,7 +26,7 @@ const ClientForm: React.FC = () => {
     last_name: "",
     email: "",
     is_buyer: false,
-    is_owner: false,
+    is_owner: true,
     is_tenant: false,
   };
 
@@ -44,8 +45,8 @@ const ClientForm: React.FC = () => {
   ) => {
     const { value } = event.target;
 
-    let is_buyer = false;
     let is_owner = false;
+    let is_buyer = false;
     let is_tenant = false;
 
     if (value === "Comprador") {
@@ -234,7 +235,7 @@ const ClientForm: React.FC = () => {
                 </FormControl>
               </Grid>
               <Grid item xs={12}>
-                <Button
+                <PrimaryButton
                   variant="contained"
                   type="submit"
                   color="primary"
@@ -248,7 +249,7 @@ const ClientForm: React.FC = () => {
                   }}
                 >
                   Agregar cliente
-                </Button>
+                </PrimaryButton>
               </Grid>
             </Grid>
           </form>
