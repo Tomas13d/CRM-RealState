@@ -13,7 +13,8 @@ export const login = async (user: User) => {
 };
 
 export const register = async (user: User) => {
-  const { email, password, firstname, lastname, type } = user;
+  const { email, password, firstname, lastname, type, acquisition_number } =
+    user;
   const regiterUser = await auth.createUser({
     email,
     password,
@@ -25,6 +26,7 @@ export const register = async (user: User) => {
     lastname,
     email,
     type,
+    acquisition_number,
   });
 
   return newUser;
