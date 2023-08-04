@@ -17,7 +17,7 @@ import { getAllEstates } from "../services/estates.services";
 import { Estate } from "../types/types.md";
 import SingleEstateModal from "./SingleEstateModal";
 import PrimaryButton from "../commons/buttons/primaryButton";
-
+import Link from "next/link";
 import columns from "./columns";
 
 const Properties: React.FC = () => {
@@ -126,8 +126,9 @@ const Properties: React.FC = () => {
                     style: { color: "white" },
                   }}
                 />
-
-                <PrimaryButton>Agregar Propiedad</PrimaryButton>
+                <Link href="estates/create">
+                  <PrimaryButton>Agregar Propiedad</PrimaryButton>
+                </Link>
               </Grid>
             </Grid>
 
