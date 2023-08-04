@@ -8,8 +8,6 @@ import { AcquisitionFrond } from "../types/types.md";
 import HeaderPage from "./headerPage";
 import SingleRentModal from "./SingleRentModal";
 
-import ProtectedRoutes from "../../components/ProtectedRoutes";
-
 const Adminrents: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [rents, setRents] = useState(Array<AcquisitionFrond>);
@@ -31,10 +29,21 @@ const Adminrents: React.FC = () => {
     handleGetRents();
   }, []);
 
-  const filteredData1 = rents.filter((rent: AcquisitionFrond) =>
-    rent.description.toLowerCase().includes(searchQuery.toLowerCase())
+  console.log(rents);
+
+  const filteredData1 = rents.filter(
+    (rent: AcquisitionFrond) =>
+      rent.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      rent.agent?.firstname.toLowerCase().includes(searchQuery) ||
+      rent.owner?.first_name.toLowerCase().includes(searchQuery) ||
+      rent.buyer?.first_name.toLowerCase().includes(searchQuery) ||
+      rent.tenant?.first_name.toLowerCase().includes(searchQuery) ||
+      rent.agent?.lastname.toLowerCase().includes(searchQuery) ||
+      rent.owner?.last_name.toLowerCase().includes(searchQuery) ||
+      rent.buyer?.last_name.toLowerCase().includes(searchQuery) ||
+      rent.tenant?.last_name.toLowerCase().includes(searchQuery) ||
+      rent.transaction_type.toLowerCase().includes(searchQuery)
   );
-  console.log(columns[0]);
   return (
     <>
       <Layout>
