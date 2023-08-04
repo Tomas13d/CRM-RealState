@@ -176,7 +176,7 @@ const Home: React.FC = () => {
                   fontFamily: "'Open Sans', sans-serif",
                 }}
               >
-                55/100
+                TOTAL: {priceSale.length + priceRent.length}
               </Typography>
             </Grid>
           </Box>
