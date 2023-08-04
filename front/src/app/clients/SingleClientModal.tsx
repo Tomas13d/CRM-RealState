@@ -1,17 +1,17 @@
 "use client";
 import * as React from "react";
 import { Grid, Modal, Box, Divider } from "@mui/material";
-import CloseButton from "../commons/buttons/closeButton";
-import { H4, H5 } from "../commons/headlines";
+import CloseButton from "../commons/buttons/closeButton.tsx";
+import { H4 } from "../commons/headlines/index.tsx";
 import { Subtitle1, SubtitleDesciption1 } from "../commons/subtitles/index.tsx";
-import PrimaryButton from "../commons/buttons/primaryButton";
-import ModalBox from "../commons/ModalBox";
-import { Estate } from "../types/types.md";
+import PrimaryButton from "../commons/buttons/primaryButton.tsx";
+import ModalBox from "../commons/ModalBox.tsx";
+import { Client } from "../types/types.md.ts";
 
-export default function SingleEstateModal({
-  estateData,
+export default function SingleClientModal({
+  clientData,
 }: {
-  estateData: Estate;
+  clientData: Client;
 }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -38,24 +38,19 @@ export default function SingleEstateModal({
               flexDirection={"column"}
               justifyContent={"center"}
             >
-              <H4 bold={true}>{estateData.name}</H4>
+              <H4 bold={true}>Información del cliente</H4>
             </Grid>
-            <Grid item xs={3}>
-              <PrimaryButton>Iniciar chat</PrimaryButton>
-            </Grid>
-          </Grid>
-          <H5>
-            Información general
             <Divider
               sx={{ width: "95%", bgcolor: "#576B7E", margin: "10px 0px" }}
             ></Divider>
-          </H5>
+          </Grid>
+
           <Grid container spacing={2} sx={{ margin: "10px 0px" }}>
             <Grid item xs={6}>
-              <Subtitle1 sx={{ marginBottom: "5px" }}>Propietario</Subtitle1>
+              <Subtitle1 sx={{ marginBottom: "5px" }}>Nombre</Subtitle1>
               <SubtitleDesciption1
                 sx={{ marginBottom: "15px" }}
-              >{`${estateData.owner.first_name} ${estateData.owner.last_name}`}</SubtitleDesciption1>
+              >{`${clientData.first_name} ${clientData.last_name}`}</SubtitleDesciption1>
               <Subtitle1 sx={{ marginBottom: "5px" }}>
                 Teléfono de contacto
               </Subtitle1>
@@ -64,18 +59,14 @@ export default function SingleEstateModal({
               </SubtitleDesciption1>
               <Subtitle1 sx={{ marginBottom: "5px" }}>Email</Subtitle1>
               <SubtitleDesciption1 sx={{ marginBottom: "15px" }}>
-                {estateData.owner.email}
+                {clientData.email}
               </SubtitleDesciption1>
             </Grid>
             <Grid item xs={6} display={"flex"} justifyContent={"center"}>
               <Box
                 component="img"
-                src={
-                  estateData.images?.length
-                    ? estateData.images[0]
-                    : "https://images.pexels.com/photos/700558/pexels-photo-700558.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                }
-                alt="estate picture"
+                src="https://cdn-icons-png.flaticon.com/128/4241/4241471.png"
+                alt="client picture"
                 sx={{ height: "200px", width: "auto" }}
               />
             </Grid>
@@ -86,28 +77,13 @@ export default function SingleEstateModal({
           <Grid container spacing={2} sx={{ margin: "10px 0px" }}>
             <Grid item xs={6}>
               <Subtitle1 sx={{ marginBottom: "5px" }}>
-                Tipo de producto
+                Tipo de usuario
               </Subtitle1>
               <SubtitleDesciption1 sx={{ marginBottom: "15px" }}>
-                {estateData.category}
-              </SubtitleDesciption1>
-              <Subtitle1 sx={{ marginBottom: "5px" }}>Dirección</Subtitle1>
-              <SubtitleDesciption1 sx={{ marginBottom: "15px" }}>
-                {estateData.address}
+                {clientData.type}
               </SubtitleDesciption1>
             </Grid>
-            <Grid item xs={6}>
-              <Subtitle1 sx={{ marginBottom: "5px" }}>
-                Tipo de operación
-              </Subtitle1>
-              <SubtitleDesciption1 sx={{ marginBottom: "15px" }}>
-                {estateData.operation_type}
-              </SubtitleDesciption1>
-              <Subtitle1 sx={{ marginBottom: "5px" }}>Barrio</Subtitle1>
-              <SubtitleDesciption1 sx={{ marginBottom: "15px" }}>
-                {estateData.city}
-              </SubtitleDesciption1>
-            </Grid>
+
             <Divider
               sx={{ width: "95%", bgcolor: "#576B7E", margin: "20px 0px" }}
             ></Divider>

@@ -80,7 +80,7 @@ const Properties: React.FC = () => {
               }}
             >
               {" "}
-              <Link href="/">
+              <Link href="/home">
                 <ArrowBackButton />
               </Link>
               Captaciones

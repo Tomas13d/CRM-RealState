@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 import { HeadlineProps } from "../types.md";
-import { CRMFontFamily } from "@/app/font";
-
+import { CRMFontFamily } from "../../font";
+import React from "react";
 export function H1(props: HeadlineProps) {
   const h1Style = {
     color: "white",

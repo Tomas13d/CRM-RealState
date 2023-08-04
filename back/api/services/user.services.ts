@@ -47,3 +47,14 @@ export const getAllUsers = async () => {
   });
   return users;
 };
+
+export const increaseAgentAcquisitionNum = async (agent_id: string) => {
+  const agentReference = db.collection("Users").doc(agent_id);
+  const agent = await agentReference.get();
+  const { acquisition_number } = agent.data() as User;
+
+  const response = await agentReference.update({
+    acquisition_number: acquisition_number + 1,
+  });
+  return response;
+};

@@ -4,7 +4,6 @@ import { isValidEmail, isValidPassword } from "../utils/utils";
 import { getAllUsers } from "../services/user.services";
 
 class UserController {
-  //login modificado
   static async loginUser(req: Request, res: Response) {
     try {
       const { data, idToken, userId } = await login(req.body);

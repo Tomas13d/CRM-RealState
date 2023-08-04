@@ -8,12 +8,14 @@ import {
   Button,
 } from "@mui/material";
 
+
 import Layout from "../commons/layout";
 import DonutChart from "../commons/DonutChart";
 import BarChart from "../commons/BarChart";
 import { useEffect, useState } from "react";
 import { getAllAcquisitions } from "../services/acquistion.services";
 import { Acquisition } from "../types/types.md";
+
 
 const Home: React.FC = () => {
   const [priceRent, setPriceRent] = useState<number[]>([]);

@@ -18,7 +18,6 @@ import Layout from "../../commons/layout";
 
 import { Client } from "../../types/types.md";
 import axios from "axios";
-import ProtectedRoutes from "@/app/components/ProtectedRoutes";
 
 const ClientForm: React.FC = () => {
   const initialState: Client = {
@@ -40,16 +39,30 @@ const ClientForm: React.FC = () => {
     }));
   };
 
-  const handleTipoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleClientTypeChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { value } = event.target;
+
+    let is_buyer = false;
+    let is_owner = false;
+    let is_tenant = false;
+
+    if (value === "Comprador") {
+      is_buyer = true;
+    } else if (value === "dueño") {
+      is_owner = true;
+    } else if (value === "inquilino") {
+      is_tenant = true;
+    }
+
     setNewClient((previousClient) => ({
       ...previousClient,
-      is_buyer: value === "buyer",
-      is_owner: value === "owner",
-      is_tenant: value === "renter",
+      is_buyer,
+      is_owner,
+      is_tenant,
     }));
   };
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
@@ -199,22 +212,22 @@ const ClientForm: React.FC = () => {
                         ? "dueño"
                         : "inquilino"
                     }
-                    onChange={handleTipoChange}
+                    onChange={handleClientTypeChange}
                     row
                   >
                     <FormControlLabel
                       value="dueño"
-                      control={<Radio />}
+                      control={<Radio sx={{ color: "white" }} />}
                       label="Dueño"
                     />
                     <FormControlLabel
                       value="inquilino"
-                      control={<Radio />}
+                      control={<Radio sx={{ color: "white" }} />}
                       label="Inquilino"
                     />
                     <FormControlLabel
                       value="Comprador"
-                      control={<Radio />}
+                      control={<Radio sx={{ color: "white" }} />}
                       label="Comprador"
                     />
                   </RadioGroup>

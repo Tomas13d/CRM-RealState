@@ -1,6 +1,7 @@
 import { Typography } from "@mui/material";
 import { SubtitleProps } from "../types.md";
-import { CRMFontFamily } from "@/app/font";
+import { CRMFontFamily } from "../../font";
+import React from "react";
 
 export function Subtitle1(props: SubtitleProps) {
   const s1Style = {

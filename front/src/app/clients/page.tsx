@@ -18,7 +18,7 @@ import Link from "next/link";
 import PrimaryButton from "../commons/buttons/primaryButton";
 import { Client } from "../types/types.md";
 import columns from "./columns";
-
+import SingleClientModal from "./SingleClientModal";
 const Clients: React.FC = () => {
   const [clients, setClients] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -26,6 +26,13 @@ const Clients: React.FC = () => {
     const fetchedClients = await getAllClients();
     setClients(fetchedClients);
   };
+
+  const filteredData = clients.filter(
+    (client: Client) =>
+      client.first_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      client.last_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      client.type?.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   useEffect(() => {
     handleGetAllClients();
@@ -115,8 +122,11 @@ const Clients: React.FC = () => {
             </Grid>
             <CustomList
               columns={columns}
-              data={clients.map((client: Client, index: number) => ({
+              data={filteredData.map((client: Client, index: number) => ({
                 ...client,
+                button: (
+                  <SingleClientModal clientData={client}></SingleClientModal>
+                ),
               }))}
             />
           </Box>
@@ -125,3 +135,5 @@ const Clients: React.FC = () => {
     </>
   );
 };
+
+export default Clients;

@@ -18,10 +18,10 @@ import {
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Layout from "../../commons/layout";
-import { Client, Estate } from "@/app/types/types.md";
-import { getAllOwners } from "@/app/services/client.services";
-import { createNewEstate } from "@/app/services/estates.services";
-import ProtectedRoutes from "@/app/components/ProtectedRoutes";
+import { Client, Estate } from "../../types/types.md";
+import { getAllOwners } from "../../services/client.services";
+import { createNewEstate } from "../../services/estates.services";
+import ProtectedRoutes from "../../components/ProtectedRoutes";
 
 const FormularioPropiedad: React.FC = () => {
   const initialState: Estate = {

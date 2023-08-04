@@ -14,22 +14,22 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-import { getAllEstates } from "@/app/services/estates.services";
-import { getAllBuyersAndTenants } from "@/app/services/client.services";
-import { fetchUsersAccordingToLoggedUserType } from "@/app/services/user.services";
-import { Client, Estate, User } from "@/app/types/types.md";
-import { createNewAcquistion } from "@/app/services/acquistion.services";
-import Layout from "@/app/commons/layout";
+import { getAllEstates } from "../../services/estates.services";
+import { getAllBuyersAndTenants } from "../../services/client.services";
+import { fetchUsersAccordingToLoggedUserType } from "../../services/user.services";
+import { Client, Estate, User } from "../../types/types.md";
+import { createNewAcquistion } from "../../services/acquistion.services";
+import Layout from "../../commons/layout";
 import { useSelector } from "react-redux";
-import { RootState } from "@/app/states/store";
-import ProtectedRoutes from "@/app/components/ProtectedRoutes";
-import { H3 } from "@/app/commons/headlines";
+import { RootState } from "../../states/store";
+
+import { H3 } from "../../commons/headlines";
 import {
   Subtitle1,
   SubtitleDesciption1,
-} from "@/app/commons/subtitles/index.tsx";
-import { CRMFontFamily } from "@/app/font";
-import PrimaryButton from "@/app/commons/buttons/primaryButton";
+} from "../../commons/subtitles/index";
+import { CRMFontFamily } from "../../font";
+import PrimaryButton from "../../commons/buttons/primaryButton";
 
 const page = () => {
   const inputStyle = {
@@ -108,7 +108,7 @@ const page = () => {
   };
 
   return (
-    <ProtectedRoutes>
+    
       <Layout
         children={
           <Box
@@ -298,7 +298,7 @@ const page = () => {
           </Box>
         }
       ></Layout>
-    </ProtectedRoutes>
+    
   );
 };
 

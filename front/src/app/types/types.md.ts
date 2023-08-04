@@ -48,6 +48,7 @@ export type Client = {
   is_tenant: boolean | string;
   assigned_agent_name?: string;
   assigned_agent_id?: string;
+  type?: string;
 };
 
 export type Estate = {
