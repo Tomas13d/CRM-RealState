@@ -8,14 +8,12 @@ import {
   Button,
 } from "@mui/material";
 
-
 import Layout from "../commons/layout";
 import DonutChart from "../commons/DonutChart";
 import BarChart from "../commons/BarChart";
 import { useEffect, useState } from "react";
 import { getAllAcquisitions } from "../services/acquistion.services";
 import { Acquisition } from "../types/types.md";
-
 
 const Home: React.FC = () => {
   const [priceRent, setPriceRent] = useState<number[]>([]);
@@ -209,7 +207,7 @@ const Home: React.FC = () => {
           <Grid container justifyContent="center" pt={10} pl={10} pr={10}>
             <Grid item xs={6}>
               <DonutChart
-                data={[10, 30, 60]}
+                data={[priceRent.length, priceSale.length]}
                 labels={["X", "Y", "Z"]}
                 colors={["#FF6384", "#36A2EB", "#FFCE56"]}
               />
@@ -217,9 +215,9 @@ const Home: React.FC = () => {
             <Grid item xs={6}>
               <Box mb={10}>
                 <BarChart
-                  data={[40, 20, 40]}
-                  labels={["P", "Q", "R"]}
-                  colors={["#FF6384", "#36A2EB", "#FFCE56"]}
+                  data={[priceRent.length, priceSale.length]}
+                  labels={["Alquileres", "Ventas"]}
+                  colors={["#FF6384", "#36A2EB"]}
                 />
               </Box>
             </Grid>

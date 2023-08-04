@@ -29,7 +29,7 @@ const Sidebar = () => {
         <Link href="/agents" passHref>
           <SidebarButton icon={<PeopleAltIcon />} text="Agentes" />
         </Link>
-        <Link href="/acquistions" passHref>
+        <Link href="/acquisitions" passHref>
           <SidebarButton icon={<RequestPageIcon />} text="Captaciones" />
         </Link>
         <Link href="/clients" passHref>
