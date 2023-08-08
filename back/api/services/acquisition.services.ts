@@ -122,7 +122,7 @@ export const postModifiedPrice = async (
   });
   return updatedDoc;
 };
-
+// esta ruta paga el mes que seleccione el agente
 export const postPaymentRent = async (uid: string, month: string) => {
   const acquisitionsRef = await db
     .collection("Acquisitions")
@@ -143,4 +143,19 @@ export const postPaymentRent = async (uid: string, month: string) => {
     }
   });
   return updatedDoc;
+};
+
+export const getAllBilling = async (uid: string) => {
+  const snapshot = await db
+    .collection("Acquisitions")
+    .doc(uid)
+    .collection("Billing")
+    .get();
+  console.log("snapshot: ", snapshot);
+  const getAllBilling: CreateDocAcquisitions[] = snapshot.docs.map((doc) => {
+    return { ...(doc.data() as CreateDocAcquisitions), id: doc.id };
+  });
+  console.log("getAllBilling: ", getAllBilling);
+
+  return getAllBilling;
 };

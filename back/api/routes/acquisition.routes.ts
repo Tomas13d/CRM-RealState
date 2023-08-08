@@ -14,5 +14,6 @@ acquisitionRouter.post(
   "/payment-rent/:id",
   AcquisitionController.postPaymentRent
 );
+acquisitionRouter.get("/all-billing/:id", AcquisitionController.getAllBilling);
 
 export default acquisitionRouter;

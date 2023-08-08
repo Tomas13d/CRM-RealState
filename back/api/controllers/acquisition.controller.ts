@@ -6,6 +6,7 @@ import {
   getAllAcquisitionsRents,
   postModifiedPrice,
   postPaymentRent,
+  getAllBilling,
 } from "../services/acquisition.services";
 
 class AcquisitionController {
@@ -66,6 +67,18 @@ class AcquisitionController {
       res.status(200).send(response);
     } catch (error) {
       res.status(400).json({ msg: "Error al pagar alquiler", error });
+    }
+  }
+
+  static async getAllBilling(_req: Request, res: Response) {
+    try {
+      const id: string = _req.params.id;
+      const response = await getAllBilling(id);
+      res.status(200).send(response);
+    } catch (error) {
+      res
+        .status(400)
+        .json({ msg: "Error al traer los meses de alquiler", error });
     }
   }
 }
