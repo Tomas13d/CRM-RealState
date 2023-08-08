@@ -13,3 +13,20 @@ export const removeUndefined = (obj: { [key: string]: any }) => {
     Object.entries(obj).filter(([_, v]) => v !== undefined)
   );
 };
+
+export const monthsUtils = () => {
+  return [
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
+  ];
+};

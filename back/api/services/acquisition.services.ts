@@ -1,11 +1,20 @@
 import "firebase/compat/auth";
 import { db } from "../firebase";
-import { Acquisition, AcquisitionData, Client, Estate, User } from "./types.md";
+import {
+  Acquisition,
+  AcquisitionData,
+  Client,
+  Estate,
+  User,
+  CreateDocAcquisitions,
+} from "./types.md";
 import { getUserID } from "./user.services";
 import { getClientID } from "./client.services";
 import { getEstateID } from "./estates.services";
-import { removeUndefined } from "../utils/utils";
+import { removeUndefined, monthsUtils } from "../utils/utils";
 import { increaseAgentAcquisitionNum } from "./user.services";
+
+const date = new Date();
 
 export const createAcquisition = async (acquisition: AcquisitionData) => {
   const { agent_id, owner_id, buyer_id, tenant_id, estate_id } = acquisition;
@@ -36,6 +45,23 @@ export const createAcquisition = async (acquisition: AcquisitionData) => {
   const CleanAcquistion = removeUndefined(newAcquistion);
 
   const response = await db.collection("Acquisitions").add(CleanAcquistion);
+  const months: Array<string> = monthsUtils();
+  const date = new Date();
+
+  const newDocDate: CreateDocAcquisitions = {
+    amount: acquisition.transaction_price,
+    year: date.getFullYear(),
+    payment_date: date,
+    paid: false,
+  };
+  months.forEach(async (month) => {
+    await db
+      .collection("Acquisitions")
+      .doc(response.id)
+      .collection("Billing")
+      .doc(month)
+      .set(newDocDate);
+  });
   return response;
 };
 
@@ -70,87 +96,51 @@ export const getAllAcquisitionsRents = async () => {
   return acquisitions;
 };
 
-export const postModifiedPrice = async (uid: string, newPrice: number) => {
-  const acquisitionsRef = await db.collection("Acquisitions").doc(uid);
-  const newDate = { transaction_price: newPrice };
+// esta ruta modifica el precio del mes que seleccione el agente
+export const postModifiedPrice = async (
+  uid: string,
+  newPrice: number,
+  month: string
+) => {
+  const acquisitionsRef = await db
+    .collection("Acquisitions")
+    .doc(uid)
+    .collection("Billing")
+    .doc(month);
   let updatedDoc;
-  await acquisitionsRef.update(newDate);
-  await acquisitionsRef.get().then((docSnapshot) => {
+  await acquisitionsRef.get().then(async (docSnapshot) => {
     if (docSnapshot.exists) {
-      updatedDoc = {
-        ...(docSnapshot.data() as Acquisition),
-        id: docSnapshot.id,
-      };
+      updatedDoc = await acquisitionsRef.update({
+        amount: newPrice,
+        payment_date: date,
+      });
       console.log("Documento actualizado:", updatedDoc);
     } else {
-      console.log("El documento no existe.");
+      updatedDoc = undefined;
+      console.log("El documento no existe: ", updatedDoc);
     }
   });
   return updatedDoc;
 };
 
-export const postPaymentRent = async (uid: string, amount: number) => {
-  const newDate = new Date();
-  const year = newDate.getFullYear();
-  const months = [
-    "Enero",
-    "Febrero",
-    "Marzo",
-    "Abril",
-    "Mayo",
-    "Junio",
-    "Julio",
-    "Agosto",
-    "Septiembre",
-    "Octubre",
-    "Noviembre",
-    "Diciembre",
-  ];
-  const currentMonth = months[newDate.getMonth()];
-  const newDocId = currentMonth;
-
-  const newDocDate: NewDoc = {
-    amount: amount,
-    month: currentMonth,
-    year: year,
-    payment_date: newDate,
-  };
-
-  const exist = await checkCollectionExists(uid, "Billing");
-  const docFatherRef = await db.collection("Acquisitions").doc(uid);
-
-  if (exist) {
-    const response = await docFatherRef
-      .collection("Billing")
-      .doc(newDocId)
-      .set(newDocDate);
-    return response;
-  } else {
-    const newColletionRef = await docFatherRef.collection("Billing");
-    const response = await newColletionRef.doc(newDocId).set(newDocDate);
-    return response;
-  }
+export const postPaymentRent = async (uid: string, month: string) => {
+  const acquisitionsRef = await db
+    .collection("Acquisitions")
+    .doc(uid)
+    .collection("Billing")
+    .doc(month);
+  let updatedDoc;
+  await acquisitionsRef.get().then(async (docSnapshot) => {
+    if (docSnapshot.exists) {
+      updatedDoc = await acquisitionsRef.update({
+        paid: true,
+        payment_date: date,
+      });
+      console.log("Documento actualizado:", updatedDoc);
+    } else {
+      updatedDoc = undefined;
+      console.log("El documento no existe: ", updatedDoc);
+    }
+  });
+  return updatedDoc;
 };
-
-async function checkCollectionExists(
-  documentId: string,
-  collectionName: string
-) {
-  try {
-    const documentRef = db.collection("Acquisitions").doc(documentId);
-    const collections = await documentRef.listCollections();
-    const collectionExists = collections.some(
-      (collection) => collection.id === collectionName
-    );
-    return collectionExists;
-  } catch (error) {
-    console.error("Error al verificar si existe la colección:", error);
-    return false;
-  }
-}
-interface NewDoc {
-  amount: number;
-  month: string;
-  payment_date: Date;
-  year: number;
-}

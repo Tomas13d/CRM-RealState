@@ -1,5 +1,12 @@
 type SupportedCurrencies = "ARS" | "USD";
 
+export type CreateDocAcquisitions = {
+  amount: number;
+  payment_date: Date;
+  year: number;
+  paid: boolean;
+};
+
 export type AcquisitionData = {
   description: string;
   agent_id: string;
